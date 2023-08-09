@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Form</title>
+  <!-- Add Bootstrap CSS link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container-fluid {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            /* Reduced padding */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        form {
+            margin: 0px auto;
+            width: 35em;
+            display: flex;
+            justify-content: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input,
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid white;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            max-width: 100%;
+            /* Increased width for the input fields */
+        }
+
+        input[type="checkbox"] {
+            margin-left: 5px;
+        }
+
+        fieldset {
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: deepskyblue;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+
+
+  <form th:action="@{/save-product}" th:object="${productDto}" method="post" enctype="multipart/form-data">
+
+    <fieldset>
+      <legend class="text-center">PRODUCTS</legend>
+
+      <!-- Text input -->
+      <div class="form-group">
+        <label for="product_name">PRODUCT NAME</label>
+        <input id="product_name" th:field="*{name}" name="product_name" placeholder="PRODUCT NAME" class="form-control" required="" type="text">
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label for="categoryId">PRODUCT CATEGORY</label>
+        <select class="form-control"  name="category" id="categoryId">
+          <!-- Options for product categories go here -->
+          <option value="">SELECT</option>
+          <!-- Loop through the categories using Thymeleaf -->
+          <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+      </div>
+
+
+      <!-- Text input -->
+      <div class="form-group">
+        <label for="available_quantity">STOCK</label>
+        <input id="available_quantity" th:field="*{stock}" name="available_quantity" placeholder="AVAILABLE QUANTITY" class="form-control" required="" type="text">
+      </div>
+
+      <!-- Textarea input -->
+      <div class="form-group mt-2">
+        <label for="product_description_fr">PRODUCT DESCRIPTION FR</label>
+        <textarea rows="3" id="product_description_fr" th:field="*{description}" name="description" placeholder="PRODUCT DESCRIPTION FR" class="form-control" required="" type="text"></textarea>
+      </div>
+      <br>
+
+
+
+      <div class="form-group">
+        <label for="price">PRICE</label>
+        <input id="price" name="price" th:field="*{costPrice}" placeholder="PRICE" class="form-control" required="" type="number">
+      </div>
+
+      <!-- Real price input -->
+      <div class="form-group">
+        <label for="real_price">REAL PRICE</label>
+        <input id="real_price" name="real_price" th:field="*{selPrice}" placeholder="REAL PRICE" class="form-control" required="" type="number">
+      </div>
+
+
+      <div class="mb-3 ml-5 mr-5 form-group">
+        <!-- Allow multiple file uploads -->
+        <input type="file" name="productImage" accept="image/jpeg, image/png" multiple="multiple" class="custom-file-input">
+      </div>
+
+
+
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary w-100">Submit</button>
+      <!--        <a th:href="@{/imageSave}">-->
+      <!--            <button type="button">Click Me</button>-->
+      <!--        </a>-->
+
+
+    </fieldset>
+
+
+
+  </form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Product Page</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Center-align the form */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        /* Provide some space between form elements */
+        .form-group, .form-check {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-6">
+        <h2 class="text-center">Add/Edit Product</h2>
+        <form method="post" action="/saveProduct" enctype="multipart/form-data">
+            <!-- Product Name -->
+            <div class="form-group">
+                <label for="productName">Product Name:</label>
+                <input type="text" class="form-control" id="productName" name="name" required>
+            </div>
+            <!-- Is Deleted -->
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="isDeleted" name="is_deleted">
+                <label class="form-check-label" for="isDeleted">Is Deleted?</label>
+            </div>
+            <!-- Is Activated -->
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="isActivated" name="is_activated">
+                <label class="form-check-label" for="isActivated">Is Activated?</label>
+            </div>
+            <!-- Product Image -->
+            <div class="form-group">
+                <label for="productImage">Product Image:</label>
+                <input type="file" class="form-control-file" id="productImage" name="image" accept="image/*">
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Save Product</button>
+        </form>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and jQuery links -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

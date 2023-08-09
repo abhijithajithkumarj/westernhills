@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 15px 25px;
+            background-color: purple;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #aa00ff;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        a {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Signup</h1>
+<form th:action="@{/signup}" method="post" class="signup-background" id="signupForm">
+    <div class="mb-3">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Username" required="required">
+    </div>
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Email" required="required">
+    </div>
+    <div class="mb-3">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Password" required="required">
+    </div>
+    <div class="mb-3">
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password" required="required">
+    </div>
+    <p th:if="${error}" class="text-danger text-center">User name or Email Already Exists!!!</p>
+    <div class="mb-3">
+        <input type="submit" value="Signup">
+    </div>
+    <p>Already have an account? <a href="/login">Login here</a></p>
+</form>
+
+<p>Already have an account? <a href="/login">Log In</a></p>
+
+</body>
+</html>
