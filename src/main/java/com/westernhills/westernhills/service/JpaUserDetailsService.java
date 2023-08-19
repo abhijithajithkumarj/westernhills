@@ -1,6 +1,6 @@
 package com.westernhills.westernhills.service;
 
-import com.westernhills.westernhills.entity.SecurityUser;
+import com.westernhills.westernhills.entity.userEntity.SecurityUser;
 import com.westernhills.westernhills.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,13 +22,26 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository
-                .findByUsername(username)
+        return userRepository.findByUsername(username)
                 .map(SecurityUser::new)
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
 
 
-        //user name vechanu databseill poyyi datas fech cheyyunne
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

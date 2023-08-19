@@ -24,18 +24,25 @@ public class SecurityConfig {
 
 
 
-    private final JpaUserDetailsService jpaUSerDetailsService;
+    private final JpaUserDetailsService jpaUserDetailsService;
 
     @Autowired
-    public SecurityConfig(JpaUserDetailsService jpaUSerDetailsService) {
-        this.jpaUSerDetailsService = jpaUSerDetailsService;
+    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService) {
+        this.jpaUserDetailsService = jpaUserDetailsService;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/userlogin","/*.css/**","*.scss","/verifyotp","/productDetail","/signup","/assets/**")
+                .antMatchers("/userlogin","/*.css/**","*.scss",
+                        "/verifyotp", "/productDetail",  "/resetPassword","/signup",
+                        "/assets/**","/resetPasswordOtp","/inputOtp"
+                        ,"/updatePassword"
+
+
+                )
+
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
@@ -47,15 +54,15 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/", true)
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/403") // Custom forbidden error page
+                .accessDeniedPage("/403")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login")
                 .and()
                 .authorizeHttpRequests()
-                // Add this line for permitting access to static resources
-                .antMatchers("/static/**", "/templates/**") // Add the paths to your static resources
-                .permitAll() // Allow access to static resources without authentication
+
+                .antMatchers("/static/**", "/templates/**")
+                .permitAll()
                 .and()
                 .build();
 
@@ -75,7 +82,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(jpaUSerDetailsService);
+        daoAuthenticationProvider.setUserDetailsService(jpaUserDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }

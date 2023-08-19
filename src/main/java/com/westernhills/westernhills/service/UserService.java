@@ -4,13 +4,12 @@ import com.westernhills.westernhills.Otp.EmailUtil;
 import com.westernhills.westernhills.Otp.OtpUtil;
 import com.westernhills.westernhills.dto.CreateUserRequest;
 import com.westernhills.westernhills.dto.OtpDto;
-import com.westernhills.westernhills.entity.User;
+import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.mail.MessagingException;
 import java.time.Duration;
@@ -42,7 +41,10 @@ public class UserService {
 
 
     public OtpDto   createUser(CreateUserRequest createUserRequest ) {
-        Optional<User> userByName= userRepository.findByUsername(createUserRequest.getUsername());
+        Optional<Optional<User>> userByName= Optional.ofNullable(userRepository.findByUsername(createUserRequest.getUsername()));
+
+
+
         Optional<User> userByEmail= userRepository.findByEmail(createUserRequest.getEmail());
 
         if(userByName.isPresent()) {
@@ -79,7 +81,6 @@ public class UserService {
                     .roles("ROLE_USER")
                     .otpGeneratedTime(LocalDateTime.now())
                     .build();
-
             userRepository.save(newUser);
 
 
@@ -97,18 +98,27 @@ public class UserService {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
     public boolean verifyAccount(OtpDto otpDto) {
         User user = userRepository.findById(otpDto.getId())
 
                 .orElseThrow(() -> new RuntimeException("User not found with this email: " ));
         System.out.println(user);
 
-        if (user.getOtp().equals(otpDto.getOtp()) && Duration.between(user.getOtpGeneratedTime(),
+        if (user.getOtp().equals(otpDto.getOtp())   && Duration.between(user.getOtpGeneratedTime(),
                 LocalDateTime.now()).getSeconds() < (30 * 60)) {
             System.out.println("otp success");
             user.setEnabled(true);
-
-
             userRepository.save(user);
             return true;
         }
@@ -130,11 +140,17 @@ public class UserService {
 
 
 
+    public User getUserName(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
 
 
 
     public User findByUsername(String username) {
-        Optional<User> userOptional = userRepository.findByUsername(username);
+        Optional<User> userOptional= userRepository.findByUsername(username);
+
+
+
         if (userOptional.isPresent()) {
             System.out.println(userOptional);
             return userOptional.get();
@@ -144,6 +160,9 @@ public class UserService {
     }
 
 
+
+
+
     public  void blockUser(Long id){
         Optional<User> user = userRepository.findById(id);
         user.ifPresent(user1 -> {
@@ -151,9 +170,11 @@ public class UserService {
             userRepository.save(user1);
         });
 
-
-
     }
+
+
+
+
 
     public  void unBlockUser(Long id){
         Optional<User> user = userRepository.findById(id);
@@ -161,7 +182,6 @@ public class UserService {
             user1.setDeleted(true);
             userRepository.save(user1);
         });
-
 
 
     }

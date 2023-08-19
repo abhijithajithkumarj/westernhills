@@ -1,6 +1,6 @@
 package com.westernhills.westernhills;
 
-import com.westernhills.westernhills.entity.User;
+import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

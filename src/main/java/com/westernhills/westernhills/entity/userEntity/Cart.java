@@ -1,23 +1,22 @@
-package com.westernhills.westernhills.entity.admin;
+package com.westernhills.westernhills.entity.userEntity;
+
 
 import com.westernhills.westernhills.entity.SuperEntity;
+import com.westernhills.westernhills.entity.admin.Product;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Setter
-@Getter
-@Table
-public class Category extends SuperEntity {
+@ToString
+public class Cart extends SuperEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
@@ -26,14 +25,18 @@ public class Category extends SuperEntity {
     private UUID id;
 
 
-    @Column(unique=true)
-    private String name;
 
-    @OneToMany(mappedBy = "category")
-    @ToString.Exclude
-    private List<Product> products = new ArrayList<>();
+    private int quantity;
 
 
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private User user;
+
+
+    @ManyToOne
+    @JoinColumn(name = "product")
+    private Product product;
 
 
 

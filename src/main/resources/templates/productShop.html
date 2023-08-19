@@ -593,11 +593,14 @@
 						</div>
 
 					</div>
-					<a th:href="@{'/productDetail/'+ ${product.uuid}}" class="btn btn-danger btn-sm">Unblock</a>
+					<a th:href="@{'/productDetail/'+ ${product.uuid}}" class="btn btn-danger btn-sm">show product</a>
+<!--					<a th:href="@{/productDetail}" class="btn btn-danger btn-sm">Add to cart</a>-->
 
+					<form th:action="@{/addProductInCart}" method="post">
+						<input type="hidden" name="productId" th:value="${product.uuid}" />
+						<button type="submit" class="btn btn-primary">Add to cart</button>
+					</form>
 
-
-<!--					/productDetail-->
 				</div>
 			</div>
 

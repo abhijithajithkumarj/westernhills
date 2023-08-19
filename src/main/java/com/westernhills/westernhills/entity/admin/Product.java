@@ -29,12 +29,8 @@ public class Product extends SuperEntity
 
     @Lob
     private String description;
-
     private double costPrice;
     private double selPrice;
-
-
-
     private boolean enabled=true;
     private int averageRating = 0;
 
@@ -47,8 +43,6 @@ public class Product extends SuperEntity
 
     @OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL )
     private List<Image> images;
-
-
 
 
 

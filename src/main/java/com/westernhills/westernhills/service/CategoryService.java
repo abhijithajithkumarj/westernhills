@@ -1,6 +1,5 @@
 package com.westernhills.westernhills.service;
 
-import com.westernhills.westernhills.entity.User;
 import com.westernhills.westernhills.entity.admin.Category;
 
 import java.util.List;

@@ -126,6 +126,8 @@ public class ProductController{
 
 
 
+
+
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable UUID id, RedirectAttributes attributes) {
         productService.deleteById(id);
