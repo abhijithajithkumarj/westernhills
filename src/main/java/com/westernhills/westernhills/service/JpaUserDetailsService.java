@@ -27,8 +27,6 @@ public class JpaUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
 
 
-
-
     }
 
 

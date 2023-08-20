@@ -24,7 +24,12 @@ public class Image extends SuperEntity {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID uuid;
 
+
+
     private String fileName;
+
+
+
 
     //relationships
     @ManyToOne(fetch = FetchType.LAZY)

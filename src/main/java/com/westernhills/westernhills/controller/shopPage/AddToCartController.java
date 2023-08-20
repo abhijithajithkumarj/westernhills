@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,7 @@ public class AddToCartController {
                           @AuthenticationPrincipal(expression = "username")String username
 
                            ){
+        System.out.println(username);
 
         cartService.addToCartItem(username, productId);
         return "redirect:/findProducts";
@@ -50,12 +52,25 @@ public class AddToCartController {
 
     @GetMapping("/cartShow")
     public String showCart(Model model){
+        double total=cartService.totalPrice();
         List<Cart> cartList=cartRepository.findAll()
                         .stream()
                                 .filter(cart -> !cart.isDeleted())
                                         .toList();
-        model.addAttribute("cart",cartList);
+        model.addAttribute("cartList",cartList);
+        System.out.println(total);
+        model.addAttribute("total",total);
         return "User-cart";
+    }
+
+
+    @GetMapping("/addQuantity")
+    public String addProductQuantity(@RequestParam(name = "cartId") UUID cartId,
+                                     @RequestParam(name="quantity") int quantity,
+                                     @AuthenticationPrincipal(expression = "username") String username){
+        cartService.addQuantity(username,cartId,quantity);
+        return "redirect:/cartShow";
+
     }
 
 

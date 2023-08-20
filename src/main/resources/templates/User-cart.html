@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+        background-color:rgb(0, 0, 0);
     }
 
     .container {
@@ -25,7 +25,7 @@
 
     .profile-img {
         border-radius: 50%;
-        width: 150px;
+        width: 100px;
     }
 
     .labels {
@@ -65,90 +65,144 @@
 </head>
 
 <body>
-<div class="container-fluid">
-    <div class="container rounded">
-        <div class="row">
-            <div class="col-md-3 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="profile-img"
-                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                         alt="Profile Image">
-                    <span class="font-weight-bold"></span>
-                    <span class="text-black-50"></span>
-                </div>
+<div class="container-fluid ">
 
-            </div>
-        </div>
-    </div>
-    <div class="conatiner">
+    <div class="conatiner ">
         <div class="row d-flex ">
             <div class=" col-md-3 ">
-                <div class="container p-5 bg-white">
-                    <div class="p-md-2">
-                        <a href="" style="text-decoration: none;">
-                            <button class="btn border-0">Personal Details</button>
-                        </a>
+
+
+                <div class="container p-1 ">
+                    <div class="bg-white">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5 ">
+                            <img class="profile-img"
+                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                                 alt="Profile Image">
+                            <span class="font-weight-bold">abhijith</span>
+                            <span class="text-black-50">Germen</span>
+                        </div>
                     </div>
-                    <div class="p-md-2">
-                        <a href="" style="text-decoration: none;">
-                            <button class="btn border-0 text-decoration-underline " style="color: palevioletred;">
-                                Address</button>
-                        </a>
+                    <div class="bg-white">
+                        <div class="p-md-2">
+                            <a href="" style="text-decoration: none;">
+                                <button class="btn border-0">Personal Details</button>
+                            </a>
+                        </div>
+                        <div class="p-md-2">
+                            <a   style="text-decoration: none;" th:href="@{/addAddress}">
+                                <button class="btn border-0 text-decoration-underline " style="color: palevioletred;">
+                                    Address</button>
+                            </a>
+                        </div>
+                        <div class="p-md-2">
+                            <a href="" style="text-decoration: none;">
+                                <button class="btn border-0">Wishlist</button>
+                            </a>
+                        </div>
+                        <div class="p-md-2">
+                            <a href="" style="text-decoration: none;">
+                                <button class="btn border-0">Cart</button>
+                            </a>
+                        </div>
+                        <div class="p-md-2">
+                            <a href="" style="text-decoration: none;">
+                                <button class="btn border-0">Orders</button>
+                            </a>
+                        </div>
                     </div>
-                    <div class="p-md-2">
-                        <a href="" style="text-decoration: none;">
-                            <button class="btn border-0">Wishlist</button>
-                        </a>
-                    </div>
-                    <div class="p-md-2">
-                        <a href="" style="text-decoration: none;">
-                            <button class="btn border-0">Cart</button>
-                        </a>
-                    </div>
-                    <div class="p-md-2">
-                        <a href="" style="text-decoration: none;">
-                            <button class="btn border-0">Orders</button>
-                        </a>
+                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header" th:text="${total}">Header</div>
+                        <div class="card-body">
+                            <button class="btn btn-primary">Click me</button>
+                        </div>
                     </div>
                 </div>
+
+
+
             </div>
+
             <div class="col-md-9">
                 <div class="container p-5 bg-white">
 
-                    <div>
-                        <button class="btn border-0 bg-white pb-md-5 text-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                            </svg>
-                            <span class="ps-1">Add New Product</span>
-                        </button>
-                    </div>
-
-
                     <div class="row">
 
-                        <div class="card" style="width: 18rem;" th:each="cart: ${products}" >
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                        <div class="card mb-3" style="width: 1200px;"  th:each="cart: ${cartList}">
+                            <div class="row g-0">
+
+                                <div class="col-md-3">
+                                    <img th:src="${'/all-Image/' + cart.product.images[0].fileName}"  style="width: 130px; height: 130px" class="img-fluid rounded-start" alt="...">
+                                </div>
+
+                                <div class="col-md-3 pt-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${cart.product.name}"></h5>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 pt-5" >
+
+                                    <form   th:action="@{/addQuantity}" method="get">
+                                        <input type="hidden" name="cartId" th:value="${cart.id}" />
+
+                                        <label for="quantity">Choose a number:</label>
+                                        <select id="quantity" name="quantity">
+                                            <option th:each="quantity : ${#numbers.sequence(1, 10)}"
+                                                    th:value="${quantity}" th:text="${quantity}"
+                                                    th:selected="${quantity == cart.quantity}">1</option>
+<!--                                            <option value="2">2</option>-->
+<!--                                            <option value="3">3</option>-->
+<!--                                            <option value="4">4</option>-->
+<!--                                            <option value="5">5</option>-->
+<!--                                            <option value="6">6</option>-->
+<!--                                            <option value="7">7</option>-->
+<!--                                            <option value="8">8</option>-->
+<!--                                            <option value="9">9</option>-->
+<!--                                            <option value="10">10</option>-->
+                                        </select>
+                                        <button type="submit">Submit</button>
+                                    </form>
+
+                                </div>
+
+
+                                <div class="col-md-3 pt-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">price</h5>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
-                        </div>
+
+<!--                        <div class="card" style="width: 10rem;" th:each="cart: ${cartList}" >-->
+<!--                            <img th:src="${'/all-Image/' + cart.product.images[0].fileName}"  style="width: 130px; height: 130px" class="card-img-top"  alt="...">-->
+<!--                            <div class="card-body">-->
+<!--                                <h5 class="card-title">Card title</h5>-->
+<!--                                <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+
                     </div>
-
-
 
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous"></script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous">
+
+</script>
+
+
+
 </body>
 
 </html>

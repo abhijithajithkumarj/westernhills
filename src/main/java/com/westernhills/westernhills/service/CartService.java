@@ -17,6 +17,10 @@ public interface CartService {
 
      void deleteAddedCart(Cart cart);
 
+     void  addQuantity(String username, UUID cartId, int quantity);
+
+    double totalPrice();
+
 
 
 

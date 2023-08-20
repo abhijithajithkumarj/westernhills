@@ -39,7 +39,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public void addToCartItem(String userName, UUID productId) {
         User user=userRepository.findByUsername(userName).orElse(null);
-
+        System.out.println(user);
 
         Cart cart =new Cart();
         cart.setUser(user);
@@ -50,7 +50,25 @@ public class CartServiceImpl implements CartService{
 
     }
 
+    @Override
+    public void addQuantity(String username, UUID cartId, int quantity) {
+        User user=userRepository.findByUsername(username).orElse(null);
+        Cart cart1=cartRepository.findById(cartId).get();
 
+
+        cart1.setQuantity(quantity);
+        cart1.setUser(user);
+        cartRepository.save(cart1);
+
+    }
+
+    @Override
+    public double totalPrice() {
+        return cartRepository.findAll().stream()
+                .filter(cartItem -> cartItem != null && cartItem.getProduct() != null)
+                .mapToDouble(cartItem -> cartItem.getQuantity() * cartItem.getProduct()
+                        .getSelPrice()).sum();
+    }
 
 
     @Override
@@ -64,6 +82,14 @@ public class CartServiceImpl implements CartService{
     public void deleteAddedCart(Cart cart) {
 
     }
+
+
+//         <select style="width: 100px;" class="form-select me-2" name="quantity">
+//                                                <option th:each="quantity : ${#numbers.sequence(1, 10)}"
+//    th:value="${quantity}" th:text="${quantity}"
+//    th:selected="${quantity == item.quantity}">1</option>
+//                                            </select>
+
 
 
 
