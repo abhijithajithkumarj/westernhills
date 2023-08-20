@@ -8,6 +8,8 @@ import com.westernhills.westernhills.repo.CartRepository;
 import com.westernhills.westernhills.repo.UserRepository;
 import com.westernhills.westernhills.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class AddToCartController {
@@ -51,17 +55,19 @@ public class AddToCartController {
 
 
     @GetMapping("/cartShow")
-    public String showCart(Model model){
-        double total=cartService.totalPrice();
-        List<Cart> cartList=cartRepository.findAll()
-                        .stream()
-                                .filter(cart -> !cart.isDeleted())
-                                        .toList();
-        model.addAttribute("cartList",cartList);
+    public String showCart(Model model) {
+        double total = cartService.totalPrice();
+        List<Cart> cartList = cartRepository.findAll()
+                .stream()
+                .filter(cart -> !cart.isDeleted())
+                .collect(Collectors.toList());
+        model.addAttribute("cartList", cartList);
         System.out.println(total);
-        model.addAttribute("total",total);
+        model.addAttribute("total", total);
         return "User-cart";
     }
+
+
 
 
     @GetMapping("/addQuantity")
@@ -70,6 +76,14 @@ public class AddToCartController {
                                      @AuthenticationPrincipal(expression = "username") String username){
         cartService.addQuantity(username,cartId,quantity);
         return "redirect:/cartShow";
+
+    }
+
+
+    @GetMapping("/checkout")
+    public String checkOut(@AuthenticationPrincipal(expression = "username") String username){
+        cartService.checkOut(username);
+        return "checkout";
 
     }
 

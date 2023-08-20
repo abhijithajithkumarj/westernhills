@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Shoping Cart</title>
 	<meta charset="UTF-8">
@@ -74,9 +74,9 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<a href="ind;;;;ex.html">Home</a>
+								<a href="index.html">Home</a>
 								<ul class="sub-menu">
-									<li><a href="ind;;;;ex.html">Homepage 1</a></li>
+									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
 								</ul>
@@ -126,7 +126,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="ind;;;;ex.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -185,12 +185,8 @@
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="ind;;;;ex.html">Home</a>
-					<ul class="sub-menu-m">
-						<li><a href="ind;;;;ex.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
+					<a href="index.html">Home</a>
+
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
@@ -252,9 +248,9 @@
 			
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
+					<li class="header-cart-item flex-w flex-t m-b-12" th:each="cart: ${cartList}">
 						<div class="header-cart-item-img">
-							<img src="images/item-cart-01.jpg" alt="IMG">
+							<img  th:src="${'/all-Image/' + cart.product.images[0].fileName}" alt="IMG">
 						</div>
 
 						<div class="header-cart-item-txt p-t-8">

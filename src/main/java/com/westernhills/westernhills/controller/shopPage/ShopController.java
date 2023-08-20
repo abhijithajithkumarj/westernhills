@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class ShopController {
@@ -27,7 +28,7 @@ public class ShopController {
         List<Product> products = productService.getAllProducts()
                         .stream()
                                 .filter(product -> !product.isDeleted())
-                                        .toList();
+                                     .collect(Collectors.toList());
         model.addAttribute("products",products);
         return "productShop";
     }

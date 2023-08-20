@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -44,7 +45,7 @@ public class CategoryController {
         List<Category> categories = categoryService.findAll()
                 .stream()
                 .filter(category -> !category.isDeleted())
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("categories",categories);
         model.addAttribute("size",categories.size());
         model.addAttribute("title","categorise");

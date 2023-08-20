@@ -21,6 +21,8 @@ public interface CartService {
 
     double totalPrice();
 
+    Cart checkOut(String userName);
+
 
 
 

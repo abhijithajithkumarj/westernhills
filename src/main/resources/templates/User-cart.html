@@ -110,12 +110,22 @@
                             </a>
                         </div>
                     </div>
-                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                        <div class="card-header" th:text="${total}">Header</div>
-                        <div class="card-body">
-                            <button class="btn btn-primary">Click me</button>
+
+
+                    <div class="card text-white bg-dark mb-3  d-flex justify-content-center align-items-center" style="max-width: 18rem;" >
+                        <h4>
+                            TOTAL PRICE
+                        </h4>
+                        <div class="card-header d-flex justify-content-center align-items-center" th:text="${total}"></div>
+                        <div class="card-body d-flex justify-content-center align-items-center">
+                            <form th:action="@{/checkout}" method="get">
+                            <button class="btn btn-primary">Check out</button>
+                            </form>
                         </div>
                     </div>
+
+
+
                 </div>
 
 

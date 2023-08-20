@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -51,7 +52,7 @@ public class ProductController{
         List<Category> categories=categoryRepository.findAll()
                         .stream()
                                 .filter(category ->!category.isDeleted())
-                                        .toList();
+                                     .collect(Collectors.toList());
         model.addAttribute("categories", categories);
         model.addAttribute("productDto",new ProductDto());
         return "admin/add-product";
