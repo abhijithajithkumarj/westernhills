@@ -1,10 +1,12 @@
 package com.westernhills.westernhills.controller.shopPage;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.entity.userEntity.UserAddress;
+import com.westernhills.westernhills.repo.AddressRepository;
 import com.westernhills.westernhills.service.AddressService;
 import com.westernhills.westernhills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +22,19 @@ import java.util.stream.Collectors;
         @Autowired
         private AddressService addressService;
 
+
+        @Autowired
+        private AddressRepository addressRepository;
+
         @Autowired
         private UserService userService;
 
         @GetMapping("/customers")
-        public String customerProfile(Model model) {
-            List<UserAddress> userAddresses = addressService.findAll()
-                            .stream()
-                                    .filter(address -> !address.isDeleted())
-                                            .collect(Collectors.toList());
+        public String customerProfile(Model model , @AuthenticationPrincipal(expression = "username") String username) {
+            List<UserAddress> userAddresses = addressRepository.findByUser_Username(username)
+                    .stream()
+                    .filter(address -> !address.isDeleted())
+                    .collect(Collectors.toList());
             System.out.println(userAddresses);
             model.addAttribute("userAddress", userAddresses);
             return "User-profile";

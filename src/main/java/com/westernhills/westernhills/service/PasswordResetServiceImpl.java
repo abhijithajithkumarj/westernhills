@@ -35,6 +35,10 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     public User resetPass(ResetPassDto resetPassDto) {
         Optional<User> userEmail= userRepository.findByEmail(resetPassDto.getEmail());
+
+
+
+
         System.out.println("User email: " + userEmail.get());
 
 
@@ -75,6 +79,12 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
         return false;
     }
+
+
+
+
+
+
 
     @Override
     public User passwordUpdate(ResetPassDto resetPassDto) {

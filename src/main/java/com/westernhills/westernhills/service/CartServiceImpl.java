@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 @Service
 public class CartServiceImpl implements CartService{
@@ -33,18 +34,31 @@ public class CartServiceImpl implements CartService{
 
 
 
+
+
+
     @Override
     public void addToCartItem(String userName, UUID productId) {
-        User user=userRepository.findByUsername(userName).orElse(null);
-        System.out.println(productId);
+        User user = userRepository.findByUsername(userName).orElse(null);
 
 
-        Cart cart =new Cart();
-        cart.setUser(user);
-        cart.setProduct(productRepository.findById(productId).get());
-        cart.setQuantity(1);
-        cartRepository.save(cart);
+        Optional<Cart> existingCart = cartRepository.findByUserAndProduct(user, productRepository.findById(productId).orElse(null));
+
+        if (existingCart.isPresent()) {
+
+            Cart cart = existingCart.get();
+            cart.setQuantity(cart.getQuantity() + 1);
+            cartRepository.save(cart);
+        } else {
+
+            Cart cart = new Cart();
+            cart.setUser(user);
+            cart.setProduct(productRepository.findById(productId).orElse(null));
+            cart.setQuantity(1);
+            cartRepository.save(cart);
+        }
     }
+
 
 
 

@@ -133,11 +133,14 @@
 
 
                                     <div class="card-body">
-                                        <h5 th:text="${address.houseName}">hello</h5>
-                                        <h6 class="card-text pt-md-3">Abhijith - 9678655432</h6>
-                                        <p class="card-text">Home no, post, city</p>
-                                        <a href="#" class="btn btn-primary">Update</a>
-                                        <a href="#" class="btn btn-primary">Delete</a>
+                                        <h5 ><span th:text="${address.houseName}"></span></h5>
+                                        <h6  th:text="${address.area}"></h6> <hr>
+                                        <h6  th:text="${address.town}"></h6> <hr>
+                                        <h6  th:text="${address.city}"></h6> <hr>
+                                        <h6  th:text="${address.state}"></h6> <hr>
+                                        <h6  th:text="${address.pin}"></h6> <hr>
+                                        <h6  th:text="${address.landMarker}"></h6> <hr>
+
 
                                         <form action="/deleteAddress" method="post">
                                             <input type="hidden" name="addressId" th:value="${address.id}" />
@@ -145,6 +148,10 @@
                                         </form>
 
                                     </div>
+
+
+
+
                                 </div>
                             </div>
 
