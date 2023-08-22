@@ -148,15 +148,12 @@ public class UserService {
 
     public User findByUsername(String username) {
         Optional<User> userOptional= userRepository.findByUsername(username);
-
-
-
         if (userOptional.isPresent()) {
             System.out.println(userOptional);
             return userOptional.get();
-        } else {
-            throw new NoSuchElementException("User not found with username: " + username);
         }
+        return null;
+
     }
 
 

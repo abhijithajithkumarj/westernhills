@@ -55,15 +55,15 @@ public class AddToCartController {
 
 
     @GetMapping("/cartShow")
-    public String showCart(Model model) {
-        double total = cartService.totalPrice();
-        List<Cart> cartList = cartRepository.findAll()
-                .stream()
-                .filter(cart -> !cart.isDeleted())
-                .collect(Collectors.toList());
+    public String showCart(Model model,@AuthenticationPrincipal(expression = "username")String username) {
+        double total = cartService.getTotalPrice(username);
+
+
+        List<Cart> cartList=cartService.getCartItems(username);
+
         model.addAttribute("cartList", cartList);
-        System.out.println(total);
         model.addAttribute("total", total);
+
         return "User-cart";
     }
 
@@ -81,10 +81,15 @@ public class AddToCartController {
 
 
     @GetMapping("/checkout")
-    public String checkOut(@AuthenticationPrincipal(expression = "username") String username){
-        cartService.checkOut(username);
-        return "checkout";
+    public String checkOut( @AuthenticationPrincipal(expression = "username") String username){
+        List<Cart> cartList = cartService.getCartItems(username);
 
+        List<Product> products = cartList.stream()
+                .map(Cart::getProduct)
+                .collect(Collectors.toList());
+        System.out.println(products);
+
+        return "checkout";
     }
 
 

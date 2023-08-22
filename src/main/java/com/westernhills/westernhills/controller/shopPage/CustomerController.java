@@ -8,13 +8,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-    @Controller
+@Controller
     public class CustomerController {
 
         @Autowired
@@ -25,7 +25,10 @@ import java.util.List;
 
         @GetMapping("/customers")
         public String customerProfile(Model model) {
-            List<UserAddress> userAddresses = addressService.findAll();
+            List<UserAddress> userAddresses = addressService.findAll()
+                            .stream()
+                                    .filter(address -> !address.isDeleted())
+                                            .collect(Collectors.toList());
             System.out.println(userAddresses);
             model.addAttribute("userAddress", userAddresses);
             return "User-profile";
@@ -76,6 +79,21 @@ import java.util.List;
             }
             return "redirect:/customers";
         }
+
+
+
+
+    @PostMapping("/deleteAddress")
+    public String delete(@RequestParam("addressId") UUID id){
+        addressService.disableAddress(id);
+        return "redirect:/customers";
+    }
+
+
+
+
+
+
 
 
         public String getCurrentUser(){

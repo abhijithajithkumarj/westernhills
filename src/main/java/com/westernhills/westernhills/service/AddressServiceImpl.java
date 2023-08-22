@@ -41,6 +41,16 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public void disableAddress(UUID uuid) {
+          Optional<UserAddress> userAddress= addressRepository.findById(uuid);
+          UserAddress userAddressi=userAddress.get();
+          userAddressi.setDeleted(true);
+          addressRepository.save(userAddressi);
+    }
+
+
+
+    @Override
     public List<UserAddress> findByUser(User user) {
         return addressRepository.findByUser(user);
     }

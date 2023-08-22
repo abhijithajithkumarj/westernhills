@@ -89,7 +89,7 @@
                             </a>
                         </div>
                         <div class="p-md-2">
-                            <a   style="text-decoration: none;" th:href="@{/addAddress}">
+                            <a   style="text-decoration: none;" >
                                 <button class="btn border-0 text-decoration-underline " style="color: palevioletred;">
                                     Address</button>
                             </a>
@@ -118,10 +118,10 @@
                         </h4>
                         <div class="card-header d-flex justify-content-center align-items-center" th:text="${total}"></div>
                         <div class="card-body d-flex justify-content-center align-items-center">
-                            <form th:action="@{/checkout}" method="get">
-                            <button class="btn btn-primary">Check out</button>
-                            </form>
+                            <a th:href="@{/showCheckout}" class="btn btn-primary">Check out</a>
                         </div>
+
+
                     </div>
 
 
@@ -162,15 +162,6 @@
                                             <option th:each="quantity : ${#numbers.sequence(1, 10)}"
                                                     th:value="${quantity}" th:text="${quantity}"
                                                     th:selected="${quantity == cart.quantity}">1</option>
-<!--                                            <option value="2">2</option>-->
-<!--                                            <option value="3">3</option>-->
-<!--                                            <option value="4">4</option>-->
-<!--                                            <option value="5">5</option>-->
-<!--                                            <option value="6">6</option>-->
-<!--                                            <option value="7">7</option>-->
-<!--                                            <option value="8">8</option>-->
-<!--                                            <option value="9">9</option>-->
-<!--                                            <option value="10">10</option>-->
                                         </select>
                                         <button type="submit">Submit</button>
                                     </form>
@@ -187,15 +178,6 @@
 
                             </div>
                         </div>
-
-<!--                        <div class="card" style="width: 10rem;" th:each="cart: ${cartList}" >-->
-<!--                            <img th:src="${'/all-Image/' + cart.product.images[0].fileName}"  style="width: 130px; height: 130px" class="card-img-top"  alt="...">-->
-<!--                            <div class="card-body">-->
-<!--                                <h5 class="card-title">Card title</h5>-->
-<!--                                <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
 
                     </div>
 

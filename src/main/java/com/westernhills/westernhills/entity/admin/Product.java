@@ -1,6 +1,7 @@
 package com.westernhills.westernhills.entity.admin;
 
 import com.westernhills.westernhills.entity.SuperEntity;
+import com.westernhills.westernhills.entity.userEntity.CheckOut;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -40,11 +41,8 @@ public class Product extends SuperEntity
     private Category category;
 
 
-
     @OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL )
     private List<Image> images;
-
-
 
 
 

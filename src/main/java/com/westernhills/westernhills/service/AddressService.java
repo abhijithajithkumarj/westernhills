@@ -17,6 +17,8 @@ public interface AddressService {
 
     UserAddress save(UserAddress userAddress);
 
+    void disableAddress(UUID uuid);
+
     List<UserAddress> findByUser(User user);
 
 

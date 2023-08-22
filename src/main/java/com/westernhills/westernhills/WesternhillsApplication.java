@@ -31,6 +31,8 @@ public class WesternhillsApplication {
 		};
 	}
 
+//	  System.out.println(cartList.get(0).getProduct());
+
 
 
 

@@ -132,18 +132,23 @@
                                 <div class="card" th:each="address:${userAddress}">
 
 
-                                    <div class="card-body" >
+                                    <div class="card-body">
                                         <h5 th:text="${address.houseName}">hello</h5>
                                         <h6 class="card-text pt-md-3">Abhijith - 9678655432</h6>
                                         <p class="card-text">Home no, post, city</p>
                                         <a href="#" class="btn btn-primary">Update</a>
                                         <a href="#" class="btn btn-primary">Delete</a>
+
+                                        <form action="/deleteAddress" method="post">
+                                            <input type="hidden" name="addressId" th:value="${address.id}" />
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
 
-
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

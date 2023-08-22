@@ -58,14 +58,8 @@ public class CartServiceImpl implements CartService{
 
     }
 
-    @Override
-    public double totalPrice() {
-        return cartRepository.findAll().stream()
-                .filter(cartItem -> cartItem != null && cartItem.getProduct() != null)
-                        .mapToDouble(cartItem -> cartItem.getQuantity() * cartItem.getProduct()
-                                .getSelPrice()).sum();
 
-    }
+
 
     @Override
     public Cart checkOut(String userName) {
@@ -89,6 +83,37 @@ public class CartServiceImpl implements CartService{
 
         return null;
     }
+
+    @Override
+    public Cart findByUserId(String userName) {
+
+
+        return null;
+    }
+
+    @Override
+    public double getTotalPrice(String username) {
+
+        List<Cart> cartItems = cartRepository.findByUser_Username(username);
+
+        return cartItems.stream()
+                .mapToDouble(cartItem -> cartItem.getProduct().getSelPrice() * cartItem.getQuantity())
+                .sum();
+
+    }
+
+
+
+
+
+    @Override
+    public List<Cart> getCartItems(String username) {
+        return cartRepository.findByUser_Username(username);
+
+
+    }
+
+
 
 
     @Override
