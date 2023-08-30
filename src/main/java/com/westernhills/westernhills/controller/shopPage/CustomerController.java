@@ -1,7 +1,9 @@
 package com.westernhills.westernhills.controller.shopPage;
+import com.westernhills.westernhills.entity.userEntity.CheckOut;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.entity.userEntity.UserAddress;
 import com.westernhills.westernhills.repo.AddressRepository;
+import com.westernhills.westernhills.repo.CheckOutRepository;
 import com.westernhills.westernhills.service.AddressService;
 import com.westernhills.westernhills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Controller
+    @Controller
     public class CustomerController {
 
         @Autowired
@@ -29,16 +31,37 @@ import java.util.stream.Collectors;
         @Autowired
         private UserService userService;
 
+
+
+        @Autowired
+        private CheckOutRepository checkOutRepository;
+
         @GetMapping("/customers")
         public String customerProfile(Model model , @AuthenticationPrincipal(expression = "username") String username) {
             List<UserAddress> userAddresses = addressRepository.findByUser_Username(username)
                     .stream()
                     .filter(address -> !address.isDeleted())
                     .collect(Collectors.toList());
+
+
             System.out.println(userAddresses);
             model.addAttribute("userAddress", userAddresses);
             return "User-profile";
         }
+
+
+        @GetMapping("/customerOrder")
+        public String customerOrder(Model model,@AuthenticationPrincipal(expression = "username") String username){
+            List<CheckOut> ListTheOrder=checkOutRepository.findByUser_Username(username)
+                    .stream()
+                    .filter(checkOut -> !checkOut.isDeleted())
+                    .collect(Collectors.toList());
+            model.addAttribute("checkOutOrder", ListTheOrder);
+            return "User-order";
+
+        }
+
+
 
 
         @GetMapping("/addAddress")
@@ -89,29 +112,25 @@ import java.util.stream.Collectors;
 
 
 
-    @PostMapping("/deleteAddress")
-    public String delete(@RequestParam("addressId") UUID id){
+       @PostMapping("/deleteAddress")
+       public String delete(@RequestParam("addressId") UUID id){
         addressService.disableAddress(id);
         return "redirect:/customers";
+       }
+
+
+
+
+
+
+       public String getCurrentUser() {
+           Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+           return authentication.getName();
+
+       }
+
+
+
+
+
     }
-
-
-
-
-
-
-
-
-        public String getCurrentUser(){
-            Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-            return authentication.getName();
-
-        }
-
-
-
-
-
-
-
-}

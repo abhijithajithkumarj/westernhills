@@ -23,6 +23,11 @@ public class ShopController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping("/index")
+    public String homePage(){
+        return "index";
+    }
+
     @GetMapping("/findProducts")
     public String showProduct(Model model) {
         List<Product> products = productService.getAllProducts()
@@ -51,6 +56,8 @@ public class ShopController {
             return "productNotFound";
         }
     }
+
+
 
 
 

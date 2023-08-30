@@ -23,9 +23,9 @@ public class ProductDto {
     private String description;
     private double costPrice;
     private double selPrice;
-    private  Long   categoryId;
+    private Long   categoryId;
 
-    private  Long   stock;
+    private Long   stock;
     private Category category;
     private boolean deleted;
     private boolean activated;

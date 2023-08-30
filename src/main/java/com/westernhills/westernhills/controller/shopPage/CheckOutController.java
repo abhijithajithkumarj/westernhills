@@ -46,8 +46,14 @@ public class CheckOutController {
                                    @AuthenticationPrincipal(expression = "username") String username){
         checkOutService.getCartItems(username, userAddressId);
 
-        return "DemoCheckOut";
+        return "redirect:/successPage";
 
+    }
+
+
+    @GetMapping("/successPage")
+    public String successPage(){
+        return "admin/success";
     }
 
 

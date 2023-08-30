@@ -10,6 +10,7 @@ import com.westernhills.westernhills.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -87,11 +89,20 @@ public class AddToCartController {
         List<Product> products = cartList.stream()
                 .map(Cart::getProduct)
                 .collect(Collectors.toList());
-        System.out.println(products);
-
-        return "checkout";
+        return "redirect/cartShow";
     }
 
+
+//    public String removeTheCart(@AuthenticationPrincipal(expression = "username") String username){
+//
+//        return"redirect/cartShow";
+//    }
+
+    @GetMapping("/removeCart/{id}")
+    public String deleteUser(@PathVariable("id") UUID id) {
+        cartRepository.deleteById(id);
+        return "redirect:/cartShow"; // Change "redirect/cartShow" to "redirect:/cartShow"
+    }
 
 
 

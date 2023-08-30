@@ -43,44 +43,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 
 
 
-//    @Override
-//    public List<CheckOut> getCartItems(String username, UUID id) {
-//        List<Cart> cartItems = cartRepository.findByUser_Username(username);
-//        Optional<UserAddress> userAddress = addressRepository.findById(id);
-//
-//        return cartItems.stream()
-//                .map(cartItem -> {
-//                    Product product = cartItem.getProduct();
-//
-//                    // Check if there is already a CheckOut item for this product
-//                    boolean existingCheckOut = cartItems.stream()
-//                            .anyMatch(checkOut -> checkOut.getProduct().equals(product));
-//
-//                    if (!existingCheckOut) {
-//                        CheckOut checkOutItem = new CheckOut();
-//                        checkOutItem.setUser(cartItem.getUser());
-//                        checkOutItem.setProduct(product);
-//                        checkOutItem.setCod(true);
-//                        checkOutItem.setUserAddress(userAddress.orElse(null));
-//
-//                        // Save the CheckOut item
-//                        checkOutRepository.save(checkOutItem);
-//
-//                        // Fetch the Cart ID before deleting
-//                        UUID cartId = cartItem.getId();
-//
-//                        // Delete the cart item
-//                        cartRepository.delete(cartItem);
-//
-//                        System.out.println("Cart ID: " + cartId);
-//
-//                        return checkOutItem;
-//                    }
-//                    return null; // Return null for existing items
-//                })
-//                .filter(Objects::nonNull) // Filter out the null results (existing items)
-//                .collect(Collectors.toList());
-//    }
+
 
 
     @Override
@@ -123,14 +86,77 @@ public class CheckOutServiceImpl implements CheckOutService {
         return checkOutItems;
     }
 
-
-
-
-
+    @Override
+    public List<CheckOut> getAllOrder(String username) {
+        return checkOutRepository.findByUser_Username(username);
+    }
 
 
     @Override
     public void addToCartItem(String userName, UUID productId) {
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //    @Override
+//    public List<CheckOut> getCartItems(String username, UUID id) {
+//        List<Cart> cartItems = cartRepository.findByUser_Username(username);
+//        Optional<UserAddress> userAddress = addressRepository.findById(id);
+//
+//        return cartItems.stream()
+//                .map(cartItem -> {
+//                    Product product = cartItem.getProduct();
+//
+//                    // Check if there is already a CheckOut item for this product
+//                    boolean existingCheckOut = cartItems.stream()
+//                            .anyMatch(checkOut -> checkOut.getProduct().equals(product));
+//
+//                    if (!existingCheckOut) {
+//                        CheckOut checkOutItem = new CheckOut();
+//                        checkOutItem.setUser(cartItem.getUser());
+//                        checkOutItem.setProduct(product);
+//                        checkOutItem.setCod(true);
+//                        checkOutItem.setUserAddress(userAddress.orElse(null));
+//
+//                        // Save the CheckOut item
+//                        checkOutRepository.save(checkOutItem);
+//
+//                        // Fetch the Cart ID before deleting
+//                        UUID cartId = cartItem.getId();
+//
+//                        // Delete the cart item
+//                        cartRepository.delete(cartItem);
+//
+//                        System.out.println("Cart ID: " + cartId);
+//
+//                        return checkOutItem;
+//                    }
+//                    return null; // Return null for existing items
+//                })
+//                .filter(Objects::nonNull) // Filter out the null results (existing items)
+//                .collect(Collectors.toList());
+//    }
 }

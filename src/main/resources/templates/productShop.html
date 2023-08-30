@@ -53,7 +53,7 @@
 							Help & FAQs
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a th:href="@{/customers}" class="flex-c-m trans-04 p-lr-25">
 							My Account
 						</a>
 
@@ -85,12 +85,8 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<a href="ind;;;;ex.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="ind;;;;ex.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
+								<a th:href="@{/index}">Home</a>
+
 							</li>
 
 							<li class="active-menu">
@@ -585,21 +581,24 @@
 			<div class="row">
 				<div th:each="product: ${products}" style="margin: 10px; width: 18rem;">
 					<div class="card" style="width: 100%;">
-
-							<img class="card-img-top" th:src="${'/all-Image/' + product.images[0].fileName}" alt="Card image cap" style="width:100%; height:300px;">
+						<img class="card-img-top" th:src="${'/all-Image/' + product.images[0].fileName}" alt="Card image cap" style="width: 100%; height: 300px;">
 						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							<h5 class="card-title" th:text="${product.name}"></h5>
+							<p class="card-text" th:text="${product.description}"></p>
+							<p class="card-text" th:text="${product.selPrice}"></p>
 						</div>
 
-					</div>
-					<a th:href="@{'/productDetail/'+ ${product.uuid}}" class="btn btn-danger btn-sm">show product</a>
-<!--					<a th:href="@{/productDetail}" class="btn btn-danger btn-sm">Add to cart</a>-->
+						<div class="row" style="display: flex; justify-content: center; align-items: center;">
+							<a th:href="@{'/productDetail/'+ ${product.uuid}}" class="btn btn-danger btn-sm">show product</a>
 
-					<form th:action="@{/addProductInCart}" method="post">
-						<input type="hidden" name="productId" th:value="${product.uuid}" />
-						<button type="submit" class="btn btn-primary">Add to cart</button>
-					</form>
+							<form th:action="@{/addProductInCart}" method="post">
+								<input type="hidden" name="productId" th:value="${product.uuid}" />
+								<button type="submit" class="btn btn-primary">Add to cart</button>
+							</form>
+						</div>
+					</div>
+
+
 
 				</div>
 			</div>

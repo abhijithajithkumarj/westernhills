@@ -24,7 +24,7 @@ public class CartServiceImpl implements CartService{
     private UserRepository userRepository;
 
     @Autowired
-    private CartRepository cartRepository;
+    private CartRepository  cartRepository;
 
 
     @Override
@@ -64,6 +64,9 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public void addQuantity(String username, UUID cartId, int quantity) {
+
+
+
         User user=userRepository.findByUsername(username).orElse(null);
         Cart cart1=cartRepository.findById(cartId).get();
         cart1.setQuantity(quantity);
@@ -127,7 +130,11 @@ public class CartServiceImpl implements CartService{
 
     }
 
+    @Override
+    public void removeCart(String username) {
 
+
+    }
 
 
     @Override
