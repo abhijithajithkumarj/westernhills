@@ -54,6 +54,10 @@ public class CheckOutServiceImpl implements CheckOutService {
         List<CheckOut> checkOutItems = new ArrayList<>();
 
         for (Cart cartItem : cartItems) {
+
+
+
+
             Product product = cartItem.getProduct();
             Cart cart = cartItem;
             System.out.println(cart);
@@ -65,6 +69,8 @@ public class CheckOutServiceImpl implements CheckOutService {
             if (existingCheckOut.isPresent()) {
                 System.out.println("Not existing check");
             } else {
+
+
                 CheckOut checkOutItem = new CheckOut();
                 checkOutItem.setUser(cartItem.getUser());
                 checkOutItem.setProduct(product);
@@ -86,6 +92,9 @@ public class CheckOutServiceImpl implements CheckOutService {
         return checkOutItems;
     }
 
+
+
+
     @Override
     public List<CheckOut> getAllOrder(String username) {
         return checkOutRepository.findByUser_Username(username);
@@ -96,26 +105,6 @@ public class CheckOutServiceImpl implements CheckOutService {
     public void addToCartItem(String userName, UUID productId) {
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -159,4 +148,8 @@ public class CheckOutServiceImpl implements CheckOutService {
 //                .filter(Objects::nonNull) // Filter out the null results (existing items)
 //                .collect(Collectors.toList());
 //    }
+
+
+
+
 }

@@ -40,6 +40,11 @@ public class CheckOutController {
         return "projetdemo";
     }
 
+
+
+
+
+
     @GetMapping("/checkoutProduct")
     public String checkOutTheOrder(Model model,
                                    @RequestParam(name = "userAddress") UUID userAddressId,

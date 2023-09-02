@@ -44,7 +44,6 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
         if (userEmail.isPresent()){
 
-
             User user=userEmail.get();
             String otp = otpUtil.generateOtp();
             user.setOtp(otp);
@@ -96,6 +95,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         userRepository.save(user1);
         return null;
     }
+
+
+
 
 
 }
