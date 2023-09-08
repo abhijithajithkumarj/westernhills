@@ -38,7 +38,12 @@ public class CheckOut extends SuperEntity {
     private User user;
 
 
-    private boolean Cod;
+
+    private int count ;
+
+
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
 
 
 

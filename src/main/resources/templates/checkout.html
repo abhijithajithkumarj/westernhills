@@ -1,11 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Document</title>
-
      <style>
           *,
           *:after,
@@ -334,6 +331,7 @@
                padding: 0 0 0 0px;
                cursor: pointer;
           }
+
           input[id^="radio3"] {
                display: none;
           }
@@ -357,22 +355,34 @@
                cursor: pointer;
           }
 
+          #content2 {
+               text-align: center; /* Center align the content within the section */
+          }
+
+           #discountCoupon {
+              color: black; /* Set the text color of the input field to black */
+           }
+
           p.credit {
                text-align: center;
                color: #ccc;
           }
      </style>
 
+
+     <!-- ... your head content ... -->
 </head>
 
 <body>
-     <h1>Checkout Page</h1>
-     <p class="credit">By Shagufta Mubasher</p>
-     <div class="tab_container">
+<h1>Checkout Page</h1>
+<p class="credit">By Shagufta Mubasher</p>
+<div class="tab_container">
+
+     <form th:action="@{/checkoutProduct}" method="get" id="myForm" onsubmit="set_finish(event)">
 
 
           <input id="tab2" type="radio" name="tabs" checked>
-          <label for="tab2"><span class="numberCircle">1</span><span>Customer Information</span></label>
+          <label for="tab2"><span class="numberCircle">1</span><span>Add Coupones</span></label>
 
           <input id="tab3" type="radio" name="tabs">
           <label for="tab3"><span class="numberCircle">2</span><span>Shipping</span></label>
@@ -380,96 +390,202 @@
           <input id="tab4" type="radio" name="tabs" >
           <label for="tab4"><span class="numberCircle">3</span><span>Payment</span></label>
 
-
-          <section id="content1" class="tab-content">
-               <h3>Cart Items</h3>
-               <p></p>
-          </section>
-
           <section id="content2" class="tab-content">
-               <h3>Customer Information</h3>
-               <p></p>
+
           </section>
 
           <section id="content3" class="tab-content">
                <h3>Shipping Address</h3>
                <h4 class="payment-title">Choose your Shipping Address</h4>
-               <form action="" method="post">
-                    <div class="pymt-radio"  >
-                         <div class="row-payment-method payment-row" >
-                              <div class="select-icon">
-                                   <input type="radio" id="radio3" name="radios" value="pp">
-                                   <label for="radio3"></label>
+
+               <div class="pymt-radio" th:each="checkBox : ${checkBox}">
+
+                    <input type="hidden" id="userAddress" name="userAddress" th:value="${checkBox.id}">
+
+                    <div class="row-payment-method payment-row">
+                         <div class="select-icon">
+                              <input type="radio" id="radio3" value="pp" data-id="123" required>
+                              <label for="radio3">
+                              </label>
+                         </div>
+
+                         <div class="select-txt">
+                              <div class="select-txt">
+                                  <span class="pymt-type-desc" th:text="${checkBox.houseName}" style="color: #000;">
+                                   </span>
+                                   <span class="pymt-type-desc" th:text="${checkBox.area}" style="color: #000;">
+                                     </span>
+                                   <span class="pymt-type-desc" th:text="${checkBox.town}" style="color: #000;">
+                                    </span>
+                                   <span class="pymt-type-desc" th:text="${checkBox.city}" style="color: #000;">
+                                     </span>
+                                   <span class="pymt-type-desc" th:text="${checkBox.state}" style="color: #000;">
+                                     </span>
+                                   <span class="pymt-type-desc" th:text="${checkBox.pin}" style="color: #000;">
+                                   </span>
+                                   <span class="pymt-type-desc" th:text="${checkBox.landMarker}" style="color: #000;">
+                                   </span>
                               </div>
-
-
-                              <div class="select-txt" >
-
-
-                                   <p class="pymt-type-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, eos!.</p>
-                              </div>
-
                          </div>
 
                     </div>
-
-               </form>
+               </div>
           </section>
 
           <section id="content4" class="tab-content">
                <h4 class="payment-title">Choose your payment method</h4>
-               <form action="" method="post">
-                    <div class="pymt-radio">
-                         <div class="row-payment-method payment-row">
-                              <div class="select-icon">
-                                   <input type="radio" id="radio1" name="radios" value="pp">
-                                   <label for="radio1"></label>
-                              </div>
-                              <div class="select-txt">
-                                   <p class="pymt-type-name">Razorpay</p>
-                                   <p class="pymt-type-desc">Safe payment online. Credit card needed. PayPal account is
-                                        not
-                                        necessary.</p>
-                              </div>
-                              <div class="select-logo">
-                                   <img src="" alt="Razorpay" />
+
+               <div class="pymt-radio">
+                    <div class="row-payment-method payment-row">
+                         <div class="select-icon">
+                              <input class="select_input" type="radio" id="radio1" name="paymentMethod" value="ONLINE" onclick="payment('upi')" required>
+                              <label for="radio1"></label>
+                         </div>
+                         <div class="select-txt">
+
+                              <p class="pymt-type-desc">Safe payment online. Credit card needed. RAZORPAY account is not necessary.</p>
+                         </div>
+                         <button id="rzp-button1">Pay with Razorpay</button>
+
+
+                    </div>
+               </div>
+
+               <div class="pymt-radio">
+                    <div class="row-payment-method payment-row-last">
+                         <div class="select-icon hr">
+                              <input class="select_input" type="radio" id="radio2" name="paymentMethod" value="COD" onclick="payment('cod')" checked>
+                              <label for="radio2"></label>
+                         </div>
+                         <div class="select-txt hr">
+                              <p class="pymt-type-name">Cash On Delivery</p>
+                              <p class="pymt-type-desc">It can be more expensive than other payment methods. The
+                                   shipping company typically charges a COD fee, which can add to the cost of the purchase.</p>
+                         </div>
+                         <div class="select-logo">
+                              <div class="select-logo-sub logo-spacer">
+                                   <img width="50" src="https://cdn-icons-png.flaticon.com/128/6491/6491623.png"
+                                        alt="Visa" />
                               </div>
                          </div>
+
                     </div>
-                    <div class="pymt-radio">
-
-                         <div class="row-payment-method payment-row-last">
-                              <div class="select-icon hr">
-                                   <input type="radio" id="radio2" name="radios" value="pp" checked>
-                                   <label for="radio2"></label>
-                              </div>
-                              <div class="select-txt hr">
-                                   <p class="pymt-type-name">Cash On Devlivery</p>
-                                   <p class="pymt-type-desc">It can be more expensive than other payment methods. The shipping company typically
-                                        charges a COD fee, which can add to the cost of the purchase.</p>
-                              </div>
-                              <div class="select-logo">
-                                   <div class="select-logo-sub logo-spacer">
-                                        <img width=50 src="https://cdn-icons-png.flaticon.com/128/6491/6491623.png"
-                                             alt="Visa" />
-                                   </div>
-
-                              </div>
-
-                         </div>
-                    </div>
-     <div class="button-master-container">
-          <div class="button-container"><a href="#">Return to Shipping</a>
-          </div>
-          <div class="button-container button-finish"><a href="#">Finish Order</a>
-          </div>
+               </div>
 
 
+               <div class="button-master-container">
+                    <div class="button-container"><a href="#">Return to Shipping</a></div>
+                    <div class="button-container button-finish"><button class="finish_order" type="submit">Finish Order</button></div>
+               </div>
 
-     </div>
+          </section>
      </form>
-     </section>
-     </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+let paymentMth="cod";
+
+//paymentoption selection
+function payment(option) {
+     paymentMth = option;
+     console.log(paymentMth);
+}
+
+//submitting method
+     function set_finish(event) {
+     if ( paymentMth === 'upi'){
+         // event.preventDefault()
+            rzp1.open();
+<!--          return true;-->
+
+     }else if ( paymentMth === 'cod') {
+          return true;
+          // const finish = document.getElementsByClassName('finish_order')[0]
+          // const attributeExists = finish.hasAttribute('onclick')
+          //      if(attributeExists) {
+          //           finish.removeAttribute('onclick')
+          //      }
+          //      console.log(finish)
+     }
+     //  console.log(inp1);
+     //     // rzp1.open();
+     //      event.preventDefault()
+     }
+
+     // function get_selected() {
+     //      const inp = document.getElementsByName('paymentMethod').value
+     //      const finish = document.getElementsByClassName('finish_order')[0]
+     //      console.log("??",inp);
+     //      inp[0].addEventListener('click', (e) => {
+     //           // alert('razorpay')
+     //           // event.preventDefault()
+     //           finish.setAttribute('id', 'rzp-button1')
+     //           // console.log(finish)
+     //           // rzp1.open();
+     //           // e.preventDefault();
+     //           // document.getElementById('rzp-button1').onclick = function(e){
+     //           //      }
+     //      })
+
+     //      inp[1].addEventListener('click', () => {
+     //           const attributeExists = finish.hasAttribute('onclick')
+     //           if(attributeExists) {
+     //                finish.removeAttribute('onclick')
+     //           }
+     //           console.log(finish)
+     //      })
+     // }
+
+     // get_selected()
+
+     var options = {
+         "key": "rzp_test_Vv4K0xZB1OflgS", // Enter the Key ID generated from the Dashboard
+         "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+         "currency": "INR",
+         "name": "Acme Corp",
+         "description": "Test Transaction",
+         "image": "https://example.com/your_logo",
+         "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+         "handler": function (response){
+         console.log(response);
+          const form = document.getElementById('myForm')
+          console.log("res",response)
+<!--          form.submit();-->
+<!--             alert(response.razorpay_payment_id);-->
+<!--             alert(response.razorpay_order_id);-->
+<!--             alert(response.razorpay_signature)-->
+<!--         },-->
+         "prefill": {
+             "name": "ABHIJITH A",
+             "email": "aabhivishnu@gmail.com",
+             "contact": "9605067411"
+         },
+         "notes": {
+             "address": "Razorpay Corporate Office"
+         },
+         "theme": {
+             "color": "#3399cc"
+         }
+     };
+     var rzp1 = new Razorpay(options);
+     rzp1.on('payment.failed', function (response){
+             alert(response.error.code);
+             alert(response.error.description);
+             alert(response.error.source);
+             alert(response.error.step);
+             alert(response.error.reason);
+             alert(response.error.metadata.order_id);
+             alert(response.error.metadata.payment_id);
+     });
+
+     document.getElementById('rzp-button1').onclick = function(e){
+     rzp1.open();
+     e.preventDefault();
+     }
+
+</script>
 </body>
+
 
 </html>

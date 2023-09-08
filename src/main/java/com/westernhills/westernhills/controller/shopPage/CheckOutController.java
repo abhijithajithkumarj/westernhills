@@ -1,12 +1,17 @@
 package com.westernhills.westernhills.controller.shopPage;
 
 
+import com.razorpay.Order;
+import com.razorpay.RazorpayException;
+import com.westernhills.westernhills.entity.userEntity.Cart;
+import com.westernhills.westernhills.entity.userEntity.PaymentMethod;
 import com.westernhills.westernhills.entity.userEntity.UserAddress;
+import com.westernhills.westernhills.repo.CartRepository;
+import com.westernhills.westernhills.service.RazorpayService;
 import com.westernhills.westernhills.service.AddressService;
 import com.westernhills.westernhills.service.CartService;
 import com.westernhills.westernhills.service.CheckOutService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,15 +35,39 @@ public class CheckOutController {
     private AddressService addressService;
 
 
+    @Autowired
+    private CartRepository cartRepository;
+
+
+
+
+    @Autowired
+    private RazorpayService razorpayService;
+
+
+    private static String CURRENCY="INR";
+
+
     @GetMapping("/showCheckout")
-    public String customerProfile(Model model) {
+    public String customerProfile(Model model)
+    throws RazorpayException{
         List<UserAddress> checkBox = addressService.findAll()
                         .stream()
                                 .filter(addressService ->!addressService.isDeleted())
                                         .collect(Collectors.toList());
+
         model.addAttribute("checkBox", checkBox);
-        return "projetdemo";
+
+
+
+//        return "checkout";
+        return "projectdemo";
     }
+
+
+
+
+
 
 
 
@@ -46,18 +75,36 @@ public class CheckOutController {
 
 
     @GetMapping("/checkoutProduct")
-    public String checkOutTheOrder(Model model,
-                                   @RequestParam(name = "userAddress") UUID userAddressId,
-                                   @AuthenticationPrincipal(expression = "username") String username){
-        checkOutService.getCartItems(username, userAddressId);
+    public String checkOutTheOrder(
+            Model model,
+            @RequestParam(name = "userAddress") UUID userAddressId,
+            @RequestParam(name = "paymentMethod") PaymentMethod paymentMethod,
+            @AuthenticationPrincipal(expression = "username") String username) throws RazorpayException {
 
-        return "redirect:/successPage";
+        List<Cart> cartItems = cartRepository.findByUser_Username(username);
+        double cartTotal=cartService.getTotalPrice(username);
 
+
+        System.out.println(paymentMethod);
+        System.out.println(userAddressId);
+
+
+        if (paymentMethod==PaymentMethod.COD){
+            checkOutService.getCartItemsAll(username, userAddressId);
+        } else if (paymentMethod==PaymentMethod.ONLINE) {
+            System.out.println("successfully");
+
+        }
+
+
+        return "redirect:/showCheckout";
     }
+
 
 
     @GetMapping("/successPage")
     public String successPage(){
+
         return "admin/success";
     }
 

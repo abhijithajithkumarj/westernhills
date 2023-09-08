@@ -52,8 +52,6 @@
                         </select>
                     </div>
 
-
-
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="cash_on_delivery" name="payment_method" value="cash_on_delivery" class="custom-control-input">
@@ -61,12 +59,39 @@
                         </div>
                     </div>
 
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+
+
+
+
+
+                <form th:action="@{/checkoutProduct}" method="get">
+
+                    <div class="form-group">
+                        <label for="userAddress">Select User Address:</label>
+                        <select id="userAddresss" name="userAddress" class="userAddress">
+                            <option th:each="checkBox : ${checkBox}" th:value="${checkBox.id}" th:text="${checkBox.houseName}" style="font-size: 20px; color:red;"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="Online" name="payment_method" value="cash_on_delivery" class="custom-control-input">
+                            <label class="custom-control-label" for="cash_on_delivery">online</label>
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
 
                 </form>
 
+
+
             </div>
+
+
         </div>
 
     </div>

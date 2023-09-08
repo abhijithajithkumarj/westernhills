@@ -1,10 +1,12 @@
 package com.westernhills.westernhills.controller.shopPage;
+import com.westernhills.westernhills.entity.userEntity.Cart;
 import com.westernhills.westernhills.entity.userEntity.CheckOut;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.entity.userEntity.UserAddress;
 import com.westernhills.westernhills.repo.AddressRepository;
 import com.westernhills.westernhills.repo.CheckOutRepository;
 import com.westernhills.westernhills.service.AddressService;
+import com.westernhills.westernhills.service.CartService;
 import com.westernhills.westernhills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,6 +34,10 @@ import java.util.stream.Collectors;
         private UserService userService;
 
 
+        @Autowired
+        private CartService cartService;
+
+
 
         @Autowired
         private CheckOutRepository checkOutRepository;
@@ -44,9 +50,13 @@ import java.util.stream.Collectors;
                     .collect(Collectors.toList());
 
 
-            System.out.println(userAddresses);
+            System.out.println(username);
+
+            List<Cart> cartList=cartService.getCartItems(username);
+
+            model.addAttribute("cartList", cartList);
             model.addAttribute("userAddress", userAddresses);
-            return "User-profile";
+            return "shoping-cart";
         }
 
 

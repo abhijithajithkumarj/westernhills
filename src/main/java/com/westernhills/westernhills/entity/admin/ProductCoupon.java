@@ -7,10 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -20,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @ToString
-public class CouponEntity extends SuperEntity {
+public class ProductCoupon extends SuperEntity {
 
 
     @Id
@@ -37,7 +34,18 @@ public class CouponEntity extends SuperEntity {
     private LocalDate expirationDate;
 
 
-    private String quantity;
+    private int quantity;
+
+    private int percentage;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+
+
 
 
 

@@ -12,6 +12,8 @@ public interface CheckOutService {
 
     List<CheckOut> getCartItems(String username,UUID id);
 
+    List<CheckOut> getCartItemsAll(String username, UUID id);
+
     List<CheckOut> getAllOrder(String username);
 
     void addToCartItem(String userName, UUID productId);

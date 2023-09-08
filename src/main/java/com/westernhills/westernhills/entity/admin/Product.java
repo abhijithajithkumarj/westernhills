@@ -29,13 +29,13 @@ public class Product extends SuperEntity
     private String name;
 
     @Lob
-    private String description;
-    private double costPrice;
-    private double selPrice;
+    private String  description;
+    private double  costPrice;
+    private double  selPrice;
     private boolean enabled=true;
-    private int averageRating = 0;
+    private int     averageRating = 0;
 
-    //relationships
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

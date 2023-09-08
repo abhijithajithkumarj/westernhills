@@ -1,14 +1,9 @@
 package com.westernhills.westernhills.service;
 
 import com.westernhills.westernhills.entity.admin.Product;
-import com.westernhills.westernhills.entity.userEntity.Cart;
-import com.westernhills.westernhills.entity.userEntity.CheckOut;
-import com.westernhills.westernhills.entity.userEntity.User;
-import com.westernhills.westernhills.entity.userEntity.UserAddress;
-import com.westernhills.westernhills.repo.AddressRepository;
-import com.westernhills.westernhills.repo.CartRepository;
-import com.westernhills.westernhills.repo.CheckOutRepository;
-import com.westernhills.westernhills.repo.UserRepository;
+import com.westernhills.westernhills.entity.admin.UseCoupon;
+import com.westernhills.westernhills.entity.userEntity.*;
+import com.westernhills.westernhills.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +30,15 @@ public class CheckOutServiceImpl implements CheckOutService {
     private AddressRepository addressRepository;
 
 
+    @Autowired
+    private UseCouponRepository useCouponRepository;
+
+
+
+    @Autowired
+    private CartService cartService;
+
+
 
     @Override
     public double getTotalPrice(String username) {
@@ -54,10 +58,6 @@ public class CheckOutServiceImpl implements CheckOutService {
         List<CheckOut> checkOutItems = new ArrayList<>();
 
         for (Cart cartItem : cartItems) {
-
-
-
-
             Product product = cartItem.getProduct();
             Cart cart = cartItem;
             System.out.println(cart);
@@ -69,22 +69,14 @@ public class CheckOutServiceImpl implements CheckOutService {
             if (existingCheckOut.isPresent()) {
                 System.out.println("Not existing check");
             } else {
-
-
                 CheckOut checkOutItem = new CheckOut();
                 checkOutItem.setUser(cartItem.getUser());
                 checkOutItem.setProduct(product);
-                checkOutItem.setCod(true);
+                checkOutItem.setPaymentMethod(PaymentMethod.COD);
                 checkOutItem.setUserAddress(userAddress.orElse(null));
-
-
                 checkOutRepository.save(checkOutItem);
-
-
                 UUID cartId = cart.getId();
-
                 cartRepository.delete(cart);
-
                 System.out.println("Cart ID: " + cartId);
             }
         }
@@ -92,7 +84,43 @@ public class CheckOutServiceImpl implements CheckOutService {
         return checkOutItems;
     }
 
+    @Override
+    public List<CheckOut> getCartItemsAll(String username, UUID id) {
 
+        List<Cart> cartItems = cartRepository.findByUser_Username(username);
+        System.out.println(cartItems);
+
+        Optional<UserAddress> userAddress = addressRepository.findById(id);
+        System.out.println(userAddress);
+
+
+        double cartTotal=cartService.getTotalPrice(username);
+
+
+        List<CheckOut> checkOutItems = new ArrayList<>();
+
+
+        for (Cart cartItem : cartItems) {
+
+            int count=cartItem.getQuantity();
+            CheckOut checkOutItem = new CheckOut();
+            checkOutItem.setUserAddress(userAddress.orElse(null));
+            checkOutItem.setUser(userRepository.findByUsername(username).orElse(null));
+            checkOutItem.setPaymentMethod(PaymentMethod.COD);
+            checkOutItem.setProduct(cartItem.getProduct());
+            checkOutItem.setCount(cartItem.getQuantity());
+
+            checkOutRepository.save(checkOutItem);
+
+            UUID cartId = cartItem.getId();
+            System.out.println(cartId);
+            cartRepository.delete(cartItem);
+            checkOutItems.add(checkOutItem);
+        }
+
+        return checkOutItems;
+
+    }
 
 
     @Override
@@ -105,50 +133,6 @@ public class CheckOutServiceImpl implements CheckOutService {
     public void addToCartItem(String userName, UUID productId) {
 
     }
-
-
-
-
-
-    //    @Override
-//    public List<CheckOut> getCartItems(String username, UUID id) {
-//        List<Cart> cartItems = cartRepository.findByUser_Username(username);
-//        Optional<UserAddress> userAddress = addressRepository.findById(id);
-//
-//        return cartItems.stream()
-//                .map(cartItem -> {
-//                    Product product = cartItem.getProduct();
-//
-//                    // Check if there is already a CheckOut item for this product
-//                    boolean existingCheckOut = cartItems.stream()
-//                            .anyMatch(checkOut -> checkOut.getProduct().equals(product));
-//
-//                    if (!existingCheckOut) {
-//                        CheckOut checkOutItem = new CheckOut();
-//                        checkOutItem.setUser(cartItem.getUser());
-//                        checkOutItem.setProduct(product);
-//                        checkOutItem.setCod(true);
-//                        checkOutItem.setUserAddress(userAddress.orElse(null));
-//
-//                        // Save the CheckOut item
-//                        checkOutRepository.save(checkOutItem);
-//
-//                        // Fetch the Cart ID before deleting
-//                        UUID cartId = cartItem.getId();
-//
-//                        // Delete the cart item
-//                        cartRepository.delete(cartItem);
-//
-//                        System.out.println("Cart ID: " + cartId);
-//
-//                        return checkOutItem;
-//                    }
-//                    return null; // Return null for existing items
-//                })
-//                .filter(Objects::nonNull) // Filter out the null results (existing items)
-//                .collect(Collectors.toList());
-//    }
-
 
 
 

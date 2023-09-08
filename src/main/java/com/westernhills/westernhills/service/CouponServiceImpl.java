@@ -1,6 +1,6 @@
 package com.westernhills.westernhills.service;
 
-import com.westernhills.westernhills.entity.admin.CouponEntity;
+import com.westernhills.westernhills.entity.admin.ProductCoupon;
 import com.westernhills.westernhills.repo.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,23 +21,24 @@ public class CouponServiceImpl implements CouponService{
 
 
     @Override
-    public List<CouponEntity> getAllCoupons() {
+    public List<ProductCoupon> getAllCoupons() {
         return null;
     }
 
     @Override
-    public Optional<CouponEntity> getCouponById(Long id) {
+    public Optional<ProductCoupon> getCouponById(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public CouponEntity createCoupon(CouponEntity coupon) {
+    public ProductCoupon createCoupon(ProductCoupon coupon) {
 
-        CouponEntity coupon1 = new CouponEntity();
+        ProductCoupon coupon1 = new ProductCoupon();
         coupon1.setQuantity(coupon.getQuantity());
         coupon1.setCouponCode(coupon.getCouponCode());
         coupon1.setExpirationDate(coupon.getExpirationDate());
-
+        coupon1.setProduct(coupon.getProduct());
+        coupon1.setPercentage(coupon.getPercentage());
         return couponRepository.save(coupon1);
 
 

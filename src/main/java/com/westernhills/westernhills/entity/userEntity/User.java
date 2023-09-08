@@ -1,5 +1,6 @@
 package com.westernhills.westernhills.entity.userEntity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,6 +44,7 @@ public class  User {
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private List<Cart> carts=new ArrayList<Cart>();
+
 
 
 

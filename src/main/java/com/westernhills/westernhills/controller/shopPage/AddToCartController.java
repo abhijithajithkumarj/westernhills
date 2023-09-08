@@ -1,6 +1,7 @@
 package com.westernhills.westernhills.controller.shopPage;
 
 
+import com.westernhills.westernhills.dto.CouponDTO;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.entity.userEntity.Cart;
 import com.westernhills.westernhills.entity.userEntity.User;
@@ -57,13 +58,17 @@ public class AddToCartController {
 
 
     @GetMapping("/cartShow")
-    public String showCart(Model model,@AuthenticationPrincipal(expression = "username")String username) {
+    public String showCart(Model model,
+                           @AuthenticationPrincipal(expression = "username")String username) {
         double total = cartService.getTotalPrice(username);
 
+        CouponDTO couponDTO = new CouponDTO();
+        model.addAttribute("couponDTO", couponDTO);
 
-        List<Cart> cartList=cartService.getCartItems(username);
 
-        model.addAttribute("cartList", cartList);
+        List<Cart> cartLists=cartService.getCartItems(username);
+
+        model.addAttribute("cartList", cartLists);
         model.addAttribute("total", total);
 
         return "User-cart";
@@ -93,15 +98,12 @@ public class AddToCartController {
     }
 
 
-//    public String removeTheCart(@AuthenticationPrincipal(expression = "username") String username){
-//
-//        return"redirect/cartShow";
-//    }
+
 
     @GetMapping("/removeCart/{id}")
     public String deleteUser(@PathVariable("id") UUID id) {
         cartRepository.deleteById(id);
-        return "redirect:/cartShow"; // Change "redirect/cartShow" to "redirect:/cartShow"
+        return "redirect:/cartShow";
     }
 
 

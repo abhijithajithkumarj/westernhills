@@ -1,7 +1,7 @@
 package com.westernhills.westernhills.service;
 
 
-import com.westernhills.westernhills.entity.admin.CouponEntity;
+import com.westernhills.westernhills.entity.admin.ProductCoupon;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,11 +10,11 @@ import java.util.UUID;
 public interface CouponService {
 
 
-    List<CouponEntity> getAllCoupons();
+    List<ProductCoupon> getAllCoupons();
 
-    Optional<CouponEntity> getCouponById(Long id);
+    Optional<ProductCoupon> getCouponById(Long id);
 
-    CouponEntity createCoupon(CouponEntity coupon);
+    ProductCoupon createCoupon(ProductCoupon coupon);
 
     void deleteCoupon(UUID id);
 

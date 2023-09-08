@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Checkout</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .checkout-container {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+        /* Add additional styling for your form elements here */
+    </style>
+</head>
+<body>
+<div class="checkout-container">
+    <h1>Online Checkout</h1>
+    <p>Item: Your Product Name</p>
+    <p>Price: $XX.XX</p>
+    <form>
+        <!-- Add your checkout form fields here, e.g., name, address, payment details, etc. -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="card">Credit Card:</label>
+        <input type="text" id="card" name="card" required><br><br>
+
+        <!-- Add more form fields as needed -->
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
