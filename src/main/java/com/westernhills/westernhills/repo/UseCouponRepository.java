@@ -9,10 +9,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UseCouponRepository extends JpaRepository<UseCoupon, UUID> {
+public interface    UseCouponRepository extends JpaRepository<UseCoupon, UUID> {
 
 
     List<UseCoupon> findByUser_Username(String username);
+
+
+
 
 
 

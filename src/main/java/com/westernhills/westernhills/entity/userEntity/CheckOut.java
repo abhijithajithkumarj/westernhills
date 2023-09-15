@@ -18,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @ToString
+@Builder
 public class CheckOut extends SuperEntity {
 
 
@@ -50,6 +51,11 @@ public class CheckOut extends SuperEntity {
     @OneToOne
     @JoinColumn(name="product")
     private Product product;
+
+
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
 
 

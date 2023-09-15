@@ -20,8 +20,8 @@ import java.util.UUID;
 @MappedSuperclass
 public class SuperEntity {
 
-    private boolean activated = true;
-    private boolean deleted = false;
+    private boolean activated ;
+    private boolean deleted ;
 
 
 }

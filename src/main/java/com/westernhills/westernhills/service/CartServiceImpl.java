@@ -1,16 +1,17 @@
 package com.westernhills.westernhills.service;
 
+import com.westernhills.westernhills.entity.admin.*;
 import com.westernhills.westernhills.entity.userEntity.Cart;
 import com.westernhills.westernhills.entity.userEntity.User;
-import com.westernhills.westernhills.repo.CartRepository;
-import com.westernhills.westernhills.repo.ProductRepository;
-import com.westernhills.westernhills.repo.UserRepository;
+import com.westernhills.westernhills.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 public class CartServiceImpl implements CartService{
 
@@ -25,6 +26,26 @@ public class CartServiceImpl implements CartService{
 
     @Autowired
     private CartRepository  cartRepository;
+
+
+
+
+
+
+
+    @Autowired
+    private CategoryCouponRepository categoryCouponRepository;
+
+
+
+
+    @Autowired
+    private UseCouponRepository useCouponRepository;
+
+
+
+    @Autowired
+    private CategoryUseCouponRepository categoryUseCouponRepository;
 
 
     @Override
@@ -119,7 +140,79 @@ public class CartServiceImpl implements CartService{
 
     }
 
+    @Override
+    public double getTotalPriceAddDiscount(String username) {
+        double discount=0;
 
+
+        List<UseCoupon> useCouponsProduct=useCouponRepository.findByUser_Username(username);
+        List<Cart> cartItems = cartRepository.findByUser_Username(username);
+
+
+
+        List<UseCoupon> findDiscountCoupon = useCouponsProduct.stream()
+                .filter(cartItem ->
+                        cartItem.isAppliedProductCoupon() &&
+                                cartItem.isActivated() &&
+                                cartItem.getCouponStatus()==CouponStatus.Used
+                )
+                .collect(Collectors.toList());
+
+
+
+        double discounted=findDiscountCoupon.stream()
+                        .mapToDouble(UseCoupon::getDiscountPrice).sum();
+
+
+
+        double finalDiscount = 1;
+        return  cartItems.stream()
+                .mapToDouble(cart -> cart.getProduct().getSelPrice()*cart.getQuantity()-discounted)
+                .sum();
+
+
+
+
+    }
+
+
+
+    @Override
+    public double getTotalPriceAddDiscountAddCoupon(String username) {
+        List<CategoryUseCoupon> useCoupons = categoryUseCouponRepository.findByUser_Username(username);
+
+        List<Cart> cartItems = cartRepository.findByUser_Username(username);
+
+
+        List<CategoryUseCoupon> findDiscountCoupon = useCoupons.stream()
+                .filter(cartItem ->
+                        cartItem.isAppliedProductCoupon() &&
+                                cartItem.isActivated() &&
+                                cartItem.getCouponStatus()==CouponStatus.Used
+                )
+                .collect(Collectors.toList());
+
+
+        System.out.println(findDiscountCoupon+"ohdfgoihdfgiediofgheighieourtgieurtgiuer");
+
+
+
+        List<Category> categories = findDiscountCoupon
+                .stream()
+                .map(CategoryUseCoupon::getCategory)
+                        .collect(Collectors.toList());
+
+
+        System.out.println(categories+"------------------------");
+
+
+        double discounted=findDiscountCoupon.stream()
+                .mapToDouble(CategoryUseCoupon::getDiscountPrice).sum();
+
+
+
+        return 0.0;
+    }
 
 
 
@@ -134,6 +227,12 @@ public class CartServiceImpl implements CartService{
     public void removeCart(String username) {
 
 
+    }
+
+
+    @Override
+    public boolean cartNotNull(String username) {
+        return false;
     }
 
 

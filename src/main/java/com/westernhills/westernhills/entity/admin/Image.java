@@ -31,7 +31,7 @@ public class Image extends SuperEntity {
 
 
 
-    //relationships
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product_id;

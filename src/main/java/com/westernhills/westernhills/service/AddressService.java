@@ -21,5 +21,7 @@ public interface AddressService {
 
     List<UserAddress> findByUser(User user);
 
+    void updateAddress(UUID id, UserAddress address);
+
 
 }

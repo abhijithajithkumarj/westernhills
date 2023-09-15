@@ -97,9 +97,14 @@ public class ProductController{
         product.setName(productDto.getName());
         product.setCategory(productDto.getCategory());
         product.setSelPrice(productDto.getSelPrice());
+        product.setStock(productDto.getStock());
         product.setDescription(productDto.getDescription());
 
+
+
         List<Image> images = new ArrayList<>();
+
+
         for (MultipartFile file : files) {
             Image image = new Image();
             String imageUUID = file.getOriginalFilename();

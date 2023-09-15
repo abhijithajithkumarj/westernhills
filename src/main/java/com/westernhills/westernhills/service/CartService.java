@@ -26,11 +26,19 @@ public interface CartService {
 
      double getTotalPrice(String username);
 
+     double getTotalPriceAddDiscount(String username);
+
 
      List<Cart>  getCartItems(String username);
 
 
      void removeCart(String username);
+
+
+     double getTotalPriceAddDiscountAddCoupon(String username);
+
+
+     boolean  cartNotNull(String username);
 
 
 

@@ -32,6 +32,10 @@ public class UseCoupon  extends SuperEntity {
     private double discountPrice;
 
 
+    @Enumerated(EnumType.STRING)
+    private CouponStatus couponStatus;
+
+
 
 
     @ManyToOne

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -75,20 +76,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getAllProductsByCategoryId(UUID id){
-        return productRepository.findAllByCategoryId(id);
+        return productRepository.findAllByCategoryId(id).stream()
+                .filter(product -> !product.isDeleted())
+                .collect(Collectors.toList());
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

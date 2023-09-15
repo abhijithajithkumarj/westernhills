@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Table(name = "product")
-public class Product extends SuperEntity
+public class    Product extends SuperEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
@@ -30,6 +30,11 @@ public class Product extends SuperEntity
 
     @Lob
     private String  description;
+
+
+    private double  stock;
+
+
     private double  costPrice;
     private double  selPrice;
     private boolean enabled=true;

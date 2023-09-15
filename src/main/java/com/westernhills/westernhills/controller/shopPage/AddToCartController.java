@@ -50,7 +50,6 @@ public class AddToCartController {
 
                            ){
         System.out.println(username);
-
         cartService.addToCartItem(username, productId);
         return "redirect:/findProducts";
     }
@@ -60,19 +59,16 @@ public class AddToCartController {
     @GetMapping("/cartShow")
     public String showCart(Model model,
                            @AuthenticationPrincipal(expression = "username")String username) {
-        double total = cartService.getTotalPrice(username);
-
         CouponDTO couponDTO = new CouponDTO();
+        double amount = cartService.getTotalPrice(username);
         model.addAttribute("couponDTO", couponDTO);
-
-
         List<Cart> cartLists=cartService.getCartItems(username);
-
         model.addAttribute("cartList", cartLists);
-        model.addAttribute("total", total);
-
-        return "User-cart";
+        model.addAttribute("total", amount);
+        return "userCart";
     }
+
+
 
 
 
@@ -83,7 +79,6 @@ public class AddToCartController {
                                      @AuthenticationPrincipal(expression = "username") String username){
         cartService.addQuantity(username,cartId,quantity);
         return "redirect:/cartShow";
-
     }
 
 

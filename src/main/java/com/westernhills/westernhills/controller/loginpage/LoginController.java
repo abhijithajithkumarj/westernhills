@@ -52,9 +52,13 @@ public class LoginController {
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
         if (isAdmin) {
-            return "Admin/adminpanel";
+
+
+           return "Admin/adminpanel";
+
         }
         return "index";
+    //        return "`productShowAndDetils`";
     }
 
 

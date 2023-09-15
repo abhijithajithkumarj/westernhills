@@ -84,6 +84,10 @@ public class CheckOutServiceImpl implements CheckOutService {
         return checkOutItems;
     }
 
+
+
+
+
     @Override
     public List<CheckOut> getCartItemsAll(String username, UUID id) {
 
@@ -92,11 +96,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 
         Optional<UserAddress> userAddress = addressRepository.findById(id);
         System.out.println(userAddress);
-
-
         double cartTotal=cartService.getTotalPrice(username);
-
-
         List<CheckOut> checkOutItems = new ArrayList<>();
 
 
@@ -109,8 +109,11 @@ public class CheckOutServiceImpl implements CheckOutService {
             checkOutItem.setPaymentMethod(PaymentMethod.COD);
             checkOutItem.setProduct(cartItem.getProduct());
             checkOutItem.setCount(cartItem.getQuantity());
-
+            checkOutItem.setOrderStatus(OrderStatus.ORDER_PENDING);
             checkOutRepository.save(checkOutItem);
+
+
+
 
             UUID cartId = cartItem.getId();
             System.out.println(cartId);
@@ -121,6 +124,54 @@ public class CheckOutServiceImpl implements CheckOutService {
         return checkOutItems;
 
     }
+
+
+
+
+
+
+
+    @Override
+    public List<CheckOut> getOnlineCheckout(String username, UUID id) {
+
+        List<Cart> cartItems = cartRepository.findByUser_Username(username);
+        System.out.println(cartItems);
+
+
+
+        Optional<UserAddress> userAddress = addressRepository.findById(id);
+        System.out.println(userAddress);
+
+        double cartTotal=cartService.getTotalPrice(username);
+        List<CheckOut> OnlineCheckOut = new ArrayList<>();
+
+
+        for (Cart cartItem : cartItems) {
+            int count=cartItem.getQuantity();
+            CheckOut checkOutItem = new CheckOut();
+            checkOutItem.setUserAddress(userAddress.orElse(null));
+            checkOutItem.setUser(userRepository.findByUsername(username).orElse(null));
+            checkOutItem.setPaymentMethod(PaymentMethod.ONLINE);
+            checkOutItem.setProduct(cartItem.getProduct());
+            checkOutItem.setCount(cartItem.getQuantity());
+            checkOutItem.setOrderStatus(OrderStatus.ORDER_PENDING);
+            checkOutRepository.save(checkOutItem);
+
+
+
+
+            UUID cartId = cartItem.getId();
+
+
+            System.out.println(cartId);
+            cartRepository.delete(cartItem);
+            OnlineCheckOut.add(checkOutItem);
+        }
+
+        return OnlineCheckOut;
+
+    }
+
 
 
     @Override
@@ -134,6 +185,31 @@ public class CheckOutServiceImpl implements CheckOutService {
 
     }
 
+    @Override
+    public List<CheckOut> findAll() {
+        return checkOutRepository.findAll();
+    }
+
+    @Override
+    public Optional<CheckOut> canselProduct(UUID id) {
+         Optional<CheckOut> optionalCheckOut = checkOutRepository.findById(id);
+        if (optionalCheckOut.isPresent()) {
+            CheckOut checkOut = optionalCheckOut.get();
+            checkOut.setOrderStatus(OrderStatus.ORDER_CANCEL_PENDING);
+            checkOutRepository.save(checkOut);
+        }
+         return optionalCheckOut;
+    }
+
+    @Override
+    public void orderStatusSetting(OrderStatus orderStatus, UUID id) {
+        Optional<CheckOut> userOrderStatusSetting=checkOutRepository.findById(id);
+        if (userOrderStatusSetting.isPresent()) {
+            CheckOut userOrderStatus = userOrderStatusSetting.get();
+            userOrderStatus.setOrderStatus(orderStatus);
+            checkOutRepository.save(userOrderStatus);
+        }
+    }
 
 
 }
