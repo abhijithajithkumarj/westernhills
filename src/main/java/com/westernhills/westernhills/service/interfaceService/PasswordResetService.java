@@ -1,4 +1,4 @@
-package com.westernhills.westernhills.service;
+package com.westernhills.westernhills.service.interfaceService;
 
 import com.westernhills.westernhills.dto.OtpDto;
 import com.westernhills.westernhills.dto.ResetPassDto;

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -15,6 +16,9 @@ public interface CategoryRepository extends JpaRepository<Category, UUID> {
 
     @Query(value = "SELECT c FROM Category c WHERE c.activated = true AND c.deleted = true")
     List<Category> findAllByActivated();
+
+
+    Optional<Category> findByName(String name);
 
 
 

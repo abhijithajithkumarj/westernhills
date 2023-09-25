@@ -4,26 +4,20 @@ package com.westernhills.westernhills.controller.shopPage;
 import com.westernhills.westernhills.dto.CouponDTO;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.entity.userEntity.Cart;
-import com.westernhills.westernhills.entity.userEntity.User;
+import com.westernhills.westernhills.entity.userEntity.CheckOut;
 import com.westernhills.westernhills.repo.CartRepository;
+import com.westernhills.westernhills.repo.CheckOutRepository;
 import com.westernhills.westernhills.repo.UserRepository;
-import com.westernhills.westernhills.service.CartService;
+import com.westernhills.westernhills.service.interfaceService.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -44,10 +38,14 @@ public class AddToCartController {
 
 
 
+    @Autowired
+    private CheckOutRepository checkOutRepository;
+
+
+
     @PostMapping("/addProductInCart")
     public String addCart(@RequestParam(name = "productId")UUID productId,
                           @AuthenticationPrincipal(expression = "username")String username
-
                            ){
         System.out.println(username);
         cartService.addToCartItem(username, productId);
@@ -60,10 +58,21 @@ public class AddToCartController {
     public String showCart(Model model,
                            @AuthenticationPrincipal(expression = "username")String username) {
         CouponDTO couponDTO = new CouponDTO();
+
+
+        List<CheckOut> checkOuts=checkOutRepository.findByUser_Username(username);
+        model.addAttribute("checkOuts",checkOuts);
+
+
         double amount = cartService.getTotalPrice(username);
         model.addAttribute("couponDTO", couponDTO);
+
+
+
         List<Cart> cartLists=cartService.getCartItems(username);
         model.addAttribute("cartList", cartLists);
+
+
         model.addAttribute("total", amount);
         return "userCart";
     }

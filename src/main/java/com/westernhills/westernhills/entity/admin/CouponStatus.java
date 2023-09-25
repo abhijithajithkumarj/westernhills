@@ -7,6 +7,7 @@ public enum CouponStatus {
     Used,
     notUsed,
     cancelled,
+    referral_used,
 
 
 

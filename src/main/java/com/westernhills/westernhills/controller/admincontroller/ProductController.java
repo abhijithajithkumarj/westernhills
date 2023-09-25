@@ -7,7 +7,8 @@ import com.westernhills.westernhills.entity.admin.Image;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.repo.CategoryRepository;
 import com.westernhills.westernhills.repo.ProductRepository;
-import com.westernhills.westernhills.service.*;
+import com.westernhills.westernhills.service.interfaceService.CategoryService;
+import com.westernhills.westernhills.service.interfaceService.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -61,17 +62,20 @@ public class ProductController{
 
 
 
-
-
-
-
-
     @GetMapping("/showProduct")
     public String productShow(Model model){
-        List<Product> products=productRepository.findAll()
+
+        List<Product> products = productRepository.findAll()
                 .stream()
-                .filter(product->!product.isDeleted())
-                .toList();
+
+
+                .filter(product -> {
+                    Category category = product.getCategory();
+                    return category != null && !category.isDeleted();
+                })
+                .collect(Collectors.toList());
+
+
         model.addAttribute("products", products);
         System.out.println(products);
         return "admin/product";

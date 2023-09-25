@@ -4,7 +4,7 @@ package com.westernhills.westernhills.controller.admincontroller;
 import com.westernhills.westernhills.entity.admin.Category;
 import com.westernhills.westernhills.repo.CategoryRepository;
 import com.westernhills.westernhills.repo.UserRepository;
-import com.westernhills.westernhills.service.CategoryService;
+import com.westernhills.westernhills.service.interfaceService.CategoryService;
 import com.westernhills.westernhills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -150,7 +150,7 @@
 
                                     <div class="product" th:each="cart: ${cartList}">
                                         <div class="product-cart-details" >
-                                            <h6 class="cart-product-qty"th:text="${cart.product.name}"></h6>
+                                            <h6 class="cart-product-qty" th:text="${cart.product.name}"></h6>
 
 
                                             <h4 class="product-title" th:text="${cart.product.selPrice}"></h4>
@@ -163,7 +163,10 @@
                                                 <img th:src="${'/all-Image/' + cart.product.images[0].fileName}"  alt="product">
                                             </a>
                                         </figure>
-                                        <a th:href="@{'/removeCart/' + ${cart.id}}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+
+                                        <button type="button" onclick="window.location.href='@{'/removeCart/' + ${cart.id}}'" class="btn btn-danger btn-remove" title="Remove Product">
+                                            Remove Product
+                                        </button>
                                     </div>
 
 

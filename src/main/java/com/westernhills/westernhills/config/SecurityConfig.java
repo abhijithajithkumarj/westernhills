@@ -38,10 +38,7 @@ public class SecurityConfig {
                 .antMatchers("/userlogin","/*.css/**","*.scss",
                         "/verifyotp", "/productDetail",  "/resetPassword","/signup",
                         "/assets/**","/resetPasswordOtp","/inputOtp"
-                        ,"/updatePassword"
-
-
-                )
+                        ,"/updatePassword")
 
                 .permitAll()
                 .and()
@@ -66,7 +63,7 @@ public class SecurityConfig {
                 .and()
                 .build();
 
-        //"/app/*",
+
     }
 
 

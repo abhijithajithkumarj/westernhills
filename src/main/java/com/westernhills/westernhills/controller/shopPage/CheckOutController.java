@@ -1,7 +1,6 @@
 package com.westernhills.westernhills.controller.shopPage;
 
 
-import com.razorpay.Order;
 import com.razorpay.RazorpayException;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.entity.userEntity.Cart;
@@ -11,9 +10,10 @@ import com.westernhills.westernhills.repo.AddressRepository;
 import com.westernhills.westernhills.repo.CartRepository;
 import com.westernhills.westernhills.repo.ProductRepository;
 import com.westernhills.westernhills.service.RazorpayService;
-import com.westernhills.westernhills.service.AddressService;
-import com.westernhills.westernhills.service.CartService;
-import com.westernhills.westernhills.service.CheckOutService;
+import com.westernhills.westernhills.service.interfaceService.AddressService;
+import com.westernhills.westernhills.service.interfaceService.CartService;
+import com.westernhills.westernhills.service.interfaceService.CheckOutService;
+import com.westernhills.westernhills.service.walleteservice.WalletService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.ClientInfoStatus;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -55,6 +54,10 @@ public class CheckOutController {
     private RazorpayService razorpayService;
 
 
+    @Autowired
+    private WalletService walletService;
+
+
     private static String CURRENCY="INR";
 
 
@@ -65,7 +68,7 @@ public class CheckOutController {
 
             List<UserAddress> userAddresses = addressRepository.findByUser_Username(username)
                     .stream()
-                    .filter(address -> !address.isDeleted() && address.isDefaultAddress())
+                    .filter(address -> !address.isDeleted())
                     .collect(Collectors.toList());
 
             List<Product> products = productRepository.findAll()
@@ -114,7 +117,8 @@ public class CheckOutController {
 
 
         double amount = cartService.getTotalPriceAddDiscount(username);
-        System.out.println(amount);
+        double wallet= walletService.walletTotalPayment(username);
+        System.out.println(wallet);
 
         com.razorpay.Order order = null;
         String orderId = "";
@@ -201,33 +205,12 @@ public class CheckOutController {
     }
 
 
+    @GetMapping("/myorders")
+    public String getSuccessfulPage(){
+        return "advuser/paymentSuccesfulPage";
 
-
-    public String checkoutOnline(Model model,
-                                 @RequestParam(name = "userAddress") UUID userAddressId,
-                                 @RequestParam(name = "paymentMethod") PaymentMethod paymentMethod,
-                                 @AuthenticationPrincipal(expression = "username") String username) throws RazorpayException {
-
-        double amount = cartService.getTotalPrice(username); // Calculate the total amount
-        List<Cart> cartItems = cartRepository.findByUser_Username(username);
-        double cartTotal = cartService.getTotalPrice(username);
-
-
-
-
-        razorpayService.createOrder(amount, CURRENCY);
-
-
-
-        com.razorpay.Order order=razorpayService.createOrder(amount,CURRENCY);
-        String orderId = order.get("id").toString();
-
-        System.out.println(orderId);
-
-
-
-        return "redirect:/showOnlineCheckout";
     }
+
 
 
 

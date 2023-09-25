@@ -4,9 +4,10 @@ package com.westernhills.westernhills.controller.loginpage;
 import com.westernhills.westernhills.dto.AuthReq;
 import com.westernhills.westernhills.dto.CreateUserRequest;
 import com.westernhills.westernhills.dto.OtpDto;
+import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.UserRepository;
-import com.westernhills.westernhills.service.ProductService;
+import com.westernhills.westernhills.service.interfaceService.ProductService;
 import com.westernhills.westernhills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoginController {
@@ -49,6 +51,14 @@ public class LoginController {
             return "login";
         }
 
+
+
+        List<Product> productShows=productService.findAll()
+                .stream()
+                .filter(product->!product.isDeleted())
+                .collect(Collectors.toList());
+        model.addAttribute("productShows", productShows);
+
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
         if (isAdmin) {
@@ -57,8 +67,7 @@ public class LoginController {
            return "Admin/adminpanel";
 
         }
-        return "index";
-    //        return "`productShowAndDetils`";
+        return "index-17";
     }
 
 

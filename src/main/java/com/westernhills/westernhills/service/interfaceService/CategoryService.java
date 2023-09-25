@@ -1,4 +1,4 @@
-package com.westernhills.westernhills.service;
+package com.westernhills.westernhills.service.interfaceService;
 
 import com.westernhills.westernhills.entity.admin.Category;
 
@@ -20,6 +20,8 @@ public interface CategoryService {
     List<Category> findAllByActivated();
 
     void updateCategory(UUID id, Category user);
+
+   Optional<Category> findByName(String username);
 
 
     public Optional<Category> getCategoryById(UUID id);

@@ -2,6 +2,7 @@ package com.westernhills.westernhills.service;
 
 import com.westernhills.westernhills.entity.admin.Category;
 import com.westernhills.westernhills.repo.CategoryRepository;
+import com.westernhills.westernhills.service.interfaceService.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,6 +92,11 @@ public class CategoryServiceImpl implements CategoryService {
         Category upDate = newCategory.get();
         upDate.setName(category.getName());
 
+    }
+
+    @Override
+    public Optional<Category> findByName(String categoryName) {
+        return categoryRepository.findByName(categoryName);
     }
 
 

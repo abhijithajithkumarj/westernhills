@@ -3,25 +3,23 @@ package com.westernhills.westernhills.controller.admincontroller.offerpage;
 
 import com.westernhills.westernhills.entity.admin.Category;
 import com.westernhills.westernhills.entity.admin.Offer;
-import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.repo.CategoryRepository;
 import com.westernhills.westernhills.repo.OfferRepository;
 import com.westernhills.westernhills.repo.ProductRepository;
-import com.westernhills.westernhills.service.CategoryService;
-import com.westernhills.westernhills.service.OfferService;
+import com.westernhills.westernhills.service.interfaceService.CategoryService;
+import com.westernhills.westernhills.service.interfaceService.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-public class OfferController {
+public class                                             OfferController {
 
     @Autowired
     private OfferService offerService;

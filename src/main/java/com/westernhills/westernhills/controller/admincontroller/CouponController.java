@@ -11,13 +11,16 @@ import com.westernhills.westernhills.repo.ProductRepository;
 import com.westernhills.westernhills.service.coupon.CategoryCouponService;
 import com.westernhills.westernhills.service.coupon.CouponService;
 import com.westernhills.westernhills.service.coupon.UseCouponService;
+import org.apache.commons.text.translate.UnicodeUnescaper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -85,6 +88,13 @@ public class CouponController {
         System.out.println(coupons);
           return "admin/showCoupons";
 
+    }
+
+    @GetMapping("/deleteCoupon/{id}")
+    public String deleteCoupon(@PathVariable UUID id) {
+        couponService.deleteCoupon(id);
+
+        return "redirect:/couponList";
     }
 
 

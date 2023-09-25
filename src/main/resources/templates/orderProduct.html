@@ -147,24 +147,16 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-cart-products">
 
-                                <div class="product" th:each="cart: ${cartList}">
-                                    <div class="product-cart-details" >
-                                        <h6 class="cart-product-qty"th:text="${cart.product.name}"></h6>
+                                <div class="product" >
 
 
-                                        <h4 class="product-title" th:text="${cart.product.selPrice}"></h4>
-                                    </div>
+<!--                                    <p th:text="${checkOutList.userAddress.houseName}"></p>-->
+<!--                                    <p th:text="${checkOutList.userAddress.area}"></p>-->
+<!--                                    <p th:text="${checkOutList.userAddress.town}"></p>-->
+<!--                                    <p th:text="${checkOutList.userAddress.city}"></p>-->
+<!--                                    <p th:text="${checkOutList.userAddress.landMarker}"></p>-->
 
-                                    <input type="hidden" name="cartId" th:value="${cart.id}" />
-
-                                    <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img th:src="${'/all-Image/' + cart.product.images[0].fileName}"  alt="product">
-                                        </a>
-                                    </figure>
-                                    <a th:href="@{'/removeCart/' + ${cart.id}}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                 </div>
-
 
                             </div><!-- End .cart-product -->
 
@@ -176,7 +168,7 @@
 
                             <div class="dropdown-cart-action">
 
-                                <a  th:href="@{/showCheckout}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                <a  th:href="@{/showCheckout}" class="btn btn-outline-primary-2"><span>Home</span><i class="icon-long-arrow-right"></i></a>
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->
@@ -219,9 +211,47 @@
                         <td class="stock-col"  th:text="${checkOutList.paymentMethod}"></td >
                         <td class="stock-col"  th:text="${checkOutList.orderStatus}"></td >
 
+
+
+
                         <td class="vertical-align-center">
-                            <a th:href="@{'/cancelOrder/' + ${checkOutList.id}}">Cancel Order</a>
+                            <form th:action="@{'/cancelOrder/' + ${checkOutList.id}}" method="get">
+                                <button type="submit" class="btn btn-danger">Cancel Order</button>
+                            </form>
                         </td>
+
+                        <td class="vertical-align-center">
+                            <form th:action="@{'/orderReturn/' + ${checkOutList.id}}" method="get">
+                                <button type="submit" class="btn btn-warning">Order Return</button>
+                            </form>
+                        </td>
+
+                        <td class="vertical-align-center">
+                            <form th:action="@{'/trackOrder/' + ${checkOutList.id}}" method="get">
+                                <button type="submit" class="btn btn-info">Track Your Product</button>
+                            </form>
+                        </td>
+
+
+
+
+
+<!--                        <td class="vertical-align-center">-->
+<!--                            <a th:href="@{'/cancelOrder/' + ${checkOutList.id}}">Cancel Order</a>-->
+<!--                        </td>-->
+
+<!--                        <td class="vertical-align-center">-->
+<!--                            <a th:href="@{'/orderReturn/' + ${checkOutList.id}}">Order Return</a>-->
+<!--                        </td>-->
+
+
+<!--                        <td class="vertical-align-center">-->
+<!--                            <a th:href="@{'/trackOrder/' + ${checkOutList.id}}">Tracking Yor Product</a>-->
+<!--                        </td>-->
+
+
+
+
 
                     </tr>
 

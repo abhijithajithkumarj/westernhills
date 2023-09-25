@@ -4,11 +4,11 @@ import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.entity.userEntity.UserAddress;
 import com.westernhills.westernhills.repo.AddressRepository;
 import com.westernhills.westernhills.repo.CheckOutRepository;
-import com.westernhills.westernhills.service.AddressService;
-import com.westernhills.westernhills.service.CartService;
+import com.westernhills.westernhills.service.interfaceService.AddressService;
+import com.westernhills.westernhills.service.interfaceService.CartService;
 import com.westernhills.westernhills.service.UserService;
+import com.westernhills.westernhills.service.walleteservice.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,20 +42,21 @@ import java.util.stream.Collectors;
         @Autowired
         private CheckOutRepository checkOutRepository;
 
-        @GetMapping("/customers")
-        public String customerProfile(Model model , @AuthenticationPrincipal(expression = "username") String username) {
-            List<UserAddress> userAddresses = addressRepository.findByUser_Username(username)
-                    .stream()
-                    .filter(address -> !address.isDeleted())
-                    .collect(Collectors.toList());
 
 
-            System.out.println(username);
-            double total=cartService.getTotalPrice(username);
-            model.addAttribute("userAddress", userAddresses);
-            model.addAttribute("total",total);
-            return "profilePageMain";
-        }
+        @Autowired
+        private WalletService walletService;
+
+
+
+
+
+
+
+
+
+
+
 
 
         @GetMapping("/customerOrder")
@@ -140,6 +141,8 @@ import java.util.stream.Collectors;
 
         @PostMapping("/updateAddress")
         public String updateUser(@ModelAttribute("user") UserAddress updatedUser) {
+
+            
             addressService.updateAddress(updatedUser.getId(),updatedUser);
             return "redirect:/addAddress";
         }

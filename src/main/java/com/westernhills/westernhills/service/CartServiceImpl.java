@@ -4,6 +4,7 @@ import com.westernhills.westernhills.entity.admin.*;
 import com.westernhills.westernhills.entity.userEntity.Cart;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.*;
+import com.westernhills.westernhills.service.interfaceService.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
 
 
 

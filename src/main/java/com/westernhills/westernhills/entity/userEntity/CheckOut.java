@@ -3,11 +3,14 @@ package com.westernhills.westernhills.entity.userEntity;
 import com.westernhills.westernhills.entity.SuperEntity;
 import com.westernhills.westernhills.entity.admin.Product;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,6 +59,15 @@ public class CheckOut extends SuperEntity {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
 
 

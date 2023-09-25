@@ -4,13 +4,14 @@ package com.westernhills.westernhills.controller.shopPage;
 import com.westernhills.westernhills.entity.admin.Category;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.repo.CategoryRepository;
-import com.westernhills.westernhills.service.CategoryService;
-import com.westernhills.westernhills.service.ProductService;
+import com.westernhills.westernhills.service.interfaceService.CategoryService;
+import com.westernhills.westernhills.service.interfaceService.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class ShopController {
 
     @GetMapping("/index")
     public String homePage(){
-        return "index";
+        return "index-17";
     }
 
     @GetMapping("/findProducts")
@@ -45,10 +46,22 @@ public class ShopController {
                 .stream()
                 .filter(product -> !product.isDeleted())
                 .collect(Collectors.toList());
+
         model.addAttribute("category",categoryService.getAllCategories());
+        System.out.println(categoryService.getAllCategories());
         model.addAttribute("products",products);
         return "productShop";
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -61,13 +74,19 @@ public class ShopController {
 
         if (selectedCategoryOptional.isPresent()) {
             Category selectedCategory = selectedCategoryOptional.get();
-            System.out.println(selectedCategory.getName());
-            List<Product> products = productService.getAllProductsByCategoryId(id);
 
 
+
+            List<Product> products = productService.getAllProductsByCategoryId(id)
+                            .stream()
+                                    .filter(product -> !product.isDeleted())
+                                            .collect(Collectors.toList());
 
             model.addAttribute("categories", categories);
+
             model.addAttribute("selectedCategory", selectedCategory);
+
+
             model.addAttribute("products", products);
             return "productShop";
         } else {
@@ -84,7 +103,47 @@ public class ShopController {
 
 
 
+
+
+    @GetMapping("/searchCategory")
+    public String searchCategories(@RequestParam String searchCategory, Model model) {
+
+        Optional<Category> selectedCategoryOptional = categoryService.findByName(searchCategory);
+
+        System.out.println("fine");
+        if (selectedCategoryOptional.isPresent()) {
+            Category selectedCategory = selectedCategoryOptional.get();
+
+
+            List<Product> products = productService.getAllProductsByCategoryId(selectedCategory.getId());
+
+
+            model.addAttribute("selectedCategory", selectedCategory);
+
+            model.addAttribute("products", products);
+
+
+        } else {
+
+            return "404";
+        }
+
+        return "productShop";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     @GetMapping("/productDetail/{uuid}")
+
     public String productDetails(@PathVariable UUID uuid, Model model) {
 
         Optional<Product> productOptional = productService.getProductById(uuid);

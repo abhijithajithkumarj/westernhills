@@ -3,10 +3,10 @@ package com.westernhills.westernhills.service;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.entity.userEntity.UserAddress;
 import com.westernhills.westernhills.repo.AddressRepository;
+import com.westernhills.westernhills.service.interfaceService.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -56,8 +56,16 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.findByUser(user);
     }
 
+
+
+
+
+
+
+
     @Override
     public void updateAddress(UUID id, UserAddress address) {
+
         Optional<UserAddress> userAddress=addressRepository.findById(id);
         System.out.println(userAddress);
         UserAddress updatedAddress= userAddress.get();
@@ -77,6 +85,10 @@ public class AddressServiceImpl implements AddressService {
 
 
     }
+
+
+
+
 
 
 }

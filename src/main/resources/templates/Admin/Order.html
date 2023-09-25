@@ -56,13 +56,13 @@
                 <li class="sidebar-header">MAIN NAVIGATION</li>
                 <li>
                     <a href="index.html">
-                        <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
+                        <i class="zmdi zmdi-view-dashboard"></i> <span>All Oder</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="icons.html">
-                        <i class="zmdi zmdi-invert-colors"></i> <span>UI Icons</span>
+                        <i class="zmdi zmdi-invert-colors"></i> <span>All Oder</span>
                     </a>
                 </li>
 
@@ -196,11 +196,6 @@
     <div class="content-wrapper">
         <div class="container-fluid mt-5 p-3">
 
-
-
-
-
-
             <div class="table-div">
                 <table class="table">
                     <thead>
@@ -209,53 +204,30 @@
                             <th scope="col" style="font-weight: bolder;font-size: larger;">ProName</th>
                             <th scope="col" style="font-weight: bolder;font-size: larger;">houseName</th>
                             <th scope="col" style="font-weight: bolder;font-size: larger;">area</th>
-                            <th scope="col" style="font-weight: bolder;font-size: larger;">order Status</th>
+
 
                         </tr>
                     </thead>
                     <tbody  style="background-color: transparent; color:black; font-size: 16px;">
-                        <!-- Use Thymeleaf each loop to iterate through the products and populate the table rows -->
                         <tr th:each="order : ${order}">
 
 
                             <td th:text="${order.user.username}"></td>
                             <td th:text="${order.product.name}"></td>
-                            <td th:text="${order.userAddress.houseName}"></td>
-                            <td th:text="${order.userAddress.area}"></td>
                             <td th:text="${order.orderStatus}"></td>
 
-
                             <td>
-                                <form onsubmit="submitForm(event)">
-                                    <input type="hidden" id="orderId" name="orderId" th:value="${order.id}" />
-                                    <input type="hidden" name="orderStatus" th:value="${status}" />
 
-                                    <select id="status" name="status" style="background-color: transparent; color: black;">
-                                        <option th:each="status : ${allStatus}"
-                                                th:value="${status}"
-                                                th:text="${status}"
-                                                style="background-color: transparent; color: black;" >
-                                        </option>
-                                    </select>
-
-                                    <!-- Change the button's background-color and color here -->
-                                    <button type="submit" style="background-color: blue; color: white;">Submit</button>
-                                </form>
+                                <a th:href="@{'/orderDetail/' + ${order.id}}" class="btn btn-warning btn-sm">Set Status</a>
 
                             </td>
-
 
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-
-
         </div>
-
-        <!-- End container-fluid-->
-
     </div>
 
 
@@ -264,10 +236,13 @@
     <script>
         
         async function submitForm(event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault();
 
             const selectedStatus = document.getElementById('status').value;
+
             const orderId = document.getElementById('orderId').value;
+
+            console.log(orderId);
 
             // Create a FormData object to send the data as a POST request
             const formData = new FormData();

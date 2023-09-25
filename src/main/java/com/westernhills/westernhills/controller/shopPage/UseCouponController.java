@@ -3,7 +3,7 @@ package com.westernhills.westernhills.controller.shopPage;
 
 import com.westernhills.westernhills.dto.CouponDTO;
 import com.westernhills.westernhills.repo.CheckOutRepository;
-import com.westernhills.westernhills.service.CartService;
+import com.westernhills.westernhills.service.interfaceService.CartService;
 import com.westernhills.westernhills.service.coupon.UseCouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

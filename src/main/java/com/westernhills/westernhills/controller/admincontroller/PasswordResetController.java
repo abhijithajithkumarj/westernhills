@@ -2,7 +2,7 @@ package com.westernhills.westernhills.controller.admincontroller;
 
 
 import com.westernhills.westernhills.dto.ResetPassDto;
-import com.westernhills.westernhills.service.PasswordResetService;
+import com.westernhills.westernhills.service.interfaceService.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

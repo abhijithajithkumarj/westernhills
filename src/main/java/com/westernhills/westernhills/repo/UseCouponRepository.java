@@ -16,6 +16,11 @@ public interface    UseCouponRepository extends JpaRepository<UseCoupon, UUID> {
 
 
 
+    Optional<UseCoupon> findByProduct_Uuid(UUID productId);
+
+
+
+
 
 
 

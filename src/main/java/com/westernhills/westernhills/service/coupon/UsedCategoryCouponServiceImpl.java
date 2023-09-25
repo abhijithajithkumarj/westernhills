@@ -40,24 +40,29 @@ public class UsedCategoryCouponServiceImpl implements UsedCategoryCouponService 
         return 0;
     }
 
+
+
+
+
+
+
+
+
+
     @Override
     public double discountProduct(String discountCoupon, String username) {
-
-
         Optional<CategoryCoupon> couponOptional=categoryCouponRepository.findOptionalByCouponCode(username);
-
-
-
         if (couponOptional.isPresent()) {
             CategoryCoupon coupon = couponOptional.get();
             Category Category = coupon.getCategory();
             int count = coupon.getQuantity();
-
-
             if (count > 0) {
 
                 List<CategoryUseCoupon> categoryUseCoupons= categoryUseCouponRepository.findByUser_Username(username);
                 User user = userRepository.findByUsername(username).orElse(null);
+
+
+
                 boolean isAppliedProductCoupon = categoryUseCoupons.stream()
                         .anyMatch(CategoryUseCoupon::isAppliedProductCoupon);
 

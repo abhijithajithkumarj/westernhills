@@ -47,6 +47,7 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public void deleteCoupon(UUID id) {
+        couponRepository.deleteById(id);
 
     }
 

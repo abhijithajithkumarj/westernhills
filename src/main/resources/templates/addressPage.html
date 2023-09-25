@@ -410,8 +410,14 @@
 
 			<a th:href="@{'/editeAddress/' + ${address.id}}" class="btn btn-warning btn-sm">Edit</a>
 
+
+
+
 			<form action="/deleteAddress" method="post">
 				<input type="hidden" name="addressId" th:value="${address.id}" />
+
+
+
 			    <button class="btn btn-danger delete-button" type="submit">Delete</button>
 			</form>
 

@@ -1,13 +1,8 @@
-package com.westernhills.westernhills.service;
+package com.westernhills.westernhills.service.interfaceService;
 
 import com.westernhills.westernhills.dto.ProductDto;
-import com.westernhills.westernhills.entity.admin.Category;
 import com.westernhills.westernhills.entity.admin.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +12,8 @@ public interface ProductService {
 
 
     List<Product> findAll();
+
+    Optional<Product> findAllByID(UUID uuid);
     Product save( ProductDto productDto);
 
 
@@ -28,6 +25,8 @@ public interface ProductService {
     public void removeProductById(UUID id);
     public Optional<Product> getProductById(UUID id);
     public List<Product> getAllProductsByCategoryId(UUID id);
+
+    List<Product> searchProductsByCategory(String category);
 
 
 

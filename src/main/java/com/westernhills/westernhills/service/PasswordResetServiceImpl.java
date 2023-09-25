@@ -6,13 +6,12 @@ import com.westernhills.westernhills.Otp.OtpUtil;
 import com.westernhills.westernhills.dto.ResetPassDto;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.UserRepository;
+import com.westernhills.westernhills.service.interfaceService.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
