@@ -7,7 +7,8 @@ import com.westernhills.westernhills.entity.admin.Image;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.repo.CategoryRepository;
 import com.westernhills.westernhills.repo.ProductRepository;
-import com.westernhills.westernhills.service.*;
+import com.westernhills.westernhills.service.interfaceService.CategoryService;
+import com.westernhills.westernhills.service.interfaceService.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -51,7 +53,7 @@ public class ProductController{
         List<Category> categories=categoryRepository.findAll()
                         .stream()
                                 .filter(category ->!category.isDeleted())
-                                        .toList();
+                                     .collect(Collectors.toList());
         model.addAttribute("categories", categories);
         model.addAttribute("productDto",new ProductDto());
         return "admin/add-product";
@@ -60,17 +62,20 @@ public class ProductController{
 
 
 
-
-
-
-
-
     @GetMapping("/showProduct")
     public String productShow(Model model){
-        List<Product> products=productRepository.findAll()
+
+        List<Product> products = productRepository.findAll()
                 .stream()
-                .filter(product->!product.isDeleted())
-                .toList();
+
+
+                .filter(product -> {
+                    Category category = product.getCategory();
+                    return category != null && !category.isDeleted();
+                })
+                .collect(Collectors.toList());
+
+
         model.addAttribute("products", products);
         System.out.println(products);
         return "admin/product";
@@ -96,9 +101,14 @@ public class ProductController{
         product.setName(productDto.getName());
         product.setCategory(productDto.getCategory());
         product.setSelPrice(productDto.getSelPrice());
+        product.setStock(productDto.getStock());
         product.setDescription(productDto.getDescription());
 
+
+
         List<Image> images = new ArrayList<>();
+
+
         for (MultipartFile file : files) {
             Image image = new Image();
             String imageUUID = file.getOriginalFilename();
@@ -116,6 +126,8 @@ public class ProductController{
 
 
     }
+
+
 
 
 

@@ -4,29 +4,25 @@ package com.westernhills.westernhills.controller.loginpage;
 import com.westernhills.westernhills.dto.AuthReq;
 import com.westernhills.westernhills.dto.CreateUserRequest;
 import com.westernhills.westernhills.dto.OtpDto;
-import com.westernhills.westernhills.entity.User;
 import com.westernhills.westernhills.entity.admin.Product;
+import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.UserRepository;
-import com.westernhills.westernhills.service.ProductService;
+import com.westernhills.westernhills.service.interfaceService.ProductService;
 import com.westernhills.westernhills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoginController {
@@ -51,19 +47,33 @@ public class LoginController {
     public String getHomePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-
         if (authentication == null && !authentication.isAuthenticated()) {
             return "login";
         }
 
 
+
+        List<Product> productShows=productService.findAll()
+                .stream()
+                .filter(product->!product.isDeleted())
+                .collect(Collectors.toList());
+        model.addAttribute("productShows", productShows);
+
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
         if (isAdmin) {
-            return "Admin/adminpanel";
+
+
+           return "Admin/adminpanel";
+
         }
-        return "index";
+        return "index-17";
     }
+
+
+
+
+
 
 
 
@@ -93,7 +103,6 @@ public class LoginController {
         model.addAttribute("error", "Your account is not enabled. Please contact the administrator.");
         return "login";
     }
-
     if (user.isDeleted()==false){
         System.out.println(user.isDeleted());
         return "login";
@@ -113,6 +122,10 @@ public class LoginController {
         model.addAttribute("error", "Invalid username or password");
         return "login";
     }
+
+
+
+
 
 
 
@@ -148,8 +161,9 @@ public class LoginController {
     public String verifyAccount(@ModelAttribute("otp") OtpDto otp) {
 
         System.out.println(otp);
-
         boolean res=userService.verifyAccount(otp);
+
+
         if(res) {
             return "login";
         }else {

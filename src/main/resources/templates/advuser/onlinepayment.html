@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            font-family: 'Montserrat', sans-serif
+        }
+
+        body {
+            background-color: #f1f1f1;
+            line-height: 1rem;
+            font-size: 14px;
+        }
+
+        .container {
+            background-color: #eee
+        }
+
+        .navbar-brand {
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 800
+        }
+
+        nav {
+            background-color: white
+        }
+
+        .order .card {
+            position: relative;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, .1)
+        }
+
+        .ribbon {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            position: absolute
+        }
+
+        .ribbon::before,
+        .ribbon::after {
+            position: absolute;
+            content: '';
+            display: block;
+            border: 5px solid red
+        }
+
+        .ribbon span {
+            position: absolute;
+            display: block;
+            width: 225px;
+            padding: 15px 0;
+            background-color: red;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+            color: #fff;
+            font: 700 18px/1 'Lato', sans-serif;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+            text-transform: uppercase;
+            text-align: center
+        }
+
+        .ribbon-top-right {
+            top: -12px;
+            right: -12px
+        }
+
+        .ribbon-top-right::before,
+        .ribbon-top-right::after {
+            border-top-color: transparent;
+            border-right-color: transparent
+        }
+
+        .ribbon-top-right::before {
+            top: 0;
+            left: 0
+        }
+
+        .ribbon-top-right::after {
+            bottom: 0;
+            right: 0
+        }
+
+        .ribbon-top-right span {
+            left: -25px;
+            top: 30px;
+            transform: rotate(45deg)
+        }
+
+        small {
+            font-size: 12px
+        }
+
+        .cart {
+            line-height: 1
+        }
+
+        .icon {
+            background-color: #eee;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%
+        }
+
+        .pic {
+            width: 70px;
+            height: 90px;
+            border-radius: 5px
+        }
+
+        td {
+            vertical-align: middle
+        }
+
+        .red {
+            color: #fd1c1c;
+            font-weight: 600
+        }
+
+        .b-bottom {
+            border-bottom: 2px dotted black;
+            padding-bottom: 20px
+        }
+
+        p {
+            margin: 0px
+        }
+
+        table input {
+            width: 40px;
+            border: 1px solid #eee
+        }
+
+        input:focus {
+            border: 1px solid #eee;
+            outline: none
+        }
+
+        .round {
+            background-color: #eee;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .payment-summary .unregistered {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee;
+            text-transform: uppercase;
+            font-size: 14px
+        }
+
+        .payment-summary input {
+            width: 100%;
+            margin-right: 20px
+        }
+
+        .payment-summary .sale {
+            width: 100%;
+            background-color: #e9b3b3;
+            text-transform: uppercase;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5PX 0
+        }
+
+        .red {
+            color: #fd1c1c
+        }
+
+        .del {
+            width: 35px;
+            height: 35px;
+            object-fit: cover
+        }
+
+        .delivery .card {
+            padding: 10px 5px
+        }
+
+        .option {
+            position: relative;
+            top: 50%;
+            display: block;
+            cursor: pointer;
+            color: #888
+        }
+
+        .option input {
+            display: none
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 40%;
+            left: -25px;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 50%
+        }
+
+        .option input:checked~.checkmark:after {
+            display: block
+        }
+
+        .option .checkmark:after {
+            content: "\2713";
+            width: 10px;
+            height: 10px;
+            display: block;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: 200ms ease-in-out 0s
+        }
+
+        .option:hover input[type="radio"]~.checkmark {
+            background-color: #f4f4f4
+        }
+
+        .option input[type="radio"]:checked~.checkmark {
+            background: #ac1f32;
+            color: #fff;
+            transition: 300ms ease-in-out 0s
+        }
+
+        .option input[type="radio"]:checked~.checkmark:after {
+            transform: translate(-50%, -50%) scale(1);
+            color: #fff
+        }
+    </style>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white pt-3 px-md-4 px-2">
+            <div class="container-fluid"> <a class="navbar-brand" href="#">clothing</a> <button class="navbar-toggler"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
+                    aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="nav">
+
+
+                </div>
+            </div>
+        </nav>
+        <div class="row px-md-4 px-2 pt-4">
+            <div class="col-lg-8">
+                <p class="pb-2 fw-bold">Order</p>
+                <div class="card">
+                    <div class="ribbon ribbon-top-right"><span>SALE TIME!</span></div>
+                    <div style="overflow: scroll; height: 24em;">
+                        <div class="table-responsive px-md-4 px-2 pt-3">
+                            <table class="table table-borderless">
+
+
+                                <tbody>
+                                    <tr class="border-bottom" th:each="cart: ${cartList}">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div> <img class="pic"
+                                                           th:src="${'/all-Image/' + cart.product.images[0].fileName}"
+                                                        alt=""> </div>
+                                                <div class="ps-3 d-flex flex-column justify-content">
+                                                    <input type="hidden" name="cartId" th:value="${cart.id}" />
+
+
+                                                    <p class="fw-bold"><span class="ps-1"  ></span>
+                                                        <span
+                                                            class="ps-1" th:text="${cart.product.name}">
+                                                        </span>
+                                                    </p>
+
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="d-flex">
+
+                                                <p class="pe-3"><span class="red" th:text="${cart.product.selPrice}"></span></p>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <br>
+                                            <br>
+                                            <div class="d-flex align-items-center"> <span class="pe-3 text-muted">Quantity</span>
+
+
+                                                <form   th:action="@{/addQuantityInPaymentSide}" method="get">
+                                                    <input type="hidden" name="cartId" th:value="${cart.id}" />
+
+                                                <select id="quantity" name="quantity">
+                                                    <option th:each="quantity : ${#numbers.sequence(1, 10)}"
+                                                            th:value="${quantity}" th:text="${quantity}"
+                                                            th:selected="${quantity == cart.quantity}">1</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-primary">submit</button>
+                                            </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 payment-summary">
+                <p class="fw-bold pt-lg-0 pt-4 pb-2">Payment Summary</p>
+                <div class="card px-md-3 px-2 pt-4">
+                    <div class="unregistered mb-4"> <span class="py-1">unregistered account</span> </div>
+                    <div class="d-flex justify-content-between pb-3"> <small class="text-muted">Transaction code</small>
+                        <p class="">VC115665</p>
+                    </div>
+
+                    <form  method="get" th:action="@{/couponAdd}" th:object="${couponDTO}">
+                    <div class="d-flex justify-content-between b-bottom">
+                        <input type="text" class="ps-2" placeholder="COUPON CODE"  name="coupon">
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    </div>
+
+                    </form>
+
+
+
+                    <div class="d-flex flex-column b-bottom">
+                        <div class="d-flex justify-content-between py-3"> <small class="text-muted">Order
+                                Summary</small>
+                            <p>$122</p>
+                        </div>
+                        <div class="d-flex justify-content-between pb-3"> <small class="text-muted">Additional
+                                Service</small>
+                            <p>$22</p>
+                        </div>
+                        <div class="d-flex justify-content-between"> <small class="text-muted">Total Amount</small>
+                            <p>$132</p>
+                        </div>
+                    </div>
+                    <div class="sale my-3"> <span>sale<span class="px-1">expiring</span><span>in</span>:</span><span
+                            class="red">21<span class="ps-1">hours</span>,31<span class="ps-1 ">minutes</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 delivery px-md-3 px-1"  style="padding: 45px 8px;">
+                <p class="pt-4 fw-bold pb-3 ps-2">Shipping Delivery</p>
+
+
+
+                <div class="d-md-flex justify-content-between align-items-center pb-4">
+                    <div class="size d-flex ps-4">
+                        <label th:each="address, iterStat : ${userAddresses}" class="option d-flex align-items-center">
+                            <input type="radio"
+                                   name="address-radio"
+                                   th:value="${address.id}" />
+
+                            <div class="card" style="    padding: 10px 5px;
+                                                                        background: #a95252;
+                                                                           color: white;">
+                                <div  class="d-flex align-items-center">
+                                    <div style="padding: 6px 145px;">
+                                        <p class="fw-bold pb-1" th:text="${address.houseName}"></p>
+                                        <span class="pymt-type-desc" th:text="${address.area}" style="color: #000;"></span>
+                                        <span class="pymt-type-desc" th:text="${address.town}" style="color: #000;"></span>
+                                        <span class="pymt-type-desc" th:text="${address.city}" style="color: #000;"></span>
+                                        <span class="pymt-type-desc" th:text="${address.state}" style="color: #000;"></span>
+                                        <span class="pymt-type-desc" th:text="${address.pin}" style="color: #000;"></span>
+                                        <span class="pymt-type-desc" th:text="${address.landMarker}" style="color: #000;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="checkmark"></span>
+
+                            <!-- Remove Button -->
+                            <a href="#" class="remove-button" th:if="${iterStat.index > 0}">Remove</a>
+
+                            <!-- Edit Button -->
+                            <a th:href="@{'/updateUserInPaymentPage/' + ${address.id}}" class="btn btn-warning btn-sm">Edit</a>
+
+                        </label>
+                    </div>
+                </div>
+
+
+                <!--                <div class="d-md-flex justify-content-between align-items-center pb-4">-->
+<!--                    <div class="size d-flex ps-4">-->
+<!--                        <label   th:each="address : ${userAddresses}" class="option d-flex align-items-center">-->
+<!--                        <input type="radio"-->
+<!--                                name="address-radio"-->
+<!--                               th:value="${address.id}">-->
+<!--                                -->
+
+
+
+<!--                                <div class="card">-->
+<!--                                    <div class="d-flex align-items-center">-->
+
+<!--                                    <div class=" d-flex flex-column px-3">-->
+<!--                                        <p class="fw-bold pb-1" th:text="${address.houseName}"></p>-->
+
+<!--                                        <span class="pymt-type-desc" th:text="${address.area}" style="color: #000;">-->
+<!--                                         </span>-->
+<!--                                        <span class="pymt-type-desc" th:text="${address.town}" style="color: #000;">-->
+<!--                                         </span>-->
+<!--                                        <span class="pymt-type-desc" th:text="${address.city}" style="color: #000;">-->
+<!--                                         </span>-->
+<!--                                        <span class="pymt-type-desc" th:text="${address.state}" style="color: #000;">-->
+<!--                                        </span>-->
+<!--                                        <span class="pymt-type-desc" th:text="${address.pin}" style="color: #000;">-->
+<!--                                         </span>-->
+<!--                                        <span class="pymt-type-desc" th:text="${address .landMarker}" style="color: #000;">-->
+<!--                                         </span>-->
+
+<!--                                    </div>-->
+
+<!--                                </div>-->
+
+<!--                            </div> <span class="checkmark"></span>-->
+<!--                        </label> </div>-->
+
+<!--                </div>-->
+
+            </div>
+            <div class="col-lg-4">
+                <p class="pt-4 fw-bold pb-3">Payment Options</p>
+                <div class="card px-md-3 px-2 pt-4">
+
+                    <div class="card p-3 mb-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="fw-bold">Cash on delivery</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <input name="payment-option" value="COD" class="form-check-input" type="radio"
+                                    id="SwitchCheck">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-3 mb-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="fw-bold">UPI</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <input name="payment-option" value="ONLINE" class="form-check-input" type="radio"
+                                    id="SwitchCheck">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn btn-primary mb-2" place_order>SUBMIT</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+
+
+
+        const placeOrderButton = document.querySelector("[place_order]");
+
+        placeOrderButton.addEventListener("click", async () => {
+            const selectedPaymentOption = $(
+                'input[name="payment-option"]:checked'
+            ).val();
+
+            const selectedAddressOption = $('input[name="address-radio"]:checked').val();
+
+            if (selectedPaymentOption && selectedAddressOption) {
+                console.log(selectedPaymentOption, selectedAddressOption)
+
+                const addressId = selectedAddressOption
+
+                    try {
+                        await placeOrder(
+                            addressId,
+                            selectedPaymentOption,
+                        );
+                    } catch (error) {
+                        console.log(error);
+                    }
+            } else {
+                alert("Warning Please select payment method or shipping address");
+            }
+        });
+
+
+        async function placeOrder(
+            addressId,
+            selectedPaymentOption,
+        ) {
+            try {
+
+                const axiosResponse = await axios.get(`/checkoutProduct?userAddress=${addressId}&paymentMethod=${selectedPaymentOption}`);
+
+                if (selectedPaymentOption === "COD") {
+                    console.log("Payment", selectedPaymentOption)
+
+
+
+                                   Swal.fire(
+                                    'Good job!',
+                                   'You clicked the button!',
+                                    'success'
+                                     )
+
+                    setTimeout(function () {
+                        window.location.href = "/myorders";
+                    }, 3000);
+
+                } else if (selectedPaymentOption === "ONLINE") {
+
+                    const orderID = axiosResponse.data.orderId;
+                    const KEY_ID = "rzp_test_Vv4K0xZB1OflgS";
+                    const options = {
+                        key: KEY_ID,
+                        amount: axiosResponse.data.amount * 100,
+                        currency: "INR",
+                        name: "Western hills",
+                        description: "Payment for Purchase",
+                        order_id: orderID,
+                        handler: async function (response) {
+                            if (response.razorpay_payment_id) {
+
+                                 const res = await axios.post(
+                                    "/placeOrder",
+                                     {
+                                         paymentId: response.razorpay_payment_id,
+                                         shippingAddress: addressId,
+                                         paymentMethod: selectedPaymentOption,
+                                         totalPrice: axiosResponse.data.amount,
+                                     }
+                                 );
+
+                                setTimeout(function () {
+                                    window.location.href = "/myorders";
+                                }, 3000);
+                            }
+                        },
+                        prefill: {
+                            email: "user@example.com",
+                            contact: "9876543210",
+                        },
+                    };
+
+                    const razorpayInstance = new Razorpay(options);
+                    razorpayInstance.open();
+                }
+            } catch (error) {
+                console.error("Error placing order:", error);
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+</body>
+
+
+
+</html>

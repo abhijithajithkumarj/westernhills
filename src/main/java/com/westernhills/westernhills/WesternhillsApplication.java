@@ -1,6 +1,6 @@
 package com.westernhills.westernhills;
 
-import com.westernhills.westernhills.entity.User;
+import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,18 +18,24 @@ public class WesternhillsApplication {
 
 	}
 
-	@Bean
-	CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder) {
-		return args->{
+//	@Bean
+//	CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder) {
+//		return args->{
+//
+//			User admin=User.builder().username("admin")
+//					.email("admin@gmail.com")
+//					.password(encoder.encode("password2"))
+//					.roles("ROLE_USER,ROLE_ADMIN")
+//					.build();
+//			//userRepository.save(admin);
+//		};
+//	}
+//
+////	  System.out.println(cartList.get(0).getProduct());
 
-			User admin=User.builder().username("admin")
-					.email("admin@gmail.com")
-					.password(encoder.encode("password2"))
-					.roles("ROLE_USER,ROLE_ADMIN")
-					.build();
-			//userRepository.save(admin);
-		};
-	}
+
+
+
 
 }
 

@@ -2,16 +2,15 @@ package com.westernhills.westernhills.service;
 
 import com.westernhills.westernhills.entity.admin.Image;
 import com.westernhills.westernhills.repo.ImageRepository;
+import com.westernhills.westernhills.service.interfaceService.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
-public class ImageServiceImpl implements ImageService{
+public class ImageServiceImpl implements ImageService {
 
 
     @Autowired

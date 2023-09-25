@@ -1,13 +1,11 @@
 package com.westernhills.westernhills.service;
 
-import com.westernhills.westernhills.entity.User;
 import com.westernhills.westernhills.entity.admin.Category;
 import com.westernhills.westernhills.repo.CategoryRepository;
+import com.westernhills.westernhills.service.interfaceService.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,8 +15,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
-
 
 
     @Override
@@ -96,6 +92,11 @@ public class CategoryServiceImpl implements CategoryService {
         Category upDate = newCategory.get();
         upDate.setName(category.getName());
 
+    }
+
+    @Override
+    public Optional<Category> findByName(String categoryName) {
+        return categoryRepository.findByName(categoryName);
     }
 
 

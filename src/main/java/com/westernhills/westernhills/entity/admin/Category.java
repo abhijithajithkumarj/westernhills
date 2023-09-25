@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,14 +28,18 @@ public class Category extends SuperEntity {
 
     @Column(unique=true)
     private String name;
-//    private String description;
-//    private boolean is_deleted;
 
 
-    //relationships
+
+
     @OneToMany(mappedBy = "category")
     @ToString.Exclude
     private List<Product> products = new ArrayList<>();
+
+
+
+
+
 
 
 }

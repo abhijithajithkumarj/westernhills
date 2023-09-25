@@ -199,7 +199,7 @@
                     <th scope="col" style="font-weight: bolder;font-size: larger;">Category</th>
                     <th scope="col" style="font-weight: bolder;font-size: larger;">Image</th>
                     <th scope="col" style="font-weight: bolder;font-size: larger;">selPrice</th>
-                    <th scope="col" style="font-weight: bolder;font-size: larger;">Description</th>
+                    <th scope="col" style="font-weight: bolder;font-size: larger;">Stock</th>
                     <th scope="col" style="font-weight: bolder;font-size: larger;">Action</th>
                 </tr>
                 </thead>
@@ -220,11 +220,9 @@
                             <img style="margin-left: 4px;width: 30px;height: 37px;border-radius: 20%;" th:src="${'/all-Image/'+image.fileName}">
                         </div>
                         </div>
-                        </td>
+                    </td>
                     <td th:text="${product.selPrice}"></td>
-                    <td th:text="${product.description}"></td>
-
-
+                    <td th:text="${product.stock}"></td>
                     <td>
                         <a th:href="@{/deleteProduct/{id}(id=${product.uuid})}" class="btn btn-danger btn-sm">Delete</a>
                         <a th:href="@{'/update-product/' + ${product.uuid}}" class="btn btn-primary btn-sm">Update</a>
