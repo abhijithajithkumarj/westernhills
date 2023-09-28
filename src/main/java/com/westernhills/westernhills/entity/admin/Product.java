@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Table(name = "product")
-public class    Product extends SuperEntity
+public class  Product extends SuperEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")

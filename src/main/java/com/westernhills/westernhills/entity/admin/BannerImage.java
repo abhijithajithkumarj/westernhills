@@ -1,6 +1,5 @@
 package com.westernhills.westernhills.entity.admin;
 
-
 import com.westernhills.westernhills.entity.SuperEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,38 +14,38 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Image extends SuperEntity {
+@Builder
+public class BannerImage extends SuperEntity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID uuid;
+    private UUID id;
+
 
 
 
     private String fileName;
 
 
-
-
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product_id;
+    @JoinColumn(name = "banner_id")
+    private  Banner banner_id;
 
 
 
 
-
-
-
-
-    public Image(String fileName, Product product) {
+    public BannerImage(String fileName,  Banner banner) {
         this.fileName = fileName;
-        this.product_id = product;
+        this.banner_id = banner;
     }
+
+
+
+
+
 
 
 

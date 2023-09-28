@@ -1,22 +1,21 @@
 package com.westernhills.westernhills.entity.admin;
 
 
-import com.westernhills.westernhills.entity.SuperEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
-
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Image extends SuperEntity {
-
+@Builder
+public class Banner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
@@ -25,28 +24,22 @@ public class Image extends SuperEntity {
     private UUID uuid;
 
 
-
-    private String fileName;
-
+    private String name;
 
 
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product_id;
+    @Lob
+    private String description;
 
 
+    @OneToMany(mappedBy = "banner_id", cascade = CascadeType.ALL )
+    private List<BannerImage> bannerImages;
 
 
 
 
 
 
-    public Image(String fileName, Product product) {
-        this.fileName = fileName;
-        this.product_id = product;
-    }
 
 
 

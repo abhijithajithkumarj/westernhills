@@ -26,6 +26,11 @@
     <link href="assets/css/app-style.css" rel="stylesheet"/>
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -50,13 +55,6 @@
             <li>
                 <a href="index.html">
                     <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-
-
-            <li>
-                <a th:href="@{/showBanner}">
-                    <i class="zmdi zmdi-view-dashboard"></i> <span>Banner</span>
                 </a>
             </li>
 
@@ -189,67 +187,51 @@
     <div class="container-fluid mt-5 p-3">
 
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add new category</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+            Add Banner
+        </button>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: black; color: white;">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-dark" id="exampleModalLabel">New message</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Bootstrap 5 Modal with Image Upload and Crop</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
+
+                    <!-- Modal body -->
                     <div class="modal-body">
-                        <form  th:action="@{/CategoryCoupons}" th:object="${coupon}" method="get">
-                            <div class="form-group">
-                                <label for="offerName" class="col-form-label text-dark" style="color: white;">Offer Name:</label>
-                                <input type="text" class="form-control" id="offerName" name="couponCode" placeholder="Coupon Code" style="color: black;">
+                        <!-- Input Fields -->
+                        <form th:action="@{/addBanner}" th:object="${banner}" method="post" style="background-color: black;">
+                            <div class="mb-3">
+                                <label for="inputName" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="inputName" placeholder="Enter Banner name" name="name">
                             </div>
-
-
-                            <div class="form-group">
-                                <label for="offerPrice" class="col-form-label text-dark" style="color: white;">Offer Price:</label>
-                                <input type="text" class="form-control" id="offerPrice" name="quantity" placeholder="quantity" required style="color: black;">
+                            <div class="mb-3">
+                                <label for="Description" class="form-label">Description:</label>
+                                <input type="text" class="form-control" id="Description" placeholder="Enter Description" name="description">
                             </div>
-
-                            <div class="form-group">
-                                <label for="offerPrice" class="col-form-label text-dark" style="color: white;">Offer Price:</label>
-                                <input type="text" class="form-control" id="offerPrice1" name="percentage" placeholder="percentage" required style="color: black;">
+                            <div class="mb-3">
+                                <label for="imageUpload" class="form-label">Upload Image:</label>
+                                <input type="file" class="form-control" id="imageUpload" name="files" multiple>
                             </div>
-
-
-
-
-                            <div class="form-group">
-                                <label for="productSelect" class="col-form-label text-dark" style="color: white;">Select Product:</label>
-                                <select class="form-control" id="productSelect" name="category" style="color: black;">
-                                    <option th:each="category : ${category}"
-                                            th:value="${category.id}"
-                                            th:text="${category.name}">
-                                    </option>
-                                </select>
+                            <div class="mb-3">
+                                <img id="croppedImage" src="" alt="Cropped Image" style="max-width: 100%; height: auto;">
                             </div>
-
-
-                            <div class="form-group">
-                                <label for="expirationDate" class="col-form-label text-dark" style="color: white;">Expiration Date:</label>
-                                <input type="date" class="form-control" id="expirationDate" name="expirationDate" style="color: black;">
+                            <div class="modal-footer">
+<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                                <button type="button" class="btn btn-primary" id="cropImage">Crop Image</button>-->
+                                <button type="submit" class="btn btn-success" id="saveChanges">Save</button>
                             </div>
-
-
-                            <button type="submit" class="btn btn-primary" style="color: black;">Submit</button>
                         </form>
+
                     </div>
+
                 </div>
             </div>
         </div>
-
-
-
-
-
-
 
         <div class="table-div">
             <table class="table">
@@ -270,7 +252,16 @@
 
                     <td ></td>
                     <td></td>
+                    <td>
+                        <div class="row">
 
+
+                            <div>
+
+                                <img style="margin-left: 4px;width: 30px;height: 37px;border-radius: 20%;">
+                            </div>
+                        </div>
+                    </td>
                     <td ></td>
                     <td ></td>
 
@@ -311,8 +302,58 @@
 <!-- sidebar-menu js -->
 <script src="assets/js/sidebar-menu.js"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+
+
 <!-- Custom scripts -->
 <script src="assets/js/app-script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize Cropper.js
+        const imageUpload = document.getElementById('imageUpload');
+        const croppedImage = document.getElementById('croppedImage');
+        const cropImageBtn = document.getElementById('cropImage');
+
+        let cropper;
+
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                if (cropper) {
+                    cropper.destroy();
+                }
+                croppedImage.src = event.target.result;
+
+                cropper = new Cropper(croppedImage, {
+                    aspectRatio: 1, // You can set the aspect ratio as needed
+                    viewMode: 2,    // You can adjust the view mode as needed
+                });
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        // Handle cropping and saving the image
+        cropImageBtn.addEventListener('click', () => {
+            if (cropper) {
+                const canvas = cropper.getCroppedCanvas();
+                if (canvas) {
+                    const croppedDataUrl = canvas.toDataURL('image/jpeg'); // Get the cropped image data URL
+                    alert('Cropped Image Data URL:\n' + croppedDataUrl);
+                } else {
+                    alert('Please select an image and crop it before saving.');
+                }
+            } else {
+                alert('Please select an image before cropping.');
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

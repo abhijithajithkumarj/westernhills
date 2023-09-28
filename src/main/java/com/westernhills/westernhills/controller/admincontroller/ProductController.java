@@ -96,6 +96,11 @@ public class ProductController{
 
     public String addProducts(@ModelAttribute("productDTO") ProductDto productDto,Model model,
                               @RequestParam("productImage") List<MultipartFile> files) throws IOException {
+
+
+
+
+
         Product product = new Product();
         product.setUuid(productDto.getId());
         product.setName(productDto.getName());
@@ -119,6 +124,7 @@ public class ProductController{
             images.add(image);
         }
         product.setImages(images);
+
         productService.addProduct(product);
         model.addAttribute("products",productService.getAllProducts());
 
