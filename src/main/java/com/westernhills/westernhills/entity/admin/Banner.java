@@ -1,6 +1,7 @@
 package com.westernhills.westernhills.entity.admin;
 
 
+import com.westernhills.westernhills.entity.SuperEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -15,7 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Banner {
+@ToString
+public class Banner extends SuperEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")

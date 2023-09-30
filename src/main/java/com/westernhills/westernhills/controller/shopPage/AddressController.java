@@ -100,6 +100,7 @@ import java.util.stream.Collectors;
 
             }else{
                 if (userAddress.isDefaultAddress()){
+
                     UserAddress existingDefaultAddress=userAddressList.stream()
                             .filter(UserAddress::isDefaultAddress)
                             .findFirst()
@@ -110,6 +111,8 @@ import java.util.stream.Collectors;
                         existingDefaultAddress.setDefaultAddress(false);
                         addressService.save(existingDefaultAddress);
                     }
+
+
                     addressService.save(userAddress);
                 }
 

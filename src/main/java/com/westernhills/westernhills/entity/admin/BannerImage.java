@@ -43,10 +43,4 @@ public class BannerImage extends SuperEntity {
     }
 
 
-
-
-
-
-
-
 }

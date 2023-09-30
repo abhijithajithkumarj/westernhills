@@ -60,10 +60,18 @@
             </li>
 
             <li>
-                <a href="icons.html">
-                    <i class="zmdi zmdi-invert-colors"></i> <span>UI Icons</span>
+                <a th:href="@{/ShowSalesReport}">
+                    <i class="zmdi zmdi-view-dashboard" ></i> <span>Sales Report</span>
                 </a>
             </li>
+
+            <li>
+                <a th:href="@{/showAllOrder}">
+                    <i class="zmdi zmdi-invert-colors"></i> <span>All Oder</span>
+                </a>
+            </li>
+
+
 
             <li>
                 <a  th:href="@{/category}">
@@ -85,8 +93,8 @@
             </li>
 
             <li>
-                <a href="profile.html">
-                    <i class="zmdi zmdi-face"></i> <span>Profile</span>
+                <a th:href="@{/ShowAddCoupons}">
+                    <i class="zmdi zmdi-face"></i> <span>Add Coupon</span>
                 </a>
             </li>
 
@@ -96,11 +104,11 @@
                 </a>
             </li>
 
-            <li>
-                <a href="register.html" target="_blank">
-                    <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="register.html" target="_blank">-->
+<!--                    <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>-->
+<!--                </a>-->
+<!--            </li>-->
 
             <li class="sidebar-header">LABELS</li>
             <li><a href="javaScript:void();"><i class="zmdi zmdi-coffee text-danger"></i> <span>Important</span></a></li>
@@ -211,12 +219,12 @@
                                 <td th:text="${coupon.quantity}"></td>
                             </tr>
 
-                            <td>
-                                <a th:href="@{/deleteCoupon/{id}(id=${coupon.id})}" class="btn btn-danger btn-sm">Delete</a>
+<!--                            <td>-->
+<!--                                <a th:href="@{/deleteCoupon/{id}(id=${coupon.id})}" class="btn btn-danger btn-sm">Delete</a>-->
 
 
-<!--                                <a th:href="@{'/update-product/' + ${coupon.uuid}}" class="btn btn-primary btn-sm">Update</a>-->
-                            </td>
+<!--&lt;!&ndash;                                <a th:href="@{'/update-product/' + ${coupon.uuid}}" class="btn btn-primary btn-sm">Update</a>&ndash;&gt;-->
+<!--                            </td>-->
 
                             </tbody>
                         </table>

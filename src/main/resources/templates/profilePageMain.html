@@ -2,11 +2,11 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Flat Able - Premium Admin Template by Phoenixcoded</title>
+<!--    <title>Flat Able - Premium Admin Template by Phoenixcoded</title>-->
 
-    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    	<![endif]-->
+<!--    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+<!--    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
+<!--    	<![endif]&ndash;&gt;-->
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -50,10 +50,6 @@
 
 				<ul class="nav pcoded-inner-navbar ">
 
-					<li class="nav-item">
-					    <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-					</li>
-
 					<li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Navigation</span></a>
 						<ul class="pcoded-submenu">
@@ -69,18 +65,7 @@
 
 							<li><a th:href="@{/getUserOrder}">Order</a></li>
 
-<!--							<li></li>-->
 
-
-<!--							<li><a href="bc_grid.html">Grid system</a></li>-->
-<!--							<li><a href="bc_progress.html">Progress</a></li>-->
-<!--							<li><a href="bc_modal.html">Modal</a></li>-->
-<!--							<li><a href="bc_spinner.html">Spinner</a></li>-->
-<!--							<li><a href="bc_tabs.html">Tabs & pills</a></li>-->
-<!--							<li><a href="bc_typography.html">Typography</a></li>-->
-<!--							<li><a href="bc_tooltip-popover.html">Tooltip & popovers</a></li>-->
-<!--							<li><a href="bc_toasts.html">Toasts</a></li>-->
-<!--							<li><a href="bc_extra.html">Other</a></li>-->
 						</ul>
 					</li>
 
@@ -236,12 +221,9 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Dashboard Analytics</h5>
+
                         </div>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
-                        </ul>
+
                     </div>
                 </div>
             </div>
@@ -522,20 +504,6 @@
 
 								</thead>
 								<tbody>
-<!--								<tr th:each="walletList: ${walletList}">-->
-<!--									<td>-->
-<!--										<div class="chk-option"></div>-->
-<!--										<div class="d-inline-block align-middle">-->
-<!--											<img th:src="${'/all-Image/' + walletList.product.images[0].fileName}" alt="user image" class="img-radius wid-40 align-top m-r-15">-->
-<!--											<div class="d-inline-block">-->
-<!--												<h6 th:text="${walletList.product.name}"></h6>-->
-<!--												<p class="text-muted m-b-0" th:text="${walletList.product.stock}"></p>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</td>-->
-<!--									<td></td>-->
-<!--									<td><a th:href="@{'/removeWishlist/' + ${walletList.id}}">Remove</a></td>-->
-<!--								</tr>-->
 
 
 								</tbody>
@@ -582,47 +550,6 @@
 				</div>
 			</div>
 
-
-
-
-			<!--			<div class="col-xl-4 col-md-12">-->
-<!--				<div class="card">-->
-<!--					<div class="card-body">-->
-<!--						<form   method="post" action="/referralCode">-->
-<!--							<div class="row align-items-center">-->
-<!--								<div class="col-6">-->
-<!--									<label for="referralCode">Referral Code:</label>-->
-<!--									<input type="text" id="referralCode" name="referralCode" required>-->
-<!--								</div>-->
-
-<!--							</div>-->
-<!--							<button type="submit">Submit</button>-->
-<!--						</form>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-
-
-
-<!--			<div class="col-xl-4 col-md-6">-->
-<!--				<div class="card">-->
-<!--					<div class="card-body">-->
-
-<!--							<div class="row align-items-center">-->
-<!--								<div class="col-6">-->
-<!--									<h6 class="text-muted m-b-0">Referral Coupon</h6>-->
-<!--								</div>-->
-<!--								<div class="col-6">-->
-<!--									<div class="form-group">-->
-<!--										<p>Referral Code: <span th:text="${referralCode}"></span></p>-->
-<!--									</div>-->
-<!--									<button type="submit" class="btn btn-primary"><a th:href="@{/generateReferralCode}">Generate Code</a></button>-->
-<!--								</div>-->
-<!--							</div>-->
-
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
 
 
             <div class="col-xl-4 col-md-6">

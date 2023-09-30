@@ -1,9 +1,11 @@
 package com.westernhills.westernhills.controller.shopPage;
 
 
+import com.westernhills.westernhills.entity.admin.Banner;
 import com.westernhills.westernhills.entity.admin.Category;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.repo.CategoryRepository;
+import com.westernhills.westernhills.service.interfaceService.BannerService;
 import com.westernhills.westernhills.service.interfaceService.CategoryService;
 import com.westernhills.westernhills.service.interfaceService.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,10 @@ public class ShopController {
 
 
     @Autowired
+    private BannerService bannerService;
+
+
+    @Autowired
     private CategoryRepository categoryRepository;
 
 
@@ -37,7 +43,7 @@ public class ShopController {
 
     @GetMapping("/index")
     public String homePage(){
-        return "index-17";
+        return "redirect:/";
     }
 
     @GetMapping("/findProducts")
@@ -47,9 +53,16 @@ public class ShopController {
                 .filter(product -> !product.isDeleted())
                 .collect(Collectors.toList());
 
+        List<Banner> banner=bannerService.findAll()
+                        .stream()
+                        .filter(banner1 -> !banner1.isDeleted())
+                        .collect(Collectors.toList());
+
         model.addAttribute("category",categoryService.getAllCategories());
         System.out.println(categoryService.getAllCategories());
         model.addAttribute("products",products);
+
+            model.addAttribute("banner" , banner);
         return "productShop";
     }
 

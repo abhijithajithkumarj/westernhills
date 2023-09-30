@@ -66,26 +66,8 @@
                             </li>
                         </ul><!-- End .top-menu -->
 
-                        <div class="header-dropdown">
-                            <a href="#">USD</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">Eur</a></li>
-                                    <li><a href="#">Usd</a></li>
-                                </ul>
-                            </div><!-- End .header-menu -->
-                        </div><!-- End .header-dropdown -->
 
-                        <div class="header-dropdown">
-                            <a href="#">Eng</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">Spanish</a></li>
-                                </ul>
-                            </div><!-- End .header-menu -->
-                        </div><!-- End .header-dropdown -->
+
                     </div><!-- End .header-right -->
                 </div>
             </div>
@@ -110,18 +92,9 @@
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
-                        <a href="wishlist.html" class="wishlist-link">
-                            <i class="icon-heart-o"></i>
-                            <span class="wishlist-count">3</span>
-                            <span class="wishlist-txt">My Wishlist</span>
-                        </a>
+
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
-                                <span class="cart-txt">$ 164,00</span>
-                            </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-cart-products">
@@ -200,7 +173,7 @@
 
                                 <li>
                                     <a th:href="@{/cartShow}" class="sf-with-ul">Cart</a>
-\
+
                                 </li>
 
 
@@ -212,7 +185,7 @@
 
 
                                 <li>
-                                    <a th:href="@{/customers}" class="sf-with-ul">Order</a>
+                                    <a th:href="@{/getUserOrder}" class="sf-with-ul">Order</a>
 
 
                                 </li>
@@ -221,29 +194,12 @@
                                 <li>
                                     <a th:href="@{/customers}" class="sf-with-ul">Profile</a>
 
-
                                 </li>
-
 
                                 <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
-
-
+                                    <a   href="/logout" class="btn sf-with-ul">Logout</a>
                                 </li>
 
-
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
-
-
-                                </li>
-
-
-
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                </li>
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
 
@@ -265,10 +221,10 @@
                 <div class="container">
                     <div class="banner-group">
                         <div class="row">
-                            <div class="col-lg-5">
+                            <div class="col-lg-5" th:each="banner : ${banner}">
                                 <div class="banner banner-big banner-overlay">
                                     <a href="#">
-                                        <img src="assetsss/images/demos/demo-17/banners/banner-1.jpg" alt="Banner">
+                                        <img th:src="${'/banner-image/' + banner.bannerImages[0].fileName}" alt="Banner">
                                     </a>
 
                                     <div class="banner-content banner-content-bottom">
@@ -410,7 +366,7 @@
                                 <div class="product product-4">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img th:src="${'/all-Image/' + product.images[0].fileName}"  alt="Product image" class="product-image">
+                                            <img th:src="${'/all-Image/' + product.images[0].fileName}"  alt="Product image" class="product-image"  style="width: 350px; height: 400px;">
 
                                         </a>
 
@@ -419,9 +375,11 @@
 
                                         </div><!-- End .product-action -->
 
+
                                         <div class="product-action">
-                                            <a  th:href="@{'/productDetail/'+ ${product.uuid}}" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
+                                            <a  th:href="@{'/productDetail/'+ ${product.uuid}}" class="btn-product btn-cart"><span>Show Product</span></a>
+                                        </div>
+                                        <!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
                                     <div class="product-body">
@@ -440,9 +398,8 @@
                                 </div><!-- End .product -->
                             </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
 
-
                         </div><!-- End .row -->
-                    </div><!-- .End .tab-pane -->
+                    </div>
 
                     <div class="tab-pane fade" id="tab-featured" role="tabpanel" aria-labelledby="tab-featured-link">
                         <div class="row justify-content-center">
@@ -1071,7 +1028,7 @@
 
                             <div class="entry-body">
                                 <div class="entry-meta">
-                                    <a href="#">Nov 22, 2018<a>, 0 Comments
+
                                 </div><!-- End .entry-meta -->
 
                                 <h3 class="entry-title">

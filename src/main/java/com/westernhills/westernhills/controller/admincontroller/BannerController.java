@@ -25,7 +25,9 @@ public class BannerController {
 
 
     @GetMapping("/showBanner")
-    public  String showBanner(Model model){
+    public String showBanner(Model model) {
+        List<Banner> banners = bannerService.findAll();
+        model.addAttribute("banners", banners);
         return "admin/bannerPage";
     }
 
@@ -33,13 +35,12 @@ public class BannerController {
     @PostMapping("/addBanner")
     public String setBanner(@ModelAttribute("banner") Banner banner, Model model,
                             @RequestParam("files") List<MultipartFile> files) throws IOException {
-        bannerService.addBanner(banner,files);
+        bannerService.addBanner(banner, files);
 
-        model.addAttribute("banner",bannerService.findAll());
+
         return "redirect:/showBanner";
-
-
     }
+
 
 
 

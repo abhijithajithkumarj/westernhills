@@ -55,9 +55,12 @@ public class SalesReportController {
     @PostMapping("/dateSalesReport")
     public String checkOutByStarAndEndDate(@RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  LocalDate endDate,
-                                           Model model){
+                                           Model model,HttpSession session){
 
         List<CheckOut> orders= salesReportService.findByCreatedAtBetween(startDate,endDate);
+        String token= UUID.randomUUID().toString();
+        session.setAttribute(token ,orders);
+        model.addAttribute("token",token);
         model.addAttribute("orders",orders);
         return "admin/salesReportList";
     }

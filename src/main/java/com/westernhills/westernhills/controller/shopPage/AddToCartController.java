@@ -53,6 +53,16 @@ public class AddToCartController {
     }
 
 
+    @PostMapping("/addThoughProductInCart")
+    public String addThoughCart(@RequestParam(name = "productId")UUID productId,
+                          @AuthenticationPrincipal(expression = "username")String username
+    ){
+        System.out.println(username);
+        cartService.addToCartItem(username, productId);
+        return "productShowAndDetils";
+    }
+
+
 
     @GetMapping("/cartShow")
     public String showCart(Model model,

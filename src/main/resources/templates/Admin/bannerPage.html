@@ -204,7 +204,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <!-- Input Fields -->
-                        <form th:action="@{/addBanner}" th:object="${banner}" method="post" style="background-color: black;">
+                        <form th:action="@{/addBanner}" th:object="${banner}" method="post" style="background-color: black;"  enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="inputName" class="form-label">Name:</label>
                                 <input type="text" class="form-control" id="inputName" placeholder="Enter Banner name" name="name">
@@ -217,13 +217,11 @@
                                 <label for="imageUpload" class="form-label">Upload Image:</label>
                                 <input type="file" class="form-control" id="imageUpload" name="files" multiple>
                             </div>
-                            <div class="mb-3">
-                                <img id="croppedImage" src="" alt="Cropped Image" style="max-width: 100%; height: auto;">
-                            </div>
+
                             <div class="modal-footer">
 <!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
 <!--                                <button type="button" class="btn btn-primary" id="cropImage">Crop Image</button>-->
-                                <button type="submit" class="btn btn-success" id="saveChanges">Save</button>
+                                <button type="submit" class="btn btn-success" >Save</button>
                             </div>
                         </form>
 
@@ -238,41 +236,37 @@
                 <thead  >
                 <tr>
                     <th scope="col" style="font-weight: bolder;font-size: larger;">Name</th>
-                    <th scope="col" style="font-weight: bolder;font-size: larger;">Category</th>
-                    <th scope="col" style="font-weight: bolder;font-size: larger;">Image</th>
-                    <th scope="col" style="font-weight: bolder;font-size: larger;">selPrice</th>
                     <th scope="col" style="font-weight: bolder;font-size: larger;">Description</th>
-                    <th scope="col" style="font-weight: bolder;font-size: larger;">Action</th>
+                    <th scope="col" style="font-weight: bolder;font-size: larger;">Image</th>
+
                 </tr>
                 </thead>
                 <tbody style="background-color:black;opacity:inherit">
 
-                <tr>
 
 
-                    <td ></td>
-                    <td></td>
+
+                <tr th:each="banner : ${banners}">
+                    <td th:text="${banner.name}"></td>
+                    <td th:text="${banner.description}"></td>
+
+
                     <td>
                         <div class="row">
-
-
-                            <div>
-
-                                <img style="margin-left: 4px;width: 30px;height: 37px;border-radius: 20%;">
+                            <div th:each="image : ${banner.bannerImages}">
+                                <img style="margin-left: 4px; width: 30px; height: 37px; border-radius: 20%;"
+                                     th:src="${'/banner-image/' + image.fileName}" />
                             </div>
                         </div>
                     </td>
-                    <td ></td>
-                    <td ></td>
-
 
                     <td>
                         <a  class="btn btn-danger btn-sm">Delete</a>
                         <a  class="btn btn-primary btn-sm">Update</a>
                     </td>
-
-
                 </tr>
+
+
                 </tbody>
             </table>
         </div>

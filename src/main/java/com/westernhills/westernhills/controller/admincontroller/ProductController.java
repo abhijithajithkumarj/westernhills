@@ -126,6 +126,8 @@ public class ProductController{
         product.setImages(images);
 
         productService.addProduct(product);
+
+
         model.addAttribute("products",productService.getAllProducts());
 
         return "redirect:/showProduct";
@@ -152,39 +154,22 @@ public class ProductController{
 
 
 
-    @PostMapping("/update-product")
-    public String updateProduct(@ModelAttribute("product") Product product,
-                                @RequestParam("newProductImage") MultipartFile newFile,
+    @GetMapping("/update-product/{id}")
+    public String updateProduct(@PathVariable UUID id,
                                 Model model) throws IOException {
+        Optional<Product> productDto = productService.getProductById(id);
+        model.addAttribute("productDto", productDto);
 
-        Optional<Product> optionalExistingProduct = productRepository.findById(product.getUuid());
+        return "admin/product-update";
+    }
 
-        if (optionalExistingProduct.isPresent()) {
-            Product existingProduct = optionalExistingProduct.get();
+    @PostMapping("/update-products")
+    public String updateProduct(@ModelAttribute("productDto") ProductDto productDto) {
 
-
-            existingProduct.setName(product.getName());
-            existingProduct.setCategory(product.getCategory());
-            existingProduct.setSelPrice(product.getSelPrice());
-            existingProduct.setDescription(product.getDescription());
-
-
-            if (!newFile.isEmpty()) {
-                Image image = new Image();
-                String imageUUID = newFile.getOriginalFilename();
-                Path filenameAndPath = Paths.get(uploadDir, imageUUID);
-                Files.write(filenameAndPath, newFile.getBytes());
-                image.setFileName(imageUUID);
-                image.setProduct_id(existingProduct);
-                existingProduct.getImages().add(image);
-            }
-
-
-            productService.addProduct(existingProduct);
-        }
-
+        productService.updateProduct(productDto);
         return "redirect:/showProduct";
     }
+
 
 
 

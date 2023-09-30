@@ -284,6 +284,8 @@
         </nav>
         <div class="row px-md-4 px-2 pt-4">
             <div class="col-lg-8">
+                <a th:href="@{/index}">Home</a>
+                <a th:href="@{/findProducts}">Shop</a>
                 <p class="pb-2 fw-bold">Order</p>
                 <div class="card">
                     <div class="ribbon ribbon-top-right"><span>SALE TIME!</span></div>
@@ -394,6 +396,9 @@
                 </div>
             </div>
 
+
+
+
             <div class="col-lg-8 delivery px-md-3 px-1"  style="padding: 45px 8px;">
                 <p class="pt-4 fw-bold pb-3 ps-2">Shipping Delivery</p>
 
@@ -434,43 +439,7 @@
                 </div>
 
 
-                <!--                <div class="d-md-flex justify-content-between align-items-center pb-4">-->
-<!--                    <div class="size d-flex ps-4">-->
-<!--                        <label   th:each="address : ${userAddresses}" class="option d-flex align-items-center">-->
-<!--                        <input type="radio"-->
-<!--                                name="address-radio"-->
-<!--                               th:value="${address.id}">-->
-<!--                                -->
 
-
-
-<!--                                <div class="card">-->
-<!--                                    <div class="d-flex align-items-center">-->
-
-<!--                                    <div class=" d-flex flex-column px-3">-->
-<!--                                        <p class="fw-bold pb-1" th:text="${address.houseName}"></p>-->
-
-<!--                                        <span class="pymt-type-desc" th:text="${address.area}" style="color: #000;">-->
-<!--                                         </span>-->
-<!--                                        <span class="pymt-type-desc" th:text="${address.town}" style="color: #000;">-->
-<!--                                         </span>-->
-<!--                                        <span class="pymt-type-desc" th:text="${address.city}" style="color: #000;">-->
-<!--                                         </span>-->
-<!--                                        <span class="pymt-type-desc" th:text="${address.state}" style="color: #000;">-->
-<!--                                        </span>-->
-<!--                                        <span class="pymt-type-desc" th:text="${address.pin}" style="color: #000;">-->
-<!--                                         </span>-->
-<!--                                        <span class="pymt-type-desc" th:text="${address .landMarker}" style="color: #000;">-->
-<!--                                         </span>-->
-
-<!--                                    </div>-->
-
-<!--                                </div>-->
-
-<!--                            </div> <span class="checkmark"></span>-->
-<!--                        </label> </div>-->
-
-<!--                </div>-->
 
             </div>
             <div class="col-lg-4">

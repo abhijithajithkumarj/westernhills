@@ -216,7 +216,8 @@
 
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.category.name}"></td>
-<!--                    <td th:text="${product.images}"></td>-->
+
+
                     <td>
                         <div class="row">
 
@@ -225,13 +226,16 @@
 
                             <img style="margin-left: 4px;width: 30px;height: 37px;border-radius: 20%;" th:src="${'/all-Image/'+image.fileName}">
                         </div>
+
                         </div>
                     </td>
                     <td th:text="${product.selPrice}"></td>
                     <td th:text="${product.stock}"></td>
                     <td>
                         <a th:href="@{/deleteProduct/{id}(id=${product.uuid})}" class="btn btn-danger btn-sm">Delete</a>
-                        <a th:href="@{'/update-product/' + ${product.uuid}}" class="btn btn-primary btn-sm">Update</a>
+
+
+<!--                        <a th:href="@{/update-product/{id}(id=${product.uuid})}" class="btn btn-primary btn-sm">Update</a>-->
                     </td>
 
 

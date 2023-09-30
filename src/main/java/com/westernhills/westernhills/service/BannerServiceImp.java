@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -24,39 +25,50 @@ public class BannerServiceImp implements BannerService {
     private BannerRepository bannerRepository;
 
 
-    public static String uploadImage ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\all-Image";
+    public static String uploadImage ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\banner-image";
 
     @Override
     public Banner addBanner(Banner banner, List<MultipartFile> files) throws IOException {
-
-        Banner banner1= new Banner();
+        Banner banner1 = new Banner();
         banner1.setName(banner.getName());
         banner1.setDescription(banner.getDescription());
 
-
         List<BannerImage> bannerImages = new ArrayList<>();
 
-        for(MultipartFile file : files){
-            BannerImage bannerImage=new BannerImage();
+        for (MultipartFile file : files) {
+            BannerImage bannerImage = new BannerImage();
+
+            String originalFilename = file.getOriginalFilename();
+            String fileExtension = "";
 
 
-            String bannerImageUUID= file.getContentType();
-            Path filenameAndPath= Paths.get(uploadImage,bannerImageUUID);
+            int lastIndex = originalFilename.lastIndexOf('.');
+            if (lastIndex >= 0) {
+                fileExtension = originalFilename.substring(lastIndex + 1);
+            }
 
 
-            Files. write(filenameAndPath,file.getBytes());
-            bannerImage.setFileName(bannerImageUUID);
+            String uniqueFilename = UUID.randomUUID().toString() + "." + fileExtension;
+            Path filenameAndPath = Paths.get(uploadImage, uniqueFilename);
+            Files.createDirectories(filenameAndPath.getParent());
+
+
+            Files.write(filenameAndPath, file.getBytes());
+
+            bannerImage.setFileName(uniqueFilename);
             bannerImage.setBanner_id(banner1);
             bannerImages.add(bannerImage);
-
         }
+
         banner1.setBannerImages(bannerImages);
         bannerRepository.save(banner1);
 
-
-
         return null;
     }
+
+
+
+
 
     @Override
     public List<Banner> findAll() {

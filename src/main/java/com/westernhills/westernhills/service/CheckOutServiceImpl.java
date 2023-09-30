@@ -276,11 +276,23 @@ public class CheckOutServiceImpl implements CheckOutService {
 
     @Override
     public Optional<CheckOut> canselProduct(UUID id) {
+
+
          Optional<CheckOut> optionalCheckOut = checkOutRepository.findById(id);
         if (optionalCheckOut.isPresent()) {
-            CheckOut checkOut = optionalCheckOut.get();
-            checkOut.setOrderStatus(OrderStatus.ORDER_CANCEL_PENDING);
-            checkOutRepository.save(checkOut);
+
+            CheckOut orderStatus=optionalCheckOut.get();
+
+            if (orderStatus.getOrderStatus()!=OrderStatus.ORDER_RETURNED_CONFIRMED_AND_RETURNED_PAYMENT) {
+                CheckOut checkOut = optionalCheckOut.get();
+                checkOut.setOrderStatus(OrderStatus.ORDER_CANCEL_PENDING);
+                checkOutRepository.save(checkOut);
+            }else {
+                System.out.println("Not working");
+            }
+
+
+
         }
          return optionalCheckOut;
     }
@@ -289,9 +301,16 @@ public class CheckOutServiceImpl implements CheckOutService {
     public Optional<CheckOut> orderReturn(UUID id) {
         Optional<CheckOut> orderReturn = checkOutRepository.findById(id);
         if (orderReturn.isPresent()) {
-            CheckOut userOrderReturn=orderReturn.get();
-            userOrderReturn.setOrderStatus(OrderStatus.ORDER_RETURNED);
-            checkOutRepository.save(userOrderReturn);
+
+            CheckOut orderStatus=orderReturn.get();
+            if (orderStatus.getOrderStatus()!=OrderStatus.ORDER_RETURNED_CONFIRMED_AND_RETURNED_PAYMENT){
+                CheckOut userOrderReturn=orderReturn.get();
+                userOrderReturn.setOrderStatus(OrderStatus.ORDER_RETURNED);
+                checkOutRepository.save(userOrderReturn);
+            }else {
+                System.out.println("Not working tooo");
+            }
+
 
         }
 
