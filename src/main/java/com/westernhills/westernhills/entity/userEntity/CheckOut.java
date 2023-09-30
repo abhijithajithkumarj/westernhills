@@ -65,9 +65,9 @@ public class CheckOut extends SuperEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+//    @UpdateTimestamp
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date updatedAt;
 
 
 

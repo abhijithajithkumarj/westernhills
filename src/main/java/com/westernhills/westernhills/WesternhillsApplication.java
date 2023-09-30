@@ -18,18 +18,18 @@ public class WesternhillsApplication {
 
 	}
 
-//	@Bean
-//	CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder) {
-//		return args->{
-//
-//			User admin=User.builder().username("admin")
-//					.email("admin@gmail.com")
-//					.password(encoder.encode("password2"))
-//					.roles("ROLE_USER,ROLE_ADMIN")
-//					.build();
-//			//userRepository.save(admin);
-//		};
-//	}
+	//	@Bean
+	//	CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder) {
+	//		return args->{
+	//
+	//			User admin=User.builder().username("admin")
+	//					.email("admin@gmail.com")
+	//					.password(encoder.encode("password2"))
+	//					.roles("ROLE_USER,ROLE_ADMIN")
+	//					.build();
+	//			userRepository.save(admin);
+	//		};
+	//	}
 //
 ////	  System.out.println(cartList.get(0).getProduct());
 

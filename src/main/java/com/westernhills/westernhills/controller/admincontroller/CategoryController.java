@@ -77,7 +77,7 @@ public class CategoryController {
     @GetMapping("/delete-category/{id}")
     public String deleteProduct(@PathVariable UUID id, RedirectAttributes attributes) {
        categoryService.deleteById(id);
-        return "redirect:/showProduct";
+        return "redirect:/category";
     }
 
 

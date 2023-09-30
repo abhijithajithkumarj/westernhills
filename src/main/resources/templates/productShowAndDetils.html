@@ -301,7 +301,7 @@
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
-                                        $84.00
+
                                     </div><!-- End .product-price -->
 
 
@@ -316,12 +316,18 @@
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="product-details-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+
+
+                                        <form th:action="@{/addThoughProductInCart}" method="post">
+                                            <input type="hidden" name="productId" th:value="${product.uuid}" />
+                                            <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+                                        </form>
 
                                         <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
+                                            <a th:href="@{/cartShow}" class="sf-with-ul">Cart</a>
+<!--                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>-->
                                         </div>
+
                                     </div>
 
                                   <!-- End .product-details-footer -->

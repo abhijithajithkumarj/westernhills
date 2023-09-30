@@ -4,9 +4,11 @@ package com.westernhills.westernhills.controller.loginpage;
 import com.westernhills.westernhills.dto.AuthReq;
 import com.westernhills.westernhills.dto.CreateUserRequest;
 import com.westernhills.westernhills.dto.OtpDto;
+import com.westernhills.westernhills.entity.admin.Banner;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.entity.userEntity.User;
 import com.westernhills.westernhills.repo.UserRepository;
+import com.westernhills.westernhills.service.interfaceService.BannerService;
 import com.westernhills.westernhills.service.interfaceService.ProductService;
 import com.westernhills.westernhills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,10 @@ public class LoginController {
     private AuthenticationManager authenticationManager;
 
 
+    @Autowired
+    private BannerService bannerService;
+
+
     @GetMapping("/")
     public String getHomePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -58,6 +64,15 @@ public class LoginController {
                 .filter(product->!product.isDeleted())
                 .collect(Collectors.toList());
         model.addAttribute("productShows", productShows);
+
+
+
+
+        List<Banner> banner=bannerService.findAll()
+                .stream()
+                .filter(banner1 -> !banner1.isDeleted())
+                .collect(Collectors.toList());
+        model.addAttribute("banner" , banner);
 
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
