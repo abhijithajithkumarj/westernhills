@@ -19,7 +19,7 @@ public interface ProductService {
 
     void    deleteById(UUID id);
 
-    void updateProduct(ProductDto product);
+    void updateProduct(Product product);
     public List<Product> getAllProducts();
     public void addProduct(Product product);
     public void removeProductById(UUID id);

@@ -13,7 +13,6 @@ public interface SalesReportService {
 
     List<CheckOut> generateDailySalesReport(LocalDate date);
 
-    List<CheckOut> generateMonthlySalesReport(int year, Month month);
 
     int totalSalesReport();
 
@@ -25,6 +24,10 @@ public interface SalesReportService {
     int generateYearlySalesReport();
 
 
+
+
+
+
     List<CheckOut> getOrderByTimePeriod(TimePeriod timePeriod);
 
 
@@ -34,13 +37,7 @@ public interface SalesReportService {
     void generatePdf(List<CheckOut> orders, HttpServletResponse response);
 
 
-    List<CheckOut> generateYearlySalesReport(int year);
 
-    List<CheckOut> generateCustomSalesReport(LocalDate startDate, LocalDate endDate);
-
-    List<CheckOut> getTopSellingProducts(LocalDate startDate, LocalDate endDate, int limit);
-
-    BigDecimal      getTotalRevenue(LocalDate startDate, LocalDate endDate);
 
 
 

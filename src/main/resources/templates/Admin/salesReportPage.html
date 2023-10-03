@@ -275,7 +275,7 @@
 
 
             <div class="row">
-                <div class="col-12 col-lg-8 col-xl-8">
+                <div class="col-12 col-lg-7 col-xl-7">
                     <div class="card">
                         <div class="card-header">Site Traffic
                             <div class="card-action">
@@ -283,24 +283,26 @@
                                     <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
                                         <i class="icon-options"></i>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void();">Action</a>
-                                        <a class="dropdown-item" href="javascript:void();">Another action</a>
-                                        <a class="dropdown-item" href="javascript:void();">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void();">Separated link</a>
-                                    </div>
+<!--                                    <div class="dropdown-menu dropdown-menu-right">-->
+<!--                                        <a class="dropdown-item" href="javascript:void();">Action</a>-->
+<!--                                        <a class="dropdown-item" href="javascript:void();">Another action</a>-->
+<!--                                        <a class="dropdown-item" href="javascript:void();">Something else here</a>-->
+<!--                                        <div class="dropdown-divider"></div>-->
+<!--                                        <a class="dropdown-item" href="javascript:void();">Separated link</a>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <ul class="list-inline">
-                                <li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>New Visitor</li>
-                                <li class="list-inline-item"><i class="fa fa-circle mr-2 text-light"></i>Old Visitor</li>
-                            </ul>
-                            <div class="chart-container-1">
-                                <canvas id="chart1"></canvas>
-                            </div>
+<!--                            <ul class="list-inline">-->
+<!--                                <li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>New Visitor</li>-->
+<!--                                <li class="list-inline-item"><i class="fa fa-circle mr-2 text-light"></i>Old Visitor</li>-->
+<!--                            </ul>-->
+<!--                            <div class="chart-container-1">-->
+<!--&lt;!&ndash;                                <canvas id="chart1"></canvas>&ndash;&gt;-->
+<!--                                -->
+<!--                            </div>-->
+                            <canvas id="barChart"></canvas>
                         </div>
 
                         <div class="row m-0 row-group text-center border-top border-light-3">
@@ -327,7 +329,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-4 col-xl-4">
+                <div class="col-12 col-lg-5 col-xl-5">
                     <div class="card">
                         <div class="card-header">Weekly sales
                             <div class="card-action">
@@ -346,9 +348,10 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="chart-container-2">
-                                <canvas id="chart2"></canvas>
-                            </div>
+<!--                            <div class="chart-container-2">-->
+<!--                                <canvas id="chart2"></canvas>-->
+<!--                            </div>-->
+                            <canvas id="doughnutChart"></canvas>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center">
@@ -378,7 +381,11 @@
                         </div>
                     </div>
                 </div>
-            </div><!--End Row-->
+            </div>
+
+
+
+
 
             <div class="row">
                 <div class="col-12 col-lg-12">
@@ -548,6 +555,9 @@
 </div><!--End wrapper-->
 
 <!-- Bootstrap core JavaScript-->
+
+
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/popper.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
@@ -561,11 +571,12 @@
 <!-- Custom scripts -->
 <script src="assets/js/app-script.js"></script>
 <!-- Chart js -->
-
 <script src="assets/plugins/Chart.js/Chart.min.js"></script>
-
 <!-- Index js -->
 <script src="assets/js/index.js"></script>
+
+<script src="assets/js/newChart.js"></script>
+<script src="assets/js/pieChart.js"></script>
 
 
 </body>

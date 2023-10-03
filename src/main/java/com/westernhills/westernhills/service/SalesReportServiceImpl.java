@@ -46,13 +46,11 @@ public class SalesReportServiceImpl implements SalesReportService {
 
 
         List<CheckOut> getAllSalesData=checkOutService.findAll();
-        List<CheckOut>  salesDateInPreviousWeek=getAllSalesData.
+
+        return getAllSalesData.
                 stream().
                 filter(checkOut -> checkOut.getCreatedAt().after(startDate)&&checkOut.getCreatedAt().before(endDate)).
                 collect(Collectors.toList());
-
-
-        return salesDateInPreviousWeek;
     }
 
 
@@ -76,41 +74,40 @@ public class SalesReportServiceImpl implements SalesReportService {
                 .collect(Collectors.toList());
 
 
-        int totalSalesReport = salesDataInRange.stream()
+        return salesDataInRange.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-
-        return totalSalesReport;
     }
 
 
 
     @Override
     public int generateMonthlySalesReport() {
-
         YearMonth currentYearMonth = YearMonth.now();
 
-
         LocalDate startDate = currentYearMonth.atDay(1);
-        LocalDate endDate = currentYearMonth.atEndOfMonth();
-
+        LocalDate endDate = startDate.plusMonths(1).minusDays(1);
 
         Date startDateInclusive = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date endDateExclusive = Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-
         List<CheckOut> allSalesData = checkOutService.findAll();
+
+
         List<CheckOut> salesDataInCurrentMonth = allSalesData.stream()
-                .filter(checkOut -> checkOut.getCreatedAt().after(startDateInclusive) && checkOut.getCreatedAt().before(endDateExclusive))
+                .filter(checkOut -> {
+                    Date createdAt = checkOut.getCreatedAt();
+                    boolean isAfterStart = createdAt.after(startDateInclusive);
+                    boolean isBeforeEnd = createdAt.before(endDateExclusive);
+
+
+                    return isAfterStart && isBeforeEnd;
+                })
                 .collect(Collectors.toList());
 
-
-        int totalSales = salesDataInCurrentMonth.stream()
+        return salesDataInCurrentMonth.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-
-
-        return totalSales;
     }
 
 
@@ -135,13 +132,14 @@ public class SalesReportServiceImpl implements SalesReportService {
                 .collect(Collectors.toList());
 
 
-        int totalSales = salesDataInCurrentYear.stream()
+        return salesDataInCurrentYear.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-
-
-        return totalSales;
     }
+
+
+
+
 
     @Override
     public List<CheckOut> getOrderByTimePeriod(TimePeriod timePeriod) {
@@ -157,6 +155,9 @@ public class SalesReportServiceImpl implements SalesReportService {
                 break;
             case monthly:
                 startDate = endDate.minusMonths(1);
+                break;
+            case  yearly:
+                startDate = endDate.minusYears(1);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported time period: " + timePeriod);
@@ -215,7 +216,7 @@ public class SalesReportServiceImpl implements SalesReportService {
             headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             headerCell.setPadding(5);
 
-            // Header Row
+
             headerCell.setPhrase(new Phrase("SN", headerFont));
             table.addCell(headerCell);
 
@@ -251,8 +252,7 @@ public class SalesReportServiceImpl implements SalesReportService {
                 table.addCell(dataCell);
                 sn++;
 
-                dataCell.setPhrase(new Phrase(order.getId().toString(), cellFont)); // Uncomment if you want Order ID
-                table.addCell(dataCell);
+                dataCell.setPhrase(new Phrase(order.getId().toString(), cellFont));
 
                 dataCell.setPhrase(new Phrase(order.getUser().getUsername(), cellFont));
                 table.addCell(dataCell);
@@ -318,10 +318,10 @@ public class SalesReportServiceImpl implements SalesReportService {
         List<CheckOut> totalSalesReport = checkOutService.findAll();
 
 
-        int totalCheckoutProduct = totalSalesReport.stream()
+        return totalSalesReport.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-        return totalCheckoutProduct;
+
     }
 
 
@@ -331,35 +331,14 @@ public class SalesReportServiceImpl implements SalesReportService {
 
 
 
-    @Override
-    public List<CheckOut> generateMonthlySalesReport(int year, Month month) {
-        return null;
-    }
 
 
 
 
 
 
-    @Override
-    public List<CheckOut> generateYearlySalesReport(int year) {
-        return null;
-    }
 
-    @Override
-    public List<CheckOut> generateCustomSalesReport(LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
 
-    @Override
-    public List<CheckOut> getTopSellingProducts(LocalDate startDate, LocalDate endDate, int limit) {
-        return null;
-    }
-
-    @Override
-    public BigDecimal getTotalRevenue(LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
 
 
 }

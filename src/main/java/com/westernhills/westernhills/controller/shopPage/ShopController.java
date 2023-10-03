@@ -50,7 +50,7 @@ public class ShopController {
     public String showProduct(Model model) {
         List<Product> products = productService.getAllProducts()
                 .stream()
-                .filter(product -> !product.isDeleted())
+                .filter(product -> !product.isDeleted() && product.getStock()!=5)
                 .collect(Collectors.toList());
 
         List<Banner> banner=bannerService.findAll()

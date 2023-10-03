@@ -36,15 +36,19 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Offer offerSetting(Offer offer) {
-                Offer offer1 = new Offer();
-                offer1.setOfferName(offer.getOfferName());
-                offer1.setOfferPrice(offer.getOfferPrice());
-                offer1.setCategory(offer.getCategory());
-                offer1.setExpirationDate(offer.getExpirationDate());
-                offerRepository.save(offer1);
-                System.out.println("problem");
-                return null;
+        offerSet(offer);
 
+        return null;
+
+    }
+
+    private void offerSet(Offer offer) {
+        Offer offer1 = new Offer();
+        offer1.setOfferName(offer.getOfferName());
+        offer1.setOfferPrice(offer.getOfferPrice());
+        offer1.setCategory(offer.getCategory());
+        offer1.setExpirationDate(offer.getExpirationDate());
+        offerRepository.save(offer1);
     }
 
     @Override
