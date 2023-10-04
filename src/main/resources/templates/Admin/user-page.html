@@ -56,6 +56,8 @@
         </div>
         <ul class="sidebar-menu do-nicescrol">
             <li class="sidebar-header">MAIN NAVIGATION</li>
+
+
             <li>
                 <a href="index.html">
                     <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
@@ -63,10 +65,24 @@
             </li>
 
             <li>
-                <a href="icons.html">
-                    <i class="zmdi zmdi-invert-colors"></i> <span>UI Icons</span>
+                <a th:href="@{/showBanner}">
+                    <i class="zmdi zmdi-view-dashboard"></i> <span>Banner</span>
                 </a>
             </li>
+
+            <li>
+                <a th:href="@{/ShowSalesReport}">
+                    <i class="zmdi zmdi-view-dashboard" ></i> <span>Sales Report</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a th:href="@{/showAllOrder}">
+                    <i class="zmdi zmdi-invert-colors"></i> <span>All Oder</span>
+                </a>
+            </li>
+
 
             <li>
                 <a th:href="@{/category}">
@@ -88,23 +104,24 @@
             </li>
 
             <li>
-                <a href="logout.html">
-                    <i class="zmdi zmdi-face"></i> <span>Profile</span>
+                <a th:href="@{/ShowAddCoupons}">
+                    <i class="zmdi zmdi-face"></i> <span>Add Coupon</span>
                 </a>
             </li>
 
             <li>
-                <a href="logout.html">
-                    <i class="zmdi zmdi-power"></i> <span>Logout</span>
+                <a th:href="@{/showCoupon}" target="_blank">
+                    <i class="zmdi zmdi-lock"></i> <span>show coupon</span>
                 </a>
-
             </li>
+
 
             <li>
-                <a href="register.html" target="_blank">
-                    <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>
+                <a href="/logout"  target="_blank">
+                    <i class="zmdi zmdi-lock"></i> <span>Loge Out</span>
                 </a>
             </li>
+
 
             <li class="sidebar-header">LABELS</li>
             <li><a href="javaScript:void();"><i class="zmdi zmdi-coffee text-danger"></i> <span>Important</span></a></li>
@@ -114,10 +131,10 @@
         </ul>
 
     </div>
-    <!--End sidebar-wrapper-->
 
 
-    <!--Start topbar header-->
+
+
     <header class="topbar-nav">
         <nav class="navbar navbar-expand fixed-top">
             <ul class="navbar-nav mr-auto align-items-center">

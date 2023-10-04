@@ -39,11 +39,11 @@ public class PasswordResetController {
 
         boolean res= passwordResetService.verifyEmail(resetPassDto);
         if (res){
-            System.out.println("working");
+
             return "resetPassword";
         }
         else {
-            System.out.println("not working");
+
            return "Reset-otp";
         }
     }

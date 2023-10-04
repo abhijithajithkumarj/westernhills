@@ -27,6 +27,7 @@ public class BannerController {
     @GetMapping("/showBanner")
     public String showBanner(Model model) {
         List<Banner> banners = bannerService.findAll();
+
         model.addAttribute("banners", banners);
         return "admin/bannerPage";
     }

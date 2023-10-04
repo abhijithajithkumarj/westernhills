@@ -4,6 +4,7 @@ import com.westernhills.westernhills.dto.TimePeriod;
 import com.westernhills.westernhills.entity.userEntity.CheckOut;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
@@ -13,7 +14,6 @@ public interface SalesReportService {
 
     List<CheckOut> generateDailySalesReport(LocalDate date);
 
-    List<CheckOut> generateMonthlySalesReport(int year, Month month);
 
     int totalSalesReport();
 
@@ -25,6 +25,13 @@ public interface SalesReportService {
     int generateYearlySalesReport();
 
 
+    void exportToCSV(List<CheckOut> orders, HttpServletResponse response) throws IOException;
+
+
+
+
+
+
     List<CheckOut> getOrderByTimePeriod(TimePeriod timePeriod);
 
 
@@ -34,13 +41,7 @@ public interface SalesReportService {
     void generatePdf(List<CheckOut> orders, HttpServletResponse response);
 
 
-    List<CheckOut> generateYearlySalesReport(int year);
 
-    List<CheckOut> generateCustomSalesReport(LocalDate startDate, LocalDate endDate);
-
-    List<CheckOut> getTopSellingProducts(LocalDate startDate, LocalDate endDate, int limit);
-
-    BigDecimal      getTotalRevenue(LocalDate startDate, LocalDate endDate);
 
 
 

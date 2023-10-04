@@ -147,8 +147,10 @@ public class ProductController{
 
 
     @GetMapping("/deleteProduct/{id}")
-    public String deleteProduct(@PathVariable UUID id, RedirectAttributes attributes) {
+    public String deleteProduct(@PathVariable UUID id,
+                                RedirectAttributes attributes) {
         productService.deleteById(id);
+
         return "redirect:/showProduct";
     }
 
@@ -157,16 +159,23 @@ public class ProductController{
     @GetMapping("/update-product/{id}")
     public String updateProduct(@PathVariable UUID id,
                                 Model model) throws IOException {
-        Optional<Product> productDto = productService.getProductById(id);
-        model.addAttribute("productDto", productDto);
+        Optional<Product> product = productService.getProductById(id);
+        model.addAttribute("product", product);
+
+        List<Category> categories=categoryRepository.findAll()
+                .stream()
+                .filter(category ->!category.isDeleted())
+                .collect(Collectors.toList());
+        model.addAttribute("categories", categories);
 
         return "admin/product-update";
     }
 
-    @PostMapping("/update-products")
-    public String updateProduct(@ModelAttribute("productDto") ProductDto productDto) {
 
-        productService.updateProduct(productDto);
+
+    @PostMapping("/update-products")
+    public String updateProduct(@ModelAttribute("product") Product product) {
+        productService.updateProduct(product);
         return "redirect:/showProduct";
     }
 

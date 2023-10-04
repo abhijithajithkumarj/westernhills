@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.westernhills.westernhills.dto.CsvDto;
 import com.westernhills.westernhills.dto.TimePeriod;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.entity.userEntity.CheckOut;
@@ -11,14 +12,19 @@ import com.westernhills.westernhills.repo.CheckOutRepository;
 import com.westernhills.westernhills.service.interfaceService.CheckOutService;
 import com.westernhills.westernhills.service.interfaceService.ProductService;
 import com.westernhills.westernhills.service.interfaceService.SalesReportService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,13 +52,11 @@ public class SalesReportServiceImpl implements SalesReportService {
 
 
         List<CheckOut> getAllSalesData=checkOutService.findAll();
-        List<CheckOut>  salesDateInPreviousWeek=getAllSalesData.
+
+        return getAllSalesData.
                 stream().
                 filter(checkOut -> checkOut.getCreatedAt().after(startDate)&&checkOut.getCreatedAt().before(endDate)).
                 collect(Collectors.toList());
-
-
-        return salesDateInPreviousWeek;
     }
 
 
@@ -76,41 +80,40 @@ public class SalesReportServiceImpl implements SalesReportService {
                 .collect(Collectors.toList());
 
 
-        int totalSalesReport = salesDataInRange.stream()
+        return salesDataInRange.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-
-        return totalSalesReport;
     }
 
 
 
     @Override
     public int generateMonthlySalesReport() {
-
         YearMonth currentYearMonth = YearMonth.now();
 
-
         LocalDate startDate = currentYearMonth.atDay(1);
-        LocalDate endDate = currentYearMonth.atEndOfMonth();
-
+        LocalDate endDate = startDate.plusMonths(1).minusDays(1);
 
         Date startDateInclusive = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date endDateExclusive = Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-
         List<CheckOut> allSalesData = checkOutService.findAll();
+
+
         List<CheckOut> salesDataInCurrentMonth = allSalesData.stream()
-                .filter(checkOut -> checkOut.getCreatedAt().after(startDateInclusive) && checkOut.getCreatedAt().before(endDateExclusive))
+                .filter(checkOut -> {
+                    Date createdAt = checkOut.getCreatedAt();
+                    boolean isAfterStart = createdAt.after(startDateInclusive);
+                    boolean isBeforeEnd = createdAt.before(endDateExclusive);
+
+
+                    return isAfterStart && isBeforeEnd;
+                })
                 .collect(Collectors.toList());
 
-
-        int totalSales = salesDataInCurrentMonth.stream()
+        return salesDataInCurrentMonth.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-
-
-        return totalSales;
     }
 
 
@@ -135,13 +138,16 @@ public class SalesReportServiceImpl implements SalesReportService {
                 .collect(Collectors.toList());
 
 
-        int totalSales = salesDataInCurrentYear.stream()
+        return salesDataInCurrentYear.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-
-
-        return totalSales;
     }
+
+//    @Override
+//    public void exportToCSV(List<CheckOut> orders, HttpServletResponse response) {
+//
+//    }
+
 
     @Override
     public List<CheckOut> getOrderByTimePeriod(TimePeriod timePeriod) {
@@ -157,6 +163,9 @@ public class SalesReportServiceImpl implements SalesReportService {
                 break;
             case monthly:
                 startDate = endDate.minusMonths(1);
+                break;
+            case  yearly:
+                startDate = endDate.minusYears(1);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported time period: " + timePeriod);
@@ -215,7 +224,7 @@ public class SalesReportServiceImpl implements SalesReportService {
             headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             headerCell.setPadding(5);
 
-            // Header Row
+
             headerCell.setPhrase(new Phrase("SN", headerFont));
             table.addCell(headerCell);
 
@@ -251,8 +260,7 @@ public class SalesReportServiceImpl implements SalesReportService {
                 table.addCell(dataCell);
                 sn++;
 
-                dataCell.setPhrase(new Phrase(order.getId().toString(), cellFont)); // Uncomment if you want Order ID
-                table.addCell(dataCell);
+                dataCell.setPhrase(new Phrase(order.getId().toString(), cellFont));
 
                 dataCell.setPhrase(new Phrase(order.getUser().getUsername(), cellFont));
                 table.addCell(dataCell);
@@ -314,14 +322,79 @@ public class SalesReportServiceImpl implements SalesReportService {
 
 
     @Override
+    public void exportToCSV(List<CheckOut> orders, HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; attachment;filename=salesReport.csv";
+        response.setHeader(headerKey, headerValue);
+
+        ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = {"ORDER ID", "USER", "PRODUCT", "ORDER DATE", "STATUS", "PRICE", "PAYMENT"};
+        String[] nameMapping = {"orderId", "username","productName","orderDate","status","totalPrice","paymentMode"};
+        csvBeanWriter.writeHeader(csvHeader);
+
+        List<CsvDto> orderCsvDtoList = new ArrayList<>();
+
+
+        for (CheckOut order : orders) {
+            String productName = order.getProduct().getName();
+            CsvDto orderCsvDto = getCsvDto(order, productName);
+            orderCsvDtoList.add(orderCsvDto);
+        }
+
+
+        for (CsvDto orderCsvDto :orderCsvDtoList){
+            csvBeanWriter.write(orderCsvDto, nameMapping);
+        }
+
+
+        Double totalSales =calculateTotalSales(orders);
+        csvBeanWriter.writeHeader("TOTAL SALES ",String.valueOf(totalSales));
+        int totalOrderCount = orders.size();
+        csvBeanWriter.writeHeader("TOTAL ORDER COUNT ",String.valueOf(totalOrderCount));
+
+        csvBeanWriter.close();
+    }
+
+    @NotNull
+    private static CsvDto getCsvDto(CheckOut order, String productName) {
+        CsvDto orderCsvDto = new CsvDto();
+
+        orderCsvDto.setOrderId(String.valueOf(order.getId()));
+        orderCsvDto.setUsername(order.getUser().getUsername());
+        orderCsvDto.setTotalPrice(order.getProduct().getSelPrice());
+        orderCsvDto.setOrderDate(order.getCreatedAt());
+        orderCsvDto.setPaymentMode(String.valueOf(order.getPaymentMethod()));
+        orderCsvDto.setStatus(String.valueOf(order.getOrderStatus()));
+        orderCsvDto.setProductName(productName);
+        return orderCsvDto;
+    }
+
+
+    public Double calculateTotalSales(List<CheckOut> checkOuts){
+        double totalPrice=0;
+        for (CheckOut orders:checkOuts) {
+            totalPrice +=orders.getProduct().getCostPrice();
+        }
+        return totalPrice;
+                
+        
+    }
+    
+    
+
+
+
+
+    @Override
     public int totalSalesReport() {
         List<CheckOut> totalSalesReport = checkOutService.findAll();
 
 
-        int totalCheckoutProduct = totalSalesReport.stream()
+        return totalSalesReport.stream()
                 .mapToInt(CheckOut::getCount)
                 .sum();
-        return totalCheckoutProduct;
+
     }
 
 
@@ -331,35 +404,14 @@ public class SalesReportServiceImpl implements SalesReportService {
 
 
 
-    @Override
-    public List<CheckOut> generateMonthlySalesReport(int year, Month month) {
-        return null;
-    }
 
 
 
 
 
 
-    @Override
-    public List<CheckOut> generateYearlySalesReport(int year) {
-        return null;
-    }
 
-    @Override
-    public List<CheckOut> generateCustomSalesReport(LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
 
-    @Override
-    public List<CheckOut> getTopSellingProducts(LocalDate startDate, LocalDate endDate, int limit) {
-        return null;
-    }
-
-    @Override
-    public BigDecimal getTotalRevenue(LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
 
 
 }

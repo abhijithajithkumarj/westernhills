@@ -54,6 +54,8 @@
             </div>
             <ul class="sidebar-menu do-nicescrol">
                 <li class="sidebar-header">MAIN NAVIGATION</li>
+
+
                 <li>
                     <a th:href="@{/showBanner}">
                         <i class="zmdi zmdi-view-dashboard"></i> <span>Banner</span>
@@ -61,7 +63,13 @@
                 </li>
 
                 <li>
-                    <a href="icons.html">
+                    <a th:href="@{/ShowSalesReport}">
+                        <i class="zmdi zmdi-view-dashboard" ></i> <span>Sales Report</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/showAllOrder}">
                         <i class="zmdi zmdi-invert-colors"></i> <span>All Oder</span>
                     </a>
                 </li>
@@ -86,22 +94,24 @@
                 </li>
 
                 <li>
-                    <a href="profile.html">
-                        <i class="zmdi zmdi-face"></i> <span>Profile</span>
+                    <a th:href="@{/ShowAddCoupons}">
+                        <i class="zmdi zmdi-face"></i> <span>Add Coupon</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="login.html" target="_blank">
-                        <i class="zmdi zmdi-lock"></i> <span>Login</span>
+                    <a th:href="@{/showCoupon}" target="_blank">
+                        <i class="zmdi zmdi-lock"></i> <span>show coupon</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="register.html" target="_blank">
-                        <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>
+                    <a href="/logout"  target="_blank">
+                        <i class="zmdi zmdi-lock"></i> <span>Loge Out</span>
                     </a>
                 </li>
+
+
 
                 <li class="sidebar-header">LABELS</li>
                 <li><a href="javaScript:void();"><i class="zmdi zmdi-coffee text-danger"></i> <span>Important</span></a>

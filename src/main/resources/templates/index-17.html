@@ -224,7 +224,7 @@
                             <div class="col-lg-5" th:each="banner : ${banner}">
                                 <div class="banner banner-big banner-overlay">
                                     <a href="#">
-                                        <img th:src="${'/banner-image/' + banner.bannerImages[0].fileName}" alt="Banner">
+                                        <img th:src="${'/banner-image/' + banner.bannerImages[0].fileName}" alt="Banner"  style="height: 400px; width: 500px;" >
                                     </a>
 
                                     <div class="banner-content banner-content-bottom">
@@ -235,24 +235,24 @@
                                 </div><!-- End .banner -->
                             </div><!-- End .col-lg-5 -->
 
-                            <div class="col-lg-7">
+                            <div class="col-lg-7" th:each="banner : ${banner2}">
                                 <div class="banner banner-overlay">
                                     <a href="#">
-                                        <img src="assetsss/images/demos/demo-17/banners/banner-2.jpg" alt="Banner">
+                                        <img  th:src="${'/banner-image/' + banner.bannerImages[0].fileName}"  alt="Banner" style="height: 400px; width: 679px;">
                                     </a>
 
                                     <div class="banner-content banner-content-right">
-                                        <h4 class="banner-subtitle text-white"><a href="#">clearance</a></h4><!-- End .banner-subtitle -->
-                                        <h3 class="banner-title text-white"><a href="#">Clearance It’s On <br>Up To 50% Off</a></h3><!-- End .banner-title -->
-                                        <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
-                                    </div><!-- End .banner-content -->
-                                </div><!-- End .banner -->
+                                        <h4 class="banner-subtitle text-white">clearance</h4><!-- End .banner-subtitle -->
+                                        <h3 class="banner-title text-white">Clearance It’s On <br>Up To 50% Off</h3><!-- End .banner-title -->
+
+                                    </div>
+                                </div>
 
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6"  th:each="banner : ${banner3}">
                                         <div class="banner banner-overlay">
                                             <a href="#">
-                                                <img src="assetsss/images/demos/demo-17/banners/banner-3.jpg" alt="Banner">
+                                                <img  th:src="${'/banner-image/' + banner.bannerImages[0].fileName}"  alt="Banner" style="height: 200px; width: 300px;">
                                             </a>
 
                                             <div class="banner-content banner-content-top ">
@@ -263,10 +263,10 @@
                                         </div><!-- End .banner -->
                                     </div><!-- End .col-sm-6 -->
 
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6"  th:each="banner : ${banner4}">
                                         <div class="banner banner-overlay">
                                             <a href="#">
-                                                <img src="assetsss/images/demos/demo-17/banners/banner-4.jpg" alt="Banner">
+                                                <img  th:src="${'/banner-image/' + banner.bannerImages[0].fileName}" alt="Banner" style="height: 200px; width: 323px;">
                                             </a>
 
                                             <div class="banner-content  banner-content-top banner-content-reverse">
@@ -968,123 +968,7 @@
 
             <div class="blog-posts">
                 <div class="container">
-                    <div class="heading text-center">
-                        <h2 class="title">New Blog Posts</h2><!-- End .title -->
-                        <p class="title-desc">Donec nec justo eget felis facilisis fermentum.</p><!-- End .title-desc -->
-                    </div><!-- End .heading -->
-                    
-                    <div class="owl-carousel owl-simple mb-4" data-toggle="owl" 
-                        data-owl-options='{
-                            "nav": false, 
-                            "dots": true,
-                            "items": 3,
-                            "margin": 20,
-                            "loop": false,
-                            "responsive": {
-                                "0": {
-                                    "items":1
-                                },
-                                "600": {
-                                    "items":2
-                                },
-                                "992": {
-                                    "items":3
-                                },
-                                "1200": {
-                                    "items":3,
-                                    "nav": true,
-                                    "dots": false
-                                }
-                            }
-                        }'>
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assetsss/images/demos/demo-17/blog/post-1.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
 
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <a href="#">Nov 22, 2018</a>, 0 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Sed adipiscing ornare.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assetsss/images/demos/demo-17/blog/post-2.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Aenean dignissim pellentesque felis.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assetsss/images/demos/demo-17/blog/post-3.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <a href="#">Nov 22, 2018</a>, 0 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Quisque volutpat mattis eros.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assetsss/images/demos/demo-17/blog/post-2.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <a href="#">Nov 22, 2018</a>, 0 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Aenean dignissim pellentesque felis.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .owl-carousel -->
 
                     <div class="more-container text-center">
                         <a href="blog.html" class="btn btn-outline-darker btn-more"><span>View more articles</span><i class="icon-long-arrow-right"></i></a>
