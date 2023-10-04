@@ -98,12 +98,13 @@
                 </a>
             </li>
 
-
             <li>
-                <a th:href="@{/offerMakingPage}" target="_blank">
-                    <i class="zmdi zmdi-account-circle"></i> <span>Offer Page </span>
+                <a href="/logout"  target="_blank">
+                    <i class="zmdi zmdi-lock"></i> <span>Loge Out</span>
                 </a>
             </li>
+
+
 
 
 
@@ -190,9 +191,13 @@
     <div class="content-wrapper">
         <div class="container-fluid">
 
-            <a th:href="@{'/generatePdf?token='+${token}}" target="_blank">
+            <a th:href="@{'/generatePdf?token='+${token}}" target="_blank" class="btn btn-primary">
                  <span>Get pdf</span>
             </a>
+
+
+            <a th:href="@{'/generate-csv?token=' + ${token}}" class="btn btn-primary"
+               target="_blank">Download in csv</a>
 
             <div class="row">
                 <div class="col-12 col-lg-12">

@@ -52,6 +52,9 @@
         </div>
         <ul class="sidebar-menu do-nicescrol">
             <li class="sidebar-header">MAIN NAVIGATION</li>
+
+
+
             <li>
                 <a href="index.html">
                     <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
@@ -59,8 +62,8 @@
             </li>
 
             <li>
-                <a href="icons.html">
-                    <i class="zmdi zmdi-invert-colors"></i> <span>UI Icons</span>
+                <a th:href="@{/ShowSalesReport}">
+                    <i class="zmdi zmdi-view-dashboard" ></i> <span>Sales Report</span>
                 </a>
             </li>
 
@@ -84,14 +87,14 @@
             </li>
 
             <li>
-                <a href="profile.html">
-                    <i class="zmdi zmdi-face"></i> <span>Offer page</span>
+                <a th:href="@{/ShowAddCoupons}">
+                    <i class="zmdi zmdi-face"></i> <span>Add Coupon</span>
                 </a>
             </li>
 
             <li>
-                <a href="login.html" target="_blank">
-                    <i class="zmdi zmdi-lock"></i> <span>Login</span>
+                <a th:href="@{/showCoupon}" target="_blank">
+                    <i class="zmdi zmdi-lock"></i> <span>show coupon</span>
                 </a>
             </li>
 
@@ -100,6 +103,15 @@
                     <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>
                 </a>
             </li>
+
+            <li>
+                <a href="/logout"  target="_blank">
+                    <i class="zmdi zmdi-lock"></i> <span>Loge Out</span>
+                </a>
+            </li>
+
+
+
 
             <li class="sidebar-header">LABELS</li>
             <li><a href="javaScript:void();"><i class="zmdi zmdi-coffee text-danger"></i> <span>Important</span></a></li>
@@ -213,14 +225,27 @@
                                 <label for="Description" class="form-label">Description:</label>
                                 <input type="text" class="form-control" id="Description" placeholder="Enter Description" name="description">
                             </div>
+
+
                             <div class="mb-3">
                                 <label for="imageUpload" class="form-label">Upload Image:</label>
                                 <input type="file" class="form-control" id="imageUpload" name="files" multiple>
                             </div>
 
+
+
+                            <div class="mb-3">
+                                <label for="placement" class="form-label">Select Placement:</label>
+                                <select class="form-select" id="placement" name="placement">
+
+                                    <option value="1">Placement 1</option>
+                                    <option value="2">Placement 2</option>
+                                    <option value="3">Placement 3</option>
+                                    <option value="4">Placement 4</option>
+                                </select>
+                            </div>
+
                             <div class="modal-footer">
-<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                                <button type="button" class="btn btn-primary" id="cropImage">Crop Image</button>-->
                                 <button type="submit" class="btn btn-success" >Save</button>
                             </div>
                         </form>

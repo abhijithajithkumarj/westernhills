@@ -94,6 +94,7 @@ import java.util.stream.Collectors;
             List<UserAddress> userAddressList=addressService.findByUser(user);
 
             if (userAddressList.isEmpty()){
+
                 userAddress.setDefaultAddress(true);
                 addressService.save(userAddress);
                 return "redirect:/customers";

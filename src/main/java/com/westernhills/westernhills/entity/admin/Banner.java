@@ -28,6 +28,10 @@ public class Banner extends SuperEntity {
 
     private String name;
 
+    private int placement;
+
+    private boolean defaultBanner;
+
 
 
     @Lob

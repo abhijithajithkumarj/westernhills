@@ -4,6 +4,7 @@ import com.westernhills.westernhills.dto.TimePeriod;
 import com.westernhills.westernhills.entity.userEntity.CheckOut;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
@@ -22,6 +23,9 @@ public interface SalesReportService {
 
 
     int generateYearlySalesReport();
+
+
+    void exportToCSV(List<CheckOut> orders, HttpServletResponse response) throws IOException;
 
 
 

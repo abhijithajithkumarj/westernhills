@@ -1,60 +1,3 @@
-//
-//  let datas
-//  function fetchSalesReportData() {
-//   $.get("/ShowSalesReportWithGraph", function (data) {
-//   console.log(data);
-//   datas=data
-//    });
-//
-//  }
-//  fetchSalesReportData()
-//var ctxL = document.getElementById("lineChart2").getContext('2d');
-//var myLineChart = new Chart(ctxL, {
-//  type: 'line',
-//  data: {
-//    labels: ["January", "February", "March", "April", "May", "June", "July"],
-//    datasets: [{
-//      label: "My First dataset",
-//      data: [65, 59, 80, 81, 56, 55, 40],
-//      backgroundColor: [
-//        'rgba(240, 240, 240, .3)',
-//      ],
-//      borderColor: [
-//        'rgba(255,255,255, .7)',
-//      ],
-//      borderWidth: 1
-//    },
-//    {
-//      label: "My Second dataset",
-//      data: [28, 48, 40, 19, 86, 27, 90],
-//      backgroundColor: [
-//        'rgba(121, 52, 243, .3)',
-//      ],
-//      borderColor: [
-//        'rgba(255, 255, 255, .7)',
-//      ],
-//      borderWidth: 1
-//    }
-//    ]
-//  },
-//  options: {
-//    responsive: true,
-//    scales: {
-//      x: {
-//        ticks: {
-//          color: 'red' // Change the color of the x-axis labels to red
-//        }
-//      },
-//      y: {
-//        ticks: {
-//          color: 'blue' // Change the color of the y-axis labels to blue
-//        }
-//      }
-//    }
-//  }
-//});
-
-
 
 
 
@@ -69,19 +12,19 @@ function fetchSalesReportData() {
 }
 
 
-function updateChart(datas) {
-console.log(datas.totalSalesReportForPreviousWeek)
-    if (datas) {
-        console.log(datas)
+function updateChart(data) {
+console.log(data.totalSalesReportForPreviousWeek)
+    if (data) {
+
 
       var ctxB = document.getElementById("barChart").getContext('2d');
       var myBarChart = new Chart(ctxB, {
         type: 'bar',
         data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: ["Red", "Blue", "Yellow", "Green"],
           datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [data.totalSalesReportForPreviousWeek,  data.totalGenerateMonthlySalesReport,  data.totalGenerateYearlySalesReport ],
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',

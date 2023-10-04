@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.westernhills.westernhills.dto.CsvDto;
 import com.westernhills.westernhills.dto.TimePeriod;
 import com.westernhills.westernhills.entity.admin.Product;
 import com.westernhills.westernhills.entity.userEntity.CheckOut;
@@ -11,14 +12,19 @@ import com.westernhills.westernhills.repo.CheckOutRepository;
 import com.westernhills.westernhills.service.interfaceService.CheckOutService;
 import com.westernhills.westernhills.service.interfaceService.ProductService;
 import com.westernhills.westernhills.service.interfaceService.SalesReportService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -137,8 +143,10 @@ public class SalesReportServiceImpl implements SalesReportService {
                 .sum();
     }
 
-
-
+//    @Override
+//    public void exportToCSV(List<CheckOut> orders, HttpServletResponse response) {
+//
+//    }
 
 
     @Override
@@ -309,6 +317,71 @@ public class SalesReportServiceImpl implements SalesReportService {
             e.printStackTrace();
         }
     }
+
+
+
+
+    @Override
+    public void exportToCSV(List<CheckOut> orders, HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; attachment;filename=salesReport.csv";
+        response.setHeader(headerKey, headerValue);
+
+        ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = {"ORDER ID", "USER", "PRODUCT", "ORDER DATE", "STATUS", "PRICE", "PAYMENT"};
+        String[] nameMapping = {"orderId", "username","productName","orderDate","status","totalPrice","paymentMode"};
+        csvBeanWriter.writeHeader(csvHeader);
+
+        List<CsvDto> orderCsvDtoList = new ArrayList<>();
+
+
+        for (CheckOut order : orders) {
+            String productName = order.getProduct().getName();
+            CsvDto orderCsvDto = getCsvDto(order, productName);
+            orderCsvDtoList.add(orderCsvDto);
+        }
+
+
+        for (CsvDto orderCsvDto :orderCsvDtoList){
+            csvBeanWriter.write(orderCsvDto, nameMapping);
+        }
+
+
+        Double totalSales =calculateTotalSales(orders);
+        csvBeanWriter.writeHeader("TOTAL SALES ",String.valueOf(totalSales));
+        int totalOrderCount = orders.size();
+        csvBeanWriter.writeHeader("TOTAL ORDER COUNT ",String.valueOf(totalOrderCount));
+
+        csvBeanWriter.close();
+    }
+
+    @NotNull
+    private static CsvDto getCsvDto(CheckOut order, String productName) {
+        CsvDto orderCsvDto = new CsvDto();
+
+        orderCsvDto.setOrderId(String.valueOf(order.getId()));
+        orderCsvDto.setUsername(order.getUser().getUsername());
+        orderCsvDto.setTotalPrice(order.getProduct().getSelPrice());
+        orderCsvDto.setOrderDate(order.getCreatedAt());
+        orderCsvDto.setPaymentMode(String.valueOf(order.getPaymentMethod()));
+        orderCsvDto.setStatus(String.valueOf(order.getOrderStatus()));
+        orderCsvDto.setProductName(productName);
+        return orderCsvDto;
+    }
+
+
+    public Double calculateTotalSales(List<CheckOut> checkOuts){
+        double totalPrice=0;
+        for (CheckOut orders:checkOuts) {
+            totalPrice +=orders.getProduct().getCostPrice();
+        }
+        return totalPrice;
+                
+        
+    }
+    
+    
 
 
 

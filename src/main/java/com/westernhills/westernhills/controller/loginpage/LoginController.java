@@ -68,11 +68,51 @@ public class LoginController {
 
 
 
-        List<Banner> banner=bannerService.findAll()
-                .stream()
-                .filter(banner1 -> !banner1.isDeleted())
+        List<Banner> banner = bannerService.findAll()
+                .stream().filter(banners -> banners.isDefaultBanner() &&
+                        banners.getPlacement()==2 &&
+                        !banners.isDeleted())
+                        .collect(Collectors.toList());
+
+
+        List<Banner> banner2 = bannerService.findAll()
+                .stream().filter(banners -> banners.isDefaultBanner() &&
+                        banners.getPlacement()==1 &&
+                        !banners.isDeleted())
                 .collect(Collectors.toList());
-        model.addAttribute("banner" , banner);
+
+
+
+        List<Banner> banner3 = bannerService.findAll()
+                .stream().filter(banners -> banners.isDefaultBanner() &&
+                        banners.getPlacement()==3 &&
+                        !banners.isDeleted())
+                .collect(Collectors.toList());
+
+
+
+        List<Banner> banner4 = bannerService.findAll()
+                .stream().filter(banners -> banners.isDefaultBanner() &&
+                        banners.getPlacement()==4 &&
+                        !banners.isDeleted())
+                .collect(Collectors.toList());
+
+
+
+
+
+
+
+
+
+        model.addAttribute("banner"  , banner);
+        model.addAttribute("banner2" , banner2);
+        model.addAttribute("banner3" , banner3);
+        model.addAttribute("banner4" , banner4);
+
+
+
+
 
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
@@ -118,6 +158,7 @@ public class LoginController {
         model.addAttribute("error", "Your account is not enabled. Please contact the administrator.");
         return "login";
     }
+
     if (user.isDeleted()==false){
         System.out.println(user.isDeleted());
         return "login";

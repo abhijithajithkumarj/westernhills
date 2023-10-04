@@ -4,6 +4,7 @@ package com.westernhills.westernhills.controller.admincontroller;
 import com.westernhills.westernhills.dto.TimePeriod;
 import com.westernhills.westernhills.entity.userEntity.CheckOut;
 import com.westernhills.westernhills.service.interfaceService.SalesReportService;
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -127,9 +129,19 @@ public class SalesReportController {
 
 
         model.addAttribute("salesReport", salesReport);
-
-
         return "salesReportView";
+    }
+
+
+
+    @GetMapping("/generate-csv")
+    public void exportToCsv(HttpServletResponse response, HttpSession session,
+                            HttpServletRequest request) throws IOException {
+
+        String token = request.getParameter("token");
+        List<CheckOut> orders = (List<CheckOut>) session.getAttribute(token);
+        salesReportService.exportToCSV(orders,response);
+
     }
 
 
@@ -154,18 +166,6 @@ public class SalesReportController {
         return salesReportData;
     }
 
-
-//    @GetMapping("/ShowSalesRepostOrderCancelAndReturn")
-//    @ResponseBody
-//    public Map<String , Integer> getSalesReportOrderCancelAndReturn(){
-//        Map<String , Integer> salesReportDataOrderCancelAndReturn=new HashMap<>();
-//
-//        int totalSalesReport=salesReportService.totalSalesReport();
-//        int tota
-//
-//
-//    }
-//
 
 
 
