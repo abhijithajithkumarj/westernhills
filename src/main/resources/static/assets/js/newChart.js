@@ -21,7 +21,7 @@ console.log(data.totalSalesReportForPreviousWeek)
       var myBarChart = new Chart(ctxB, {
         type: 'bar',
         data: {
-          labels: ["Red", "Blue", "Yellow", "Green"],
+          labels: ["Week", "Month", "Year", ],
           datasets: [{
             label: '# of Votes',
             data: [data.totalSalesReportForPreviousWeek,  data.totalGenerateMonthlySalesReport,  data.totalGenerateYearlySalesReport ],

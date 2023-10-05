@@ -142,6 +142,10 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>
+			spring-boot-aws-test
+		</finalName>
 	</build>
 
 </project>
