@@ -42,7 +42,7 @@ public class CategoryCouponController {
                 .toList();
         model.addAttribute("category", category);
         System.out.println(category);
-        return "Admin/CategoryCoupon";
+        return "CategoryCoupon";
     }
 
 

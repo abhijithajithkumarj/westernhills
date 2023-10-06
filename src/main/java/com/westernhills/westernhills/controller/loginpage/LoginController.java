@@ -119,7 +119,7 @@ public class LoginController {
         if (isAdmin) {
 
 
-           return "Admin/adminpanel";
+           return "adminpanel";
 
         }
         return "index-17";

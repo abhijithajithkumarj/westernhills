@@ -220,7 +220,7 @@ public class CheckOutController {
     @GetMapping("/successPage")
     public String successPage(){
 
-        return "Admin/success";
+        return "success";
     }
 
 
