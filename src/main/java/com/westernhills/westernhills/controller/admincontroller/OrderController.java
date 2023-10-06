@@ -46,7 +46,7 @@
                     .collect(Collectors.toList());
             model.addAttribute("order",orders);
 
-            return "admin/Order";
+            return "Admin/Order";
         }
 
 
@@ -62,7 +62,7 @@
                 List<OrderStatus> allStatus = getOrderStatus();
                 model.addAttribute("allStatus", allStatus);
 
-                return "admin/OrderSubmitPage1";
+                return "Admin/OrderSubmitPage1";
             } else {
 
                 return "redirect:/showAllOrder";
