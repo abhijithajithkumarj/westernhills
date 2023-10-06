@@ -49,7 +49,7 @@ public class CategoryController {
         model.addAttribute("categories",categories);
         model.addAttribute("size",categories.size());
         model.addAttribute("title","categorise");
-        return "admin/category";
+        return "Admin/category";
 
     }
 
@@ -86,7 +86,7 @@ public class CategoryController {
     @PostMapping("/editCategory")
     public String editCategory(@ModelAttribute("category") Category category) {
         categoryService.updateCategory(category.getId(), category);
-        return "admin/update";
+        return "Admin/update";
 
     }
 

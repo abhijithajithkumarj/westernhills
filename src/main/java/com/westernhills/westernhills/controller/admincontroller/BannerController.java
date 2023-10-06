@@ -29,7 +29,7 @@ public class BannerController {
         List<Banner> banners = bannerService.findAll();
 
         model.addAttribute("banners", banners);
-        return "admin/bannerPage";
+        return "Admin/bannerPage";
     }
 
 

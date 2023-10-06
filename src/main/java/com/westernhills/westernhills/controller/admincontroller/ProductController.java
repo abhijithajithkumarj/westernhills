@@ -56,7 +56,7 @@ public class ProductController{
                                      .collect(Collectors.toList());
         model.addAttribute("categories", categories);
         model.addAttribute("productDto",new ProductDto());
-        return "admin/add-product";
+        return "Admin/add-product";
     }
 
 
@@ -78,7 +78,7 @@ public class ProductController{
 
         model.addAttribute("products", products);
         System.out.println(products);
-        return "admin/product";
+        return "Admin/product";
     }
 
 
@@ -168,7 +168,7 @@ public class ProductController{
                 .collect(Collectors.toList());
         model.addAttribute("categories", categories);
 
-        return "admin/product-update";
+        return "Admin/product-update";
     }
 
 

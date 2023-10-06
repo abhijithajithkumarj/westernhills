@@ -54,7 +54,7 @@ public class CouponController {
                 .collect(Collectors.toList());
         model.addAttribute("products", products);
         System.out.println(products);
-        return "admin/Coupon-add";
+        return "Admin/Coupon-add";
     }
 
 
@@ -86,7 +86,7 @@ public class CouponController {
         model.addAttribute("coupons", coupons);
 
         System.out.println(coupons);
-          return "admin/showCoupons";
+          return "Admin/showCoupons";
 
     }
 
