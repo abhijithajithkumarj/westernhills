@@ -52,7 +52,7 @@ public class SalesReportController {
         model.addAttribute("totalSalesReportForPreviousWeek",totalSalesReportForPreviousWeek);
         model.addAttribute("totalGenerateMonthlySalesReport",totalGenerateMonthlySalesReport);
         model.addAttribute("totalGenerateYearlySalesReport",totalGenerateYearlySalesReport);
-        return "Admin/salesReportPage";
+        return "salesReportPage";
     }
 
 
@@ -67,7 +67,7 @@ public class SalesReportController {
         session.setAttribute(token ,orders);
         model.addAttribute("token",token);
         model.addAttribute("orders",orders);
-        return "Admin/salesReportList";
+        return "salesReportList";
     }
 
 
@@ -86,7 +86,7 @@ public class SalesReportController {
 
 
         model.addAttribute("orders",orders);
-        return "Admin/salesReportList";
+        return "salesReportList";
     }
 
 
