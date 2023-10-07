@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://ls-d6bcb5e8ba5393fa2f5cc92a4acb15f95235b4e5.cafk1c3rx5bo.ap-south-1.rds.amazonaws.com/thewesternhills
+    url: jdbc:mysql://ls-d6bcb5e8ba5393fa2f5cc92a4acb15f95235b4e5.cafk1c3rx5bo.ap-south-1.rds.amazonaws.com/western
     username: dbmasteruser
     password: kT1Iv[_~4yB=73JO7QP1tmEkR_yRGi8*
   mail:
@@ -37,3 +37,7 @@ logging:
 razorpay:
   apiKey: rzp_test_Vv4K0xZB1OflgS
   apiSecret: t8dvwBA9ChCi6fjQRTs8cpCJ
+
+
+demo:
+  value: Hello_World
