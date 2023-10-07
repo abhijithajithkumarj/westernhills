@@ -36,3 +36,6 @@ logging:
 razorpay:
   apiKey: rzp_test_Vv4K0xZB1OflgS
   apiSecret: t8dvwBA9ChCi6fjQRTs8cpCJ
+
+demo:
+  value: Hello World from Abhijith
