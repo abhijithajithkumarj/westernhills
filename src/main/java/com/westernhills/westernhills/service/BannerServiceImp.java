@@ -31,62 +31,6 @@ public class BannerServiceImp implements BannerService {
     String rootPath = System.getProperty("user.dir");
     String uploadImage = rootPath + "/src/main/resources/static/banner-image";
 
-//    @Override
-//    public Banner addBanner(Banner banner, List<MultipartFile> files) throws IOException {
-//
-//        List<Banner> bannerOptional =bannerRepository.findAll();
-//
-//
-//        Banner banner1 = new Banner();
-//
-//
-//
-////
-////        if (banner1.){
-////            Banner existingDefaultBanner= bannerOptional.stream()
-////                    .filter(Banner::isDefaultBanner)
-////
-////        }
-//
-//
-//        List<BannerImage> bannerImages = new ArrayList<>();
-//
-//        for (MultipartFile file : files) {
-//            BannerImage bannerImage = new BannerImage();
-//
-//            String originalFilename = file.getOriginalFilename();
-//            String fileExtension = "";
-//
-//
-//            int lastIndex = originalFilename.lastIndexOf('.');
-//            if (lastIndex >= 0) {
-//                fileExtension = originalFilename.substring(lastIndex + 1);
-//            }
-//
-//
-//            String uniqueFilename = UUID.randomUUID().toString() + "." + fileExtension;
-//            Path filenameAndPath = Paths.get(uploadImage, uniqueFilename);
-//            Files.createDirectories(filenameAndPath.getParent());
-//
-//
-//            Files.write(filenameAndPath, file.getBytes());
-//
-//            bannerImage.setFileName(uniqueFilename);
-//            bannerImage.setBanner_id(banner1);
-//            bannerImages.add(bannerImage);
-//
-//
-//
-//
-//        }
-//
-//        banner1.setBannerImages(bannerImages);
-//        bannerRepository.save(banner1);
-//
-//        return null;
-//    }
-
-
 
 
     @Override
