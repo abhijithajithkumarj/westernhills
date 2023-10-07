@@ -29,7 +29,7 @@ public class BannerServiceImp implements BannerService {
 //    public static String uploadImage ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\banner-image";
 
     String rootPath = System.getProperty("user.dir");
-    String uploadImage = rootPath + "/src/main/resources/static/banner-image";
+    String uploadImage = rootPath + "westernhills/src/main/resources/static/banner-image";
 
 
 
