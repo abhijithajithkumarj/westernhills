@@ -152,3 +152,24 @@ $(function () {
 
 
 });
+
+
+
+    const blockButtons = document.querySelectorAll(".block-button");
+    const unblockButtons = document.querySelectorAll(".unblock-button");
+
+    blockButtons.forEach((blockButton) => {
+        blockButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            const userId = blockButton.getAttribute("th:id").split("-")[1];
+
+
+            blockButton.disabled = true;
+
+
+            const unblockButton = document.getElementById(`unblockButton-${userId}`);
+            if (unblockButton) {
+                unblockButton.disabled = false;
+            }
+        });
+    });

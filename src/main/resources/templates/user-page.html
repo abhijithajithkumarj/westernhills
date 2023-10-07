@@ -222,9 +222,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Username</th>
+                                    <th>Id</th>
+                                    <th>Name</th>
                                     <th>Email</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -237,18 +237,20 @@
                                     <td th:text="${user.id}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.email}"></td>
+
+
+
                                     <td>
                                         <a th:id="'blockButton-' + ${user.id}" th:href="@{'/blockUser/' + ${user.id}}"
                                            class="btn btn-danger btn-sm block-button">Block</a>
 
                                         <a th:id="'unblockButton-' + ${user.id}" th:href="@{'/unBlockUser/' + ${user.id}}"
                                            class="btn btn-success btn-sm unblock-button">Unblock</a>
-
                                     </td>
+
+
                                 </tr>
                                 </tbody>
-
-
 
                             </table>
                         </div>
@@ -271,25 +273,6 @@
 
 
 <script th:inline="javascript">
-    /* JavaScript code */
-    document.addEventListener("DOMContentLoaded", function() {
-        const blockButtons = document.querySelectorAll(".block-button");
-        const unblockButtons = document.querySelectorAll(".unblock-button");
-
-        // Iterate over block buttons and add click event listener
-        blockButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
-                this.classList.add("btn-blocked");
-            });
-        });
-
-        // Iterate over unblock buttons and add click event listener
-        unblockButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
-                this.classList.remove("btn-blocked");
-            });
-        });
-    });
 </script>
 
 
@@ -303,8 +286,7 @@
 </script>
 
 
-<!-- ... (Remaining HTML code) ... -->
-<!--End wrapper-->
+
 
 
 <!-- Bootstrap core JavaScript-->
