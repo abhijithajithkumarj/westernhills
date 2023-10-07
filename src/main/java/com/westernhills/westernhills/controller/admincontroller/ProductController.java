@@ -89,7 +89,9 @@ public class ProductController{
 
 
 
-    public static String uploadDir ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\all-Image";
+//    public static String uploadDir ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\all-Image";
+    String rootPath = System.getProperty("user.dir");
+    String uploadDir = rootPath + "/src/main/resources/static/all-Image";
 
 
     @PostMapping("/save-product")

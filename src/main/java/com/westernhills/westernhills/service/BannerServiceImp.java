@@ -26,7 +26,10 @@ public class BannerServiceImp implements BannerService {
     private BannerRepository bannerRepository;
 
 
-    public static String uploadImage ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\banner-image";
+//    public static String uploadImage ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\banner-image";
+
+    String rootPath = System.getProperty("user.dir");
+    String uploadImage = rootPath + "/src/main/resources/static/banner-image";
 
 //    @Override
 //    public Banner addBanner(Banner banner, List<MultipartFile> files) throws IOException {

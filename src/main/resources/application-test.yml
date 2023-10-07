@@ -1,0 +1,38 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    username: abhijithdigerman@gmail.com
+    port: '587'
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    password: reygjpbluaixdsin
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      resolve-lazily: 'false'
+  datasource:
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/thewesternhills
+  jpa:
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+logging:
+  level:
+    javax:
+      mail: DEBUG
+    org:
+      springframework:
+        mail: DEBUG
+razorpay:
+  apiKey: rzp_test_Vv4K0xZB1OflgS
+  apiSecret: t8dvwBA9ChCi6fjQRTs8cpCJ
