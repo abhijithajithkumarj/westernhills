@@ -89,18 +89,17 @@ public class ProductController{
 
 
 
-//    public static String uploadDir ="D:\\westernhills\\westernhills\\src\\main\\resources\\static\\all-Image";
-    String rootPath = System.getProperty("user.dir");
-    String uploadDir = rootPath + "/westernhills/src/main/resources/static/all-Image";
 
+    String rootPath = System.getProperty("user.dir");
+//    String uploadDir = rootPath + "/westernhills/src/main/resources/static/all-Image";
+
+
+    String uploadDir = "/home/lightsail-user/westernhills/src/main/resources/static/all-Image";
 
     @PostMapping("/save-product")
 
     public String addProducts(@ModelAttribute("productDTO") ProductDto productDto,Model model,
                               @RequestParam("productImage") List<MultipartFile> files) throws IOException {
-
-
-
 
 
         Product product = new Product();
