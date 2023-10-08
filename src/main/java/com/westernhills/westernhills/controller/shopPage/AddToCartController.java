@@ -53,13 +53,11 @@ public class AddToCartController {
     }
 
 
-    @PostMapping("/addThoughProductInCart")
+    @GetMapping("/addThoughProductInCart")
     public String addThoughCart(@RequestParam(name = "productId")UUID productId,
-                          @AuthenticationPrincipal(expression = "username")String username
-    ){
-        System.out.println(username);
+                          @AuthenticationPrincipal(expression = "username")String username){
         cartService.addToCartItem(username, productId);
-        return "productShowAndDetils";
+        return "redirect:/";
     }
 
 
@@ -96,6 +94,7 @@ public class AddToCartController {
     public String addProductQuantity(@RequestParam(name = "cartId") UUID cartId,
                                      @RequestParam(name="quantity") int quantity,
                                      @AuthenticationPrincipal(expression = "username") String username){
+
         cartService.addQuantity(username,cartId,quantity);
         return "redirect:/cartShow";
     }

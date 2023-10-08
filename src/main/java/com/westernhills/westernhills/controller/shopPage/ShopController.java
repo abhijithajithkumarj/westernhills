@@ -156,7 +156,6 @@ public class ShopController {
 
 
     @GetMapping("/productDetail/{uuid}")
-
     public String productDetails(@PathVariable UUID uuid, Model model) {
 
         Optional<Product> productOptional = productService.getProductById(uuid);
@@ -172,6 +171,9 @@ public class ShopController {
             return "productNotFound";
         }
     }
+
+
+
 
 
 
