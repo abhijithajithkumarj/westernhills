@@ -89,12 +89,12 @@ public class ProductController{
 
 
 
+//    @Value("${upload.dir}")
+//    private String uploadDir;
 
-    String rootPath = System.getProperty("user.dir");
-//    String uploadDir = rootPath + "/westernhills/src/main/resources/static/all-Image";
 
+    String uploadDir = "/home/ubuntu/westernhills/src/main/resources/static/all-Image";
 
-    String uploadDir = "/home/lightsail-user/westernhills/src/main/resources/static/all-Image";
 
     @PostMapping("/save-product")
 
