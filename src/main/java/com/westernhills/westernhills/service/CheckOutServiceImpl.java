@@ -303,13 +303,16 @@ public class CheckOutServiceImpl implements CheckOutService {
         if (orderReturn.isPresent()) {
 
             CheckOut orderStatus=orderReturn.get();
-            if (orderStatus.getOrderStatus()!=OrderStatus.ORDER_RETURNED_CONFIRMED_AND_RETURNED_PAYMENT){
-                CheckOut userOrderReturn=orderReturn.get();
+
+            if (orderStatus.getOrderStatus() != OrderStatus.ORDER_RETURNED_CONFIRMED_AND_RETURNED_PAYMENT
+                    && orderStatus.getOrderStatus() != OrderStatus.ORDER_CANCEL_PENDING) {
+                CheckOut userOrderReturn = orderReturn.get();
                 userOrderReturn.setOrderStatus(OrderStatus.ORDER_RETURNED);
                 checkOutRepository.save(userOrderReturn);
-            }else {
-                System.out.println("Not working tooo");
+            } else {
+                System.out.println("Not working too");
             }
+
 
 
         }

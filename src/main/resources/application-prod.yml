@@ -45,6 +45,10 @@ razorpay:
   apiKey: rzp_test_Vv4K0xZB1OflgS
   apiSecret: t8dvwBA9ChCi6fjQRTs8cpCJ
 
+#  upload:
+#    dir: /home/ubuntu/westernhills/src/main/resources/static/all-Image
+
+
 
 demo:
   value: Hello_World
