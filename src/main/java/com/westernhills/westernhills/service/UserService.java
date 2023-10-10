@@ -75,6 +75,7 @@ public class UserService {
 
 
 
+
             User newUser= User.builder()
                     .username(createUserRequest.getUsername())
                     .email(createUserRequest.getEmail())
@@ -85,9 +86,6 @@ public class UserService {
                     .otpGeneratedTime(LocalDateTime.now())
                     .build();
             userRepository.save(newUser);
-
-
-
         OtpDto otpDto = new OtpDto()
                 .builder()
                 .id(newUser.getId())

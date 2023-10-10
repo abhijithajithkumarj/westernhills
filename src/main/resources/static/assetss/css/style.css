@@ -24332,6 +24332,7 @@ body.box-layout .pcoded-navbar.theme-horizontal ~ .pcoded-header {
 }
 
 .fixed-button.active {
+    display:none;
     bottom: 50px;
     opacity: 1;
 }
